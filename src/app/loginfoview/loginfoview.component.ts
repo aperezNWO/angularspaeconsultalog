@@ -19,15 +19,13 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   dataSource                         = new MatTableDataSource<LogEntry>();
   // 
-  displayedColumns                   : string[] = ['id_Column', 'pageName', 'accessDate', 'ipValue'];
-  //
-  private _loginfo                   = new BehaviorSubject([]);
+  displayedColumns                   : string[] = ['ID_LOG'];
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
   constructor(private logInfoService: LogInfoService) {
     //
-    this.informeLogRemoto = this.logInfoService.getLogRemoto();
+    this.informeLogRemoto = this.logInfoService.getLogLocal_();
     //
     const myObserver = {
       next: (p_logEntry: LogEntry[])     => { 
@@ -37,7 +35,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
         this.dataSource           = new MatTableDataSource<LogEntry>(p_logEntry);
         this.dataSource.paginator = this.paginator;
       },
-      error: (err: Error)       => console.error('Observer got an error: ' + err),
+      error: (err: Error)       => console.error('Observer got an error: ' + JSON.stringify(err)),
       complete: () => console.log('Observer got a complete notification'),
     };
     //
