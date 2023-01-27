@@ -28,3 +28,16 @@ http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_
         ,"TEXT_2_WEB":" Solicitud creación usuarios SI–SPAE - Departamento=[CAQUETA] - Municipio=[MILAN]"
     }
 ]
+
+  <system.web>
+    <compilation targetFramework="4.7.2"/>
+    <httpRuntime maxRequestLength="12097" executionTimeout="180"/>
+    <pages controlRenderingCompatibilityVersion="4.0"/>
+  </system.web>
+  <system.webServer>
+   <httpProtocol>
+     <customHeaders>
+       <add name="Access-Control-Allow-Origin" value="*" />
+     </customHeaders>
+   </httpProtocol>
+ </system.webServer>
