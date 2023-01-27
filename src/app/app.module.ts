@@ -1,16 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule     } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { MatListModule           } from '@angular/material/list';
+import { MatTableModule          } from '@angular/material/table';
+import { MatPaginatorModule      } from '@angular/material/paginator';
 import { AppComponent } from './app.component';
+import { LogInfoViewComponent } from './loginfoview/loginfoview.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LogInfoViewComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
