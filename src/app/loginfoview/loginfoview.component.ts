@@ -19,7 +19,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   dataSource                         = new MatTableDataSource<LogEntry>();
   // 
-  displayedColumns                   : string[] = ['ID_LOG'];
+  displayedColumns                   : string[] = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
@@ -27,6 +27,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     // DEPLOY SPAE
     // this.informeLogRemoto = this.logInfoService.getLogRemoto__();
     // DEPLOY LOCAL
+    // this.informeLogRemoto = this.logInfoService.getLogRemoto_();
+    // ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL)
     this.informeLogRemoto = this.logInfoService.getLogRemoto_();
     //
     const myObserver = {

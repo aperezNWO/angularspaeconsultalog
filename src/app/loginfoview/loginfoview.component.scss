@@ -14,6 +14,11 @@ table {
     padding: 1rem;
   }
 
+.mat-column-DATE_TIME {
+  flex: none;
+  width: 100px;
+  padding: 1rem;
+}
 
 .mat-column-pageName {
     flex: none;
@@ -21,11 +26,6 @@ table {
     padding: 1rem;
   }
 
-.mat-column-accessDate {
-    flex: none;
-    width: 100px;
-    padding: 1rem;
-  }
 
   .mat-column-ipValue {
     flex: none;
