@@ -25,7 +25,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   constructor(private logInfoService: LogInfoService) {
     //
-    this.informeLogRemoto = this.logInfoService.getLogLocal_();
+    this.informeLogRemoto = this.logInfoService.getLogRemoto__();
     //
     const myObserver = {
       next: (p_logEntry: LogEntry[])     => { 
