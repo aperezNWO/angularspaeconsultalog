@@ -1,10 +1,3 @@
-export interface LogEntry {
-  id_Column   :string;
-  pageName    :string;
-  accessDate  :string;
-  ipValue     :string;
-}
-
 export interface LogEntry_
 {
     ID_LOG     : string;

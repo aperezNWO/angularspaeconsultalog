@@ -1,5 +1,5 @@
 table {
-    width: min-content;
+    /*width: min-content;*/
     margin: 2rem;
 
     th {
@@ -26,11 +26,24 @@ table {
     padding: 1rem;
   }
 
-
   .mat-column-TEXT_2_WEB {
     flex: none;
     width: 100px;
     padding: 1rem;
+  }
+
+  .demo-options {
+    /*display: flex;
+    flex-direction: column;*/
+    width: 100%;
+  }
+  
+  .demo-data * {
+    margin: 16px 0;
+  }
+  
+  .demo-paginator {
+    width: auto;
   }
     
   

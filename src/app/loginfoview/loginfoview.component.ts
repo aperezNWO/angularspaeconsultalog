@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild  } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator       } from '@angular/material/paginator';
-import { BehaviorSubject, Observable        } from 'rxjs';
-import { LogEntry                           } from '../loginfo.model';
+import { MatTableDataSource                 } from '@angular/material/table';
+import { MatPaginator                       } from '@angular/material/paginator';
+import { Observable                         } from 'rxjs';
+import { LogEntry_                          } from '../loginfo.model';
 import { LogInfoService                     } from '../loginfo.service';
 //
 @Component({
@@ -15,9 +15,9 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   title = '[SPAE CONSULTA LOG]';
   //
-  informeLogRemoto!                  : Observable<LogEntry[]>;
+  informeLogRemoto!                  : Observable<LogEntry_[]>;
   //
-  dataSource                         = new MatTableDataSource<LogEntry>();
+  dataSource                         = new MatTableDataSource<LogEntry_>();
   // 
   displayedColumns                   : string[] = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
   //
@@ -45,11 +45,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     this.informeLogRemoto = this.logInfoService.getLogRemoto_();
     //
     const myObserver = {
-      next: (p_logEntry: LogEntry[])     => { 
+      next: (p_logEntry: LogEntry_[])     => { 
         //
         console.log('Observer got a next value: ' + JSON.stringify(p_logEntry));
         //
-        this.dataSource           = new MatTableDataSource<LogEntry>(p_logEntry);
+        this.dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
         this.dataSource.paginator = this.paginator;
       },
       error: (err: Error)       => console.error('Observer got an error: ' + JSON.stringify(err)),

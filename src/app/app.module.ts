@@ -6,6 +6,7 @@ import { AppRoutingModule         } from './app-routing.module';
 import { MatListModule            } from '@angular/material/list';
 import { MatTableModule           } from '@angular/material/table';
 import { MatPaginatorModule       } from '@angular/material/paginator';
+import { MatTabsModule            } from '@angular/material/tabs';
 import { AppComponent             } from './app.component';
 import { LogInfoViewComponent     } from './loginfoview/loginfoview.component';
 
@@ -22,6 +23,7 @@ import { LogInfoViewComponent     } from './loginfoview/loginfoview.component';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
