@@ -29,6 +29,10 @@ http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_
     }
 ]
 
+http://vivantopruebas.unidadvictimas.gov.co/spae/home/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
+
+
+
   <system.web>
     <compilation targetFramework="4.7.2"/>
     <httpRuntime maxRequestLength="12097" executionTimeout="180"/>

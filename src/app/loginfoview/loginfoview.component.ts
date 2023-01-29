@@ -24,6 +24,19 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
   constructor(private logInfoService: LogInfoService) {
+      //
+      this.update();
+  }
+  //
+  ngOnInit(): void {
+      //
+  }
+  //
+  ngAfterViewInit() {
+    //
+  }
+  //
+  update():void {
     // DEPLOY SPAE
     // this.informeLogRemoto = this.logInfoService.getLogRemoto__();
     // DEPLOY LOCAL
@@ -44,13 +57,5 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     };
     //
     this.informeLogRemoto.subscribe(myObserver);
-  }
-  //
-  ngOnInit(): void {
-      //
-  }
-  //
-  ngAfterViewInit() {
-    //
   }
 }

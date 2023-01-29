@@ -1,5 +1,9 @@
 <h1>{{title}}</h1>
 <div class="mat-elevation-z8">
+<div class="searchPanel">
+  <button (click)="update()">Buscar</button>
+<br>
+</div>  
 <div class="scrollbar">
 <table  mat-table  [dataSource]="dataSource"  class="mat-elevation-z8" aria-label="informelogremoto">
   <ng-container matColumnDef="ID_LOG">
@@ -31,3 +35,4 @@
               aria-label="informelogremoto">
 </mat-paginator>
 </div>
+
