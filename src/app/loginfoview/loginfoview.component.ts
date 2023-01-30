@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild  } from '@angular/core';
 import { MatTableDataSource                 } from '@angular/material/table';
 import { MatPaginator                       } from '@angular/material/paginator';
+import { Form, NgModel, NgModelGroup                               } from '@angular/forms';
 import { Observable                         } from 'rxjs';
 import { LogEntry_                          } from '../loginfo.model';
 import { p_DataSource                       } from '../loginfo.model';
@@ -22,7 +23,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   // 
   displayedColumns                   : string[]                        = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
   //
-  P_DATA_SOURCES                     : p_DataSource[]                  = [{DATA_SOURCE_ID:"1", DATA_SOURCE_NAME : "RUV_PRODUCCION"}, { DATA_SOURCE_ID : '2' , DATA_SOURCE_NAME : "RUV_PRUEBAS" }];
+  P_DATA_SOURCES                     : p_DataSource[]                  = [{ M_DATA_SOURCE_ID:"1", M_DATA_SOURCE_NAME : "RUV_PRODUCCION"}, { M_DATA_SOURCE_ID : '2' , M_DATA_SOURCE_NAME : "RUV_PRUEBAS" }];
   //
   submitted                          : boolean = false;
   //
@@ -32,18 +33,24 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   constructor(private logInfoService: LogInfoService) {
       //
-      this.update();
+      let p_id_data_source           : number  = 1;
+      //
+      this.update(p_id_data_source);
   }
   //
   ngOnInit(): void {
       //
   }
-  //
+  //|
   ngAfterViewInit() {
     //
   }
   //
-  update():void {
+  update(p_id_data_source : number):void {
+    //
+    console.log("ID DATA SOURCE (FROM PARAM) : " + p_id_data_source);
+    //
+    console.log("ID DATA SOURCE (FROM MODEL) : " + this.model.M_DATA_SOURCE_ID);
     // DEPLOY SPAE
     // this.informeLogRemoto = this.logInfoService.getLogRemoto__();
     // DEPLOY LOCAL
@@ -70,5 +77,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   { 
       //
       this.submitted = true; 
+  }
+  //
+  newSearch() {
+      //
+      this.dataSource  = new MatTableDataSource<LogEntry_>();
+      this.model       = new p_DataSource("0","(SELECCIONE OPCIÓN...)");
   }
 }

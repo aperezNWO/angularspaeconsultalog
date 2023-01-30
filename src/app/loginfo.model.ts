@@ -13,8 +13,8 @@ export class  p_DataSource
 {
     //
     constructor(
-        public    DATA_SOURCE_ID   : string,
-        public    DATA_SOURCE_NAME : string
+        public    M_DATA_SOURCE_ID   : string,
+        public    M_DATA_SOURCE_NAME : string
     )
     {
         //

@@ -10,15 +10,17 @@
             <select class="form-control" id="P_DATA_SOURCE"
                     required
                     [(ngModel)]="model" name="P_DATA_SOURCE"
-                    #P_DATA_SOURCE_ID="ngModel">
-              <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.DATA_SOURCE_ID">{{_pDataSource.DATA_SOURCE_NAME}}</option>
+                    #M_DATA_SOURCE_ID="ngModel">
+              <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
             </select>
-            <div [hidden]="P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine" class="alert alert-danger">
+            <div [hidden]="M_DATA_SOURCE_ID.valid || M_DATA_SOURCE_ID.pristine" class="alert alert-danger">
               Favor seleccione origen de datos
             </div>
           </div>
         </form>
-        <button (click)="update()">Buscar</button>
+        <hr>
+        <button type="submit" class="btn btn-success" (click)="update(1);" [disabled]="!searchForm.form.valid">[Buscar]</button>
+        <button type="button" class="btn btn-default" (click)="newSearch(); searchForm.reset();">[Nueva]</button>
       </div>
       <hr>
       <div class="scrollbar">
