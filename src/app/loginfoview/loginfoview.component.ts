@@ -3,23 +3,30 @@ import { MatTableDataSource                 } from '@angular/material/table';
 import { MatPaginator                       } from '@angular/material/paginator';
 import { Observable                         } from 'rxjs';
 import { LogEntry_                          } from '../loginfo.model';
+import { p_DataSource                       } from '../loginfo.model';
 import { LogInfoService                     } from '../loginfo.service';
 //
 @Component({
-  selector: 'loginfoview-app',
-  templateUrl: './loginfoview.component.html',
-  styleUrls: ['./loginfoview.component.scss']
+  selector     : 'loginfoview-app',
+  templateUrl  : './loginfoview.component.html',
+  styleUrls    : ['./loginfoview.component.scss']
 })
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
-  title = '[SPAE CONSULTA LOG]';
+  title                              : string = '[SPAE CONSULTA LOG]';
   //
   informeLogRemoto!                  : Observable<LogEntry_[]>;
   //
   dataSource                         = new MatTableDataSource<LogEntry_>();
   // 
-  displayedColumns                   : string[] = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
+  displayedColumns                   : string[]                        = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
+  //
+  P_DATA_SOURCES                     : p_DataSource[]                  = [{DATA_SOURCE_ID:"1", DATA_SOURCE_NAME : "RUV_PRODUCCION"}, { DATA_SOURCE_ID : '2' , DATA_SOURCE_NAME : "RUV_PRUEBAS" }];
+  //
+  submitted                          : boolean = false;
+  //
+  model                              = new p_DataSource("0","(SELECCIONE OPCIÓN...)");
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
@@ -52,10 +59,16 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
         this.dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
         this.dataSource.paginator = this.paginator;
       },
-      error: (err: Error)       => console.error('Observer got an error: ' + JSON.stringify(err)),
-      complete: () => console.log('Observer got a complete notification'),
+      error           : (err: Error)      => console.error('Observer got an error: ' + JSON.stringify(err)),
+      complete        : () => console.log('Observer got a complete notification'),
     };
     //
     this.informeLogRemoto.subscribe(myObserver);
+  }
+  //
+  onSubmit() 
+  { 
+      //
+      this.submitted = true; 
   }
 }

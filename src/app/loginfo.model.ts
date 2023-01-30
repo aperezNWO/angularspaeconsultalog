@@ -8,3 +8,15 @@ export interface LogEntry_
     TEXT_1_WEB : string;
     TEXT_2_WEB : string;
 }
+
+export class  p_DataSource
+{
+    //
+    constructor(
+        public    DATA_SOURCE_ID   : string,
+        public    DATA_SOURCE_NAME : string
+    )
+    {
+        //
+    }
+}

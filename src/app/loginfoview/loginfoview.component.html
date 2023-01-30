@@ -4,6 +4,20 @@
     <div class="mat-elevation-z8 demo-options">
       <hr>  
       <div class="searchPanel">
+        <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+          <div class="form-group">
+            <label for="P_DATA_SOURCE">Origen de Datos : </label>
+            <select class="form-control" id="P_DATA_SOURCE"
+                    required
+                    [(ngModel)]="model" name="P_DATA_SOURCE"
+                    #P_DATA_SOURCE_ID="ngModel">
+              <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.DATA_SOURCE_ID">{{_pDataSource.DATA_SOURCE_NAME}}</option>
+            </select>
+            <div [hidden]="P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine" class="alert alert-danger">
+              Favor seleccione origen de datos
+            </div>
+          </div>
+        </form>
         <button (click)="update()">Buscar</button>
       </div>
       <hr>
@@ -35,9 +49,7 @@
                     [length]=""
                     [pageSize]="4"
                     [pageSizeOptions]="[4, 10, 25, 100]"
-                    aria-label="informelogremoto"
-                    aria-label="informelogremoto">
-      </mat-paginator>
+                    aria-label="informelogremoto"></mat-paginator>
       <hr>
   </div>
   </mat-tab>
