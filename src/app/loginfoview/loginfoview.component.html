@@ -6,23 +6,32 @@
       <div class="searchPanel">
         <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
           <div class="form-group">
-            <label for="P_DATA_SOURCE">Origen de Datos : </label>
-            <select class="form-control" id="P_DATA_SOURCE"
+            <label for="P_DATA_SOURCE_ID">Origen de Datos : </label>
+            <select class="form-control" id="P_DATA_SOURCE_ID"
                     required
-                    [(ngModel)]="model" name="P_DATA_SOURCE"
-                    #M_DATA_SOURCE_ID="ngModel">
+                    [(ngModel)]="model.P_DATA_SOURCE_ID" name="P_DATA_SOURCE_ID"
+                    #P_DATA_SOURCE_ID="ngModel">
               <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
             </select>
-            <div [hidden]="M_DATA_SOURCE_ID.valid || M_DATA_SOURCE_ID.pristine" class="alert alert-danger">
+            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine) && (P_DATA_SOURCE_ID.value != '0')" class="alert alert-danger">
               Favor seleccione origen de datos
             </div>
           </div>
+          <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
+          <button type="button" class="btn btn-default" (click)="newSearch(); searchForm.reset();">[Nueva]</button>
         </form>
-        <hr>
-        <button type="submit" class="btn btn-success" (click)="update(1);" [disabled]="!searchForm.form.valid">[Buscar]</button>
-        <button type="button" class="btn btn-default" (click)="newSearch(); searchForm.reset();">[Nueva]</button>
       </div>
       <hr>
+      <!--
+      <div [hidden]="!submitted">
+        <h2>You submitted the following:</h2>
+        <div class="row">
+          <div class="col-xs-3">Origen de Datos</div>
+          <div class="col-xs-9">{{ model.P_DATA_SOURCE_ID}}</div>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="submitted=false">Edit</button>
+      </div>  
+      <hr>-->
       <div class="scrollbar">
           <table  mat-table  [dataSource]="dataSource"  class="mat-elevation-z8" aria-label="informelogremoto">
             <ng-container matColumnDef="ID_LOG">
@@ -52,7 +61,6 @@
                     [pageSize]="4"
                     [pageSizeOptions]="[4, 10, 25, 100]"
                     aria-label="informelogremoto"></mat-paginator>
-      <hr>
   </div>
   </mat-tab>
   <mat-tab label="[ESTADISTICAS]">ESTADISTICAS</mat-tab>

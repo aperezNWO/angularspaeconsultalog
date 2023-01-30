@@ -1,20 +1,36 @@
-export interface LogEntry_
+export class LogEntry_
 {
-    ID_LOG     : string;
-    DATE_TIME  : string;
-    TEXT_1     : string;
-    TEXT_2     : string;
-    TEXT_3     : string;
-    TEXT_1_WEB : string;
-    TEXT_2_WEB : string;
+    constructor (
+        public ID_LOG           : string,
+        public DATE_TIME        : string,
+        public TEXT_1           : string,
+        public TEXT_2           : string,
+        public TEXT_3           : string,
+        public TEXT_1_WEB       : string,
+        public TEXT_2_WEB       : string,
+    )
+    {
+        //
+    }  
 }
-
+//
 export class  p_DataSource
 {
     //
     constructor(
         public    M_DATA_SOURCE_ID   : string,
         public    M_DATA_SOURCE_NAME : string
+    )
+    {
+        //
+    }
+}
+//
+export class  searchCriteria
+{
+    //
+    constructor(
+        public    P_DATA_SOURCE_ID   : string
     )
     {
         //

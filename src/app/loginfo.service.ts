@@ -72,9 +72,9 @@ export class LogInfoService {
     return this.http.get<LogEntry_[]>(url);
   }
   // ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL)
-  getLogRemoto_() {
+  getLogRemoto_(P_ID_DATA_SOURCE : string) {
       //
-      let url='http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
+      let url='http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + ' &P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-12-2022%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
       //    
       return this.http.get<LogEntry_[]>(url);
   }

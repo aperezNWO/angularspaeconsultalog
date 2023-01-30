@@ -3,7 +3,7 @@ import { MatTableDataSource                 } from '@angular/material/table';
 import { MatPaginator                       } from '@angular/material/paginator';
 import { Form, NgModel, NgModelGroup                               } from '@angular/forms';
 import { Observable                         } from 'rxjs';
-import { LogEntry_                          } from '../loginfo.model';
+import { LogEntry_, searchCriteria                          } from '../loginfo.model';
 import { p_DataSource                       } from '../loginfo.model';
 import { LogInfoService                     } from '../loginfo.service';
 //
@@ -23,17 +23,19 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   // 
   displayedColumns                   : string[]                        = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
   //
-  P_DATA_SOURCES                     : p_DataSource[]                  = [{ M_DATA_SOURCE_ID:"1", M_DATA_SOURCE_NAME : "RUV_PRODUCCION"}, { M_DATA_SOURCE_ID : '2' , M_DATA_SOURCE_NAME : "RUV_PRUEBAS" }];
+  P_DATA_SOURCES                     : p_DataSource[]                  = [{ M_DATA_SOURCE_ID : "0"  , M_DATA_SOURCE_NAME : "(SELECCIONE OPCION...)"},
+                                                                          { M_DATA_SOURCE_ID : "1"  , M_DATA_SOURCE_NAME : "RUV_PRODUCCION"},
+                                                                          { M_DATA_SOURCE_ID : "2"  , M_DATA_SOURCE_NAME : "RUV_PRUEBAS"   }];
   //
   submitted                          : boolean = false;
   //
-  model                              = new p_DataSource("0","(SELECCIONE OPCIÓN...)");
+  model                              = new searchCriteria("0");
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
-  constructor(private logInfoService: LogInfoService) {
+  constructor(private logInfoService : LogInfoService) {
       //
-      let p_id_data_source           : number  = 1;
+      let p_id_data_source           = "2";
       //
       this.update(p_id_data_source);
   }
@@ -46,17 +48,15 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     //
   }
   //
-  update(p_id_data_source : number):void {
+  update(p_id_data_source : string):void {
     //
     console.log("ID DATA SOURCE (FROM PARAM) : " + p_id_data_source);
-    //
-    console.log("ID DATA SOURCE (FROM MODEL) : " + this.model.M_DATA_SOURCE_ID);
     // DEPLOY SPAE
     // this.informeLogRemoto = this.logInfoService.getLogRemoto__();
     // DEPLOY LOCAL
     // this.informeLogRemoto = this.logInfoService.getLogRemoto_();
     // ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL)
-    this.informeLogRemoto = this.logInfoService.getLogRemoto_();
+    this.informeLogRemoto = this.logInfoService.getLogRemoto_(p_id_data_source);
     //
     const myObserver = {
       next: (p_logEntry: LogEntry_[])     => { 
@@ -77,11 +77,18 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   { 
       //
       this.submitted = true; 
+      //
+      console.log("FORM SUBMIT : " + this.submitted);
+      //
+      console.log("ID DATA SOURCE (FROM MODEL) : " + this.model.P_DATA_SOURCE_ID);
+      //
+      if (this.model.P_DATA_SOURCE_ID != "0")
+          this.update(this.model.P_DATA_SOURCE_ID);
   }
   //
   newSearch() {
       //
       this.dataSource  = new MatTableDataSource<LogEntry_>();
-      this.model       = new p_DataSource("0","(SELECCIONE OPCIÓN...)");
+      this.model       = new searchCriteria("0");
   }
 }
