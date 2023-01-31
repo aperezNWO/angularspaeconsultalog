@@ -3,7 +3,7 @@
 -- STRAREGY
 ==========================================================================================
 
---[_] you.ai / chatgpt.
+--[_] you.ai / chatgpt / https://you.com/code.
 --[_] Desbloquear usuario spae.
 --[_] Cambiar dominio aplicativos publicados en SOMEE.COM.
 --[_] Formulario de búsqueda.
