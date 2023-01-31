@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularspaeconsultalog';
+  version = '1.0.0.1'
 }
