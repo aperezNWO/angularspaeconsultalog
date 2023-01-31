@@ -51,12 +51,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   update(p_id_data_source : string):void {
     //
     console.log("ID DATA SOURCE (FROM PARAM) : " + p_id_data_source);
-    // DEPLOY SPAE
-    // this.informeLogRemoto = this.logInfoService.getLogRemoto__();
-    // DEPLOY LOCAL
-    // this.informeLogRemoto = this.logInfoService.getLogRemoto_();
-    // ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL)
-    this.informeLogRemoto = this.logInfoService.getLogRemoto_(p_id_data_source);
+      // 
+    this.informeLogRemoto = this.logInfoService.getLogRemoto_DEV(p_id_data_source);
     //
     const myObserver = {
       next: (p_logEntry: LogEntry_[])     => { 
@@ -88,7 +84,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   newSearch() {
       //
-      this.dataSource  = new MatTableDataSource<LogEntry_>();
-      this.model       = new searchCriteria("0");
-  }
+      this.dataSource           = new MatTableDataSource<LogEntry_>();
+      this.dataSource.paginator = this.paginator;
+      this.model                = new searchCriteria("0");
+  }  
 }

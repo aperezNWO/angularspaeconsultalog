@@ -3,26 +3,47 @@
 -- STRAREGY
 ==========================================================================================
 
+--[_] you.ai / chatgpt.
 --[_] Desbloquear usuario spae.
---[_] cambiar dominio.
---[_] formulario de búsqueda.
+--[_] Cambiar dominio aplicativos publicados en SOMEE.COM.
+--[_] Formulario de búsqueda.
+--[_] Modal status.
+--[_] Reducir rango por defecto de fechas en entorno de producción.
+--[_] Numeros de Versionamiento. 
+--[_] Version de Angular en parte inferior.
 
-http://localhost/HOME/consultalog
-        
-public JsonResult GetConsultaLogGet(int P_ID_DATA_SOURCE, int P_ID_TIPO_LOG, int P_ID_LOG, string P_FECHA_INICIO, string P_FECHA_FIN, int P_ROW_NUM)
+==========================================================================================
+-- SCM
+==========================================================================================
 
-        valores de parametro "p_row_num"
-        
-        0. min
-        1. max
-        2. count
+--[_] http://localhost/HOME/consultalog
 
-http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO="01-01-2001"&P_FECHA_FIN="31-12-2022"&P_ROW_NUM=-1
+--[_] http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO="01-01-2001"&P_FECHA_FIN="31-12-2022"&P_ROW_NUM=-1
 
-http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
+--[_] http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
 
-http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
+--[_] http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
 
+--[_] http://vivantopruebas.unidadvictimas.gov.co/spae/home/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
+
+--[_] 
+
+public JsonResult GetConsultaLogGet
+(
+     int P_ID_DATA_SOURCE
+  ,  int P_ID_TIPO_LOG
+  ,  int P_ID_LOG
+  ,  string P_FECHA_INICIO
+  ,  string P_FECHA_FIN, int P_ROW_NUM
+)
+
+  valores de parametro "p_row_num"
+  
+  0. min
+  1. max
+  2. count
+
+--[_] 
 [
     {
         "ID_LOG":"394611"
@@ -35,7 +56,7 @@ http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_
     }
 ]
 
-http://vivantopruebas.unidadvictimas.gov.co/spae/home/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
+--[_] CORS 
 
 <system.web>
   <compilation targetFramework="4.7.2"/>

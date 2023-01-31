@@ -13,25 +13,16 @@
                     #P_DATA_SOURCE_ID="ngModel">
               <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
             </select>
-            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine) && (P_DATA_SOURCE_ID.value != '0')" class="alert alert-danger">
+            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine)" class="alert alert-danger">
               Favor seleccione origen de datos
             </div>
           </div>
+          <hr>
           <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
           <button type="button" class="btn btn-default" (click)="newSearch(); searchForm.reset();">[Nueva]</button>
         </form>
       </div>
       <hr>
-      <!--
-      <div [hidden]="!submitted">
-        <h2>You submitted the following:</h2>
-        <div class="row">
-          <div class="col-xs-3">Origen de Datos</div>
-          <div class="col-xs-9">{{ model.P_DATA_SOURCE_ID}}</div>
-        </div>
-        <button type="button" class="btn btn-primary" (click)="submitted=false">Edit</button>
-      </div>  
-      <hr>-->
       <div class="scrollbar">
           <table  mat-table  [dataSource]="dataSource"  class="mat-elevation-z8" aria-label="informelogremoto">
             <ng-container matColumnDef="ID_LOG">

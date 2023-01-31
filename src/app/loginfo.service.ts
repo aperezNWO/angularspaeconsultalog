@@ -51,31 +51,31 @@ export class LogInfoService {
     return this.http.get<LogEntry_[]>(url);
   }
   //
-  getLogRemoto() {
-    //
-    let url = 'https://learningpath.somee.com/demos/generarinformejson';
+  getLogRemoto_cors_prod(P_ID_DATA_SOURCE : string) {
+    // ENTORNO PRODUCCION
+    let url='http://vivantov2.unidadvictimas.gov.co/spae/home/getconsultalogget?P_ID_DATA_SOURCE='+ P_ID_DATA_SOURCE +'&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
     // 
     return this.http.get<LogEntry_[]>(url);   
   }
-  // ENTORNO REMOTO (DEPLOY SPAE)
-  getLogRemoto__() {
+  // 
+  getLogRemoto_cors_dev(P_ID_DATA_SOURCE : string ) {
+    // SPAE ENTORNO PRUEBAS
+    let url='http://vivantopruebas.unidadvictimas.gov.co/spae/home/getconsultalogget?P_ID_DATA_SOURCE=' +  P_ID_DATA_SOURCE +'&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
     //
-    let url='../home/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
+    return this.http.get<LogEntry_[]>(url);
+  }
+  // 
+  getLogRemoto_SPAE(P_ID_DATA_SOURCE : string) {
+    // ENTORNO REMOTO (DEPLOY SPAE)
+    let url='../home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + '&P_ID_TIPO_LOG=&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
     //    
     return this.http.get<LogEntry_[]>(url);
   }
-  // SPAE ENTORNO PRUEBAS
-  getLogRemoto___() {
-    //
-    let url='http://vivantopruebas.unidadvictimas.gov.co/spae/home/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
-    //
-    return this.http.get<LogEntry_[]>(url);
-  }
-  // ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL)
-  getLogRemoto_(P_ID_DATA_SOURCE : string) {
+  // 
+  getLogRemoto_DEV(P_ID_DATA_SOURCE : string) {
       //
-      //let url='http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + ' &P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-12-2022%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
-      let url='../home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + ' &P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-12-2022%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
+      // DEV - ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL)
+      let url='http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + ' &P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-12-2022%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
       //    
       return this.http.get<LogEntry_[]>(url);
   }
