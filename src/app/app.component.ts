@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angularspaeconsultalog';
-  version = '1.0.0.1'
+  //
+  title   : string = 'angularspaeconsultalog';
+  version : string = '1.0.0.1'
 }
