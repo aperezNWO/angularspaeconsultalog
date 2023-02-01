@@ -30,7 +30,12 @@ export class  searchCriteria
 {
     //
     constructor(
-        public    P_DATA_SOURCE_ID   : string
+        public    P_DATA_SOURCE_ID   : string,
+        public    P_ROW_NUM          : string,
+        public    P_FECHA_INICIO     : Date,
+        public    P_FECHA_FIN        : Date,
+        public    P_FECHA_INICIO_STR : string,
+        public    P_FECHA_FIN_STR    : string  
     )
     {
         //

@@ -7,11 +7,16 @@
       <hr>  
       <div class="searchPanel">
         <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+          <!-- [_] P_ID_TIPO_LOG    -->
+          <!-- [_] P_DATA_SOURCE_ID -->
+          
           <div class="form-group">
-            <label for="P_DATA_SOURCE_ID">Origen de Datos : </label>
-            <select class="form-control" id="P_DATA_SOURCE_ID"
+            <label for="P_DATA_SOURCE_ID" style="width:100px;">Origen de Datos : </label>
+            <select class="form-control" 
+                    id="P_DATA_SOURCE_ID"
                     required
-                    [(ngModel)]="model.P_DATA_SOURCE_ID" name="P_DATA_SOURCE_ID"
+                    [(ngModel)]="model.P_DATA_SOURCE_ID" 
+                    name="P_DATA_SOURCE_ID"
                     #P_DATA_SOURCE_ID="ngModel">
               <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
             </select>
@@ -19,6 +24,45 @@
               Favor seleccione origen de datos
             </div>
           </div>
+          <!--[_] P_ROW_NUM      -->
+          <div class="form-group">
+            <label for="P_ROW_NUM" style="width:100px;"># filas : </label>
+            <input class="form-control custom-form-group" type="number" maxlength="3" minlength="1" min="3" max="999"
+                    id="P_ROW_NUM"
+                    required
+                    [(ngModel)]="model.P_ROW_NUM"
+                    name="P_ROW_NUM"                     
+                    #P_ROW_NUM="ngModel"/>
+            <div [hidden]="(P_ROW_NUM.valid || P_ROW_NUM.pristine)" class="alert alert-danger">
+              Favor ingrese # de filas
+            </div>
+          </div>
+          <!--[_] P_FECHA_INICIO --> 
+          <div class="form-group custom-form-group">
+            <label for="P_FECHA_INICIO" style="width:100px;">Fecha Inicial : </label>
+            <input class="form-control custom-form-group" type="date" 
+                    id="P_FECHA_INICIO"
+                    required
+                    [(ngModel)]="model.P_FECHA_INICIO"
+                    name="P_FECHA_INICIO"                     
+                    #P_FECHA_INICIO="ngModel"/>            
+            <div [hidden]="(P_FECHA_INICIO.valid || P_FECHA_INICIO.pristine)" class="alert alert-danger">
+              Favor ingrese fecha inicial
+            </div>
+          </div>
+          <!--[_] P_FECHA_FIN.   --> 
+          <div class="form-group">
+            <label for="P_FECHA_FIN" style="width:100px;">Fecha Final : </label>
+            <input class="form-control custom-form-group" type="date"
+                    id="P_FECHA_FIN"
+                    required
+                    [(ngModel)]="model.P_FECHA_FIN"
+                    name="P_FECHA_FIN"                     
+                    #P_FECHA_FIN="ngModel"/>
+            <div [hidden]="(P_FECHA_FIN.valid || P_FECHA_FIN.pristine)" class="alert alert-danger">
+              Favor ingrese fecha final
+            </div>
+          </div>        
           <hr>
           <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
           <button type="button" class="btn btn-default" (click)="newSearch(); searchForm.reset();">[Nueva]</button>

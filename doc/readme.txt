@@ -11,6 +11,12 @@
 --[_] Reducir rango por defecto de fechas en entorno de producción.
 --[_] Numeros de Versionamiento. 
 --[_] Version de Angular en parte inferior. 
+--[_] [Panel de Búsqueda]: 
+    --[_] P_ID_DATA_SOURCE. 
+    --[_] P_ID_TIPO_LOG. 
+    --[_] P_FECHA_INICIO. 
+    --[_] P_FECHA_FIN.
+    --[_] P_ROW_NUM.
 
 ==========================================================================================
 -- SCM

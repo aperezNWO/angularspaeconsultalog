@@ -1,6 +1,6 @@
-import { Injectable          } from '@angular/core';
-import { HttpClient          } from '@angular/common/http';
-import { LogEntry_           } from './loginfo.model';
+import { Injectable                          } from '@angular/core';
+import { HttpClient                          } from '@angular/common/http';
+import { LogEntry_, searchCriteria           } from './loginfo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +13,14 @@ export class LogInfoService {
   }
   //
   //
-  getLogLocal_() {
+  getLogLocal_2() {
       //
       let url='../assets/loginfo_.json';
       //    
       return this.http.get<LogEntry_[]>(url);
   }
   //
-  getLogLocal() {
+  getLogLocal_1() {
     //
     let url='../assets/loginfo.json';
     //    
@@ -41,18 +41,20 @@ export class LogInfoService {
     return this.http.get<LogEntry_[]>(url);
   }
   // 
-  getLogRemoto_DEPLOY_SPAE(P_ID_DATA_SOURCE : string) {
+  getLogRemoto_DEPLOY_SPAE(_searchCriteria : searchCriteria) {
     // ENTORNO REMOTO (DEPLOY SPAE)
-    let url='../home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + '&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=01/09/2022&P_FECHA_FIN=30/09/2022&P_ROW_NUM=99'
+    let prefix = '../' 
+    let url    = prefix + 'home/getconsultalogget?P_ID_DATA_SOURCE=' + _searchCriteria.P_DATA_SOURCE_ID + '&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=' + _searchCriteria.P_FECHA_INICIO_STR +'&P_FECHA_FIN='+ _searchCriteria.P_FECHA_FIN_STR + '&P_ROW_NUM='+_searchCriteria.P_ROW_NUM
     //    
     return this.http.get<LogEntry_[]>(url);
   }
   // 
-  getLogRemoto_DEV(P_ID_DATA_SOURCE : string) {
+  getLogRemoto_DEV(_searchCriteria : searchCriteria) {
       //
       // DEV - ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL), ej:
       // http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=01/09/2022&P_FECHA_FIN=30/09/2022&P_ROW_NUM=999
-      let url='http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + '&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=01/09/2022&P_FECHA_FIN=30/09/2022&P_ROW_NUM=99'
+      let prefix = 'http://localhost/'
+      let url    = prefix + 'home/getconsultalogget?P_ID_DATA_SOURCE=' + _searchCriteria.P_DATA_SOURCE_ID + '&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=' + _searchCriteria.P_FECHA_INICIO_STR +'&P_FECHA_FIN='+ _searchCriteria.P_FECHA_FIN_STR + '&P_ROW_NUM='+_searchCriteria.P_ROW_NUM
       //    
       return this.http.get<LogEntry_[]>(url);
   }
