@@ -10,7 +10,7 @@
 --[_] Modal status.
 --[_] Reducir rango por defecto de fechas en entorno de producción.
 --[_] Numeros de Versionamiento. 
---[_] Version de Angular en parte inferior.
+--[_] Version de Angular en parte inferior. 
 
 ==========================================================================================
 -- SCM
@@ -70,4 +70,6 @@ public JsonResult GetConsultaLogGet
     </customHeaders>
   </httpProtocol>
 </system.webServer>
+
+
 

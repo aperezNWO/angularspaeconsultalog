@@ -15,7 +15,7 @@ import { LogInfoService                     } from '../loginfo.service';
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
-  title                              : string = '[SPAE CONSULTA LOG]';
+  title                              : string = '[CONSULTA LOG]';
   //
   informeLogRemoto!                  : Observable<LogEntry_[]>;
   //
@@ -35,15 +35,12 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   constructor(private logInfoService : LogInfoService) {
       //
-      let p_id_data_source           = "2";
-      //
-      this.update(p_id_data_source);
   }
   //
   ngOnInit(): void {
       //
   }
-  //|
+  //
   ngAfterViewInit() {
     //
   }
@@ -51,19 +48,20 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   update(p_id_data_source : string):void {
     //
     console.log("ID DATA SOURCE (FROM PARAM) : " + p_id_data_source);
-      // 
+    // 
+    //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(p_id_data_source);
     this.informeLogRemoto = this.logInfoService.getLogRemoto_DEV(p_id_data_source);
     //
     const myObserver = {
       next: (p_logEntry: LogEntry_[])     => { 
         //
-        console.log('Observer got a next value: ' + JSON.stringify(p_logEntry));
+        console.log('Observer got a next value (Record Count): ' + p_logEntry.length);
         //
         this.dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
         this.dataSource.paginator = this.paginator;
       },
-      error           : (err: Error)      => console.error('Observer got an error: ' + JSON.stringify(err)),
-      complete        : () => console.log('Observer got a complete notification'),
+      error           : (err: Error)      => console.error('Observer got an error: ' + JSON.stringify(err.message)),
+      complete        : ()                => console.log('Observer got a complete notification'),
     };
     //
     this.informeLogRemoto.subscribe(myObserver);

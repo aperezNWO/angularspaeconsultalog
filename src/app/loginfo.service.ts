@@ -8,34 +8,10 @@ import { LogEntry_           } from './loginfo.model';
 
 export class LogInfoService {
   //
-  //ELEMENT_DATA_LOCAL:  LogEntry[] = [];
-  //
-  //ELEMENT_DATA_LOCAL_: LogEntry[] = [];
-  //
-  //private _loginfo = new BehaviorSubject([]);
-  //
   constructor(    private http: HttpClient  ) {
       //
   }
   //
-  /*
-  get loginfo() {
-    return this._loginfo.asObservable()
-  }*/
-  // 
-  /*
-  updateLogInfo() {
-    //
-    let url = 'https://learningpath.somee.com/demos/generarinformejson';
-    //
-    this.http.get<LogEntry[]>(url).forEach(
-      p_logInfo =>{
-        //this._loginfo.next(p_logInfo);
-      }
-    )
-    //   
-    console.log("ELEMENT_DATA_LOCAL from http/json : " + this.ELEMENT_DATA_LOCAL);
-  }*/
   //
   getLogLocal_() {
       //
@@ -65,17 +41,18 @@ export class LogInfoService {
     return this.http.get<LogEntry_[]>(url);
   }
   // 
-  getLogRemoto_SPAE(P_ID_DATA_SOURCE : string) {
+  getLogRemoto_DEPLOY_SPAE(P_ID_DATA_SOURCE : string) {
     // ENTORNO REMOTO (DEPLOY SPAE)
-    let url='../home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + '&P_ID_TIPO_LOG=&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
+    let url='../home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + '&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=01/09/2022&P_FECHA_FIN=30/09/2022&P_ROW_NUM=99'
     //    
     return this.http.get<LogEntry_[]>(url);
   }
   // 
   getLogRemoto_DEV(P_ID_DATA_SOURCE : string) {
       //
-      // DEV - ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL)
-      let url='http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + ' &P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-12-2022%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1'
+      // DEV - ENTORNO LOCAL A DATOS REMOTOS (DEPLOY LOCAL), ej:
+      // http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=01/09/2022&P_FECHA_FIN=30/09/2022&P_ROW_NUM=999
+      let url='http://localhost/home/getconsultalogget?P_ID_DATA_SOURCE=' + P_ID_DATA_SOURCE + '&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=01/09/2022&P_FECHA_FIN=30/09/2022&P_ROW_NUM=99'
       //    
       return this.http.get<LogEntry_[]>(url);
   }
