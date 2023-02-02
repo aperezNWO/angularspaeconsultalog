@@ -35,6 +35,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   constructor(private logInfoService : LogInfoService) {
       //
+      this.newSearch();
   }
   //
   ngOnInit(): void {
@@ -51,13 +52,15 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN,0); 
     //
     console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
-    console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);    
+    console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
+    console.log("(FROM PARAM) : P_FECHA_INICIO (origen)              : " + _searchCriteria.P_FECHA_INICIO);
+    console.log("(FROM PARAM) : P_FECHA_FIN    (origen)              : " + _searchCriteria.P_FECHA_FIN);  
     console.log("(FROM PARAM) : P_FECHA_INICIO (valid : 01/09/2022)  : " + _searchCriteria.P_FECHA_INICIO_STR);
     console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
     console.log("(SEARCH INIT)");
     // 
-    //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
-    this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
+    this.informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
+    //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
     //
     const myObserver = {
       next: (p_logEntry: LogEntry_[])     => { 
@@ -89,7 +92,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       //
       this.dataSource           = new MatTableDataSource<LogEntry_>();
       this.dataSource.paginator = this.paginator;
-      this.model                = new searchCriteria("0","999",new Date("01/09/2022"), new Date("30/09/2022"),"","");
+      this.model                = new searchCriteria("2"
+                                                    ,"99"
+                                                    , new Date()
+                                                    , new Date()
+                                                    ,"","");
   }
   //
   GetFormattedDate(p_date : Date, order : number) {

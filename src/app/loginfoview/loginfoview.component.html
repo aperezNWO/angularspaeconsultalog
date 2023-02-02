@@ -9,7 +9,6 @@
         <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
           <!-- [_] P_ID_TIPO_LOG    -->
           <!-- [_] P_DATA_SOURCE_ID -->
-          
           <div class="form-group">
             <label for="P_DATA_SOURCE_ID" style="width:100px;">Origen de Datos : </label>
             <select class="form-control" 
@@ -38,7 +37,7 @@
             </div>
           </div>
           <!--[_] P_FECHA_INICIO --> 
-          <div class="form-group custom-form-group">
+          <div class="form-group">
             <label for="P_FECHA_INICIO" style="width:100px;">Fecha Inicial : </label>
             <input class="form-control custom-form-group" type="date" 
                     id="P_FECHA_INICIO"
@@ -53,7 +52,7 @@
           <!--[_] P_FECHA_FIN.   --> 
           <div class="form-group">
             <label for="P_FECHA_FIN" style="width:100px;">Fecha Final : </label>
-            <input class="form-control custom-form-group" type="date"
+            <input class="form-control" type="date"
                     id="P_FECHA_FIN"
                     required
                     [(ngModel)]="model.P_FECHA_FIN"

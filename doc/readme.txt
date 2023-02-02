@@ -11,6 +11,7 @@
 --[_] Reducir rango por defecto de fechas en entorno de producción.
 --[_] Numeros de Versionamiento. 
 --[_] Version de Angular en parte inferior. 
+--[_] Install Angular Material. 
 --[_] [Panel de Búsqueda]: 
     --[_] P_ID_DATA_SOURCE. 
     --[_] P_ID_TIPO_LOG. 
@@ -22,17 +23,10 @@
 -- SCM
 ==========================================================================================
 
---[_] http://localhost/HOME/consultalog
-
---[_] http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO="01-01-2001"&P_FECHA_FIN="31-12-2022"&P_ROW_NUM=-1
-
---[_] http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
-
---[_] http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
-
---[_] http://vivantopruebas.unidadvictimas.gov.co/spae/home/getconsultalogget?P_ID_DATA_SOURCE=2&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO=%2201-01-2001%22&P_FECHA_FIN=%2231-12-2022%22&P_ROW_NUM=-1
-
---[_] 
+--[_] URL SPAE:
+      
+      --[_] http://localhost/HOME/consultalog
+      --[_] http://localhost/HOME/getconsultalogget?P_ID_DATA_SOURCE=1&P_ID_TIPO_LOG=1&P_ID_LOG=0&P_FECHA_INICIO="01-01-2001"&P_FECHA_FIN="31-12-2022"&P_ROW_NUM=-1
 
 public JsonResult GetConsultaLogGet
 (
