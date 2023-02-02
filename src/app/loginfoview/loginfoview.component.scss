@@ -32,8 +32,10 @@ table {
 }
     
 form {
-  width: 80%;
+  width: 30%;
   margin: 0 auto;
+  background-color: cadetblue;
+  padding:1em;
 }
 
 label,
@@ -44,7 +46,7 @@ input {
 }
 
 label {
-  width: 30%;
+  width: 60%;
   /* Positions the label text beside the input */
   text-align: right;
 }
@@ -58,10 +60,10 @@ label+input {
 
 
 label+select {
-  width: 30%;
+  width: 32%;
   /* Large margin-right to force the next element to the new-line
            and margin-left to create a gutter between the label and input */
-  margin: 0 30% 0 4%;
+  margin: 0 32% 0 4%;
 }
 
 

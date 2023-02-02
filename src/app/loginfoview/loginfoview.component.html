@@ -39,7 +39,7 @@
           <!--[_] P_FECHA_INICIO --> 
           <div class="form-group">
             <label for="P_FECHA_INICIO" style="width:100px;">Fecha Inicial : </label>
-            <input class="form-control custom-form-group" type="date" 
+            <input class="form-control" type="text"  
                     id="P_FECHA_INICIO"
                     required
                     [(ngModel)]="model.P_FECHA_INICIO"
@@ -52,7 +52,7 @@
           <!--[_] P_FECHA_FIN.   --> 
           <div class="form-group">
             <label for="P_FECHA_FIN" style="width:100px;">Fecha Final : </label>
-            <input class="form-control" type="date"
+            <input class="form-control" type="text"
                     id="P_FECHA_FIN"
                     required
                     [(ngModel)]="model.P_FECHA_FIN"
@@ -63,8 +63,10 @@
             </div>
           </div>        
           <hr>
-          <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
-          <button type="button" class="btn btn-default" (click)="newSearch(); searchForm.reset();">[Nueva]</button>
+          <div align="right">
+              <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
+              <button type="button" class="btn btn-default" (click)="newSearch(); searchForm.reset();">[Nueva]</button>
+          </div>
         </form>
       </div>
       <hr>

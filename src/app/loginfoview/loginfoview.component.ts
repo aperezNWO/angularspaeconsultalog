@@ -6,6 +6,7 @@ import { Observable                         } from 'rxjs';
 import { LogEntry_, searchCriteria                          } from '../loginfo.model';
 import { p_DataSource                       } from '../loginfo.model';
 import { LogInfoService                     } from '../loginfo.service';
+import { ThisReceiver } from '@angular/compiler';
 //
 @Component({
   selector     : 'loginfoview-app',
@@ -29,7 +30,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   submitted                          : boolean = false;
   //
-  model                              = new searchCriteria("0","999",new Date("01/09/2022"),new Date("30/09/2022"),"","");
+  model                              = new searchCriteria("0","999","01/09/2022","30/09/2022","","");
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
@@ -48,8 +49,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   update(_searchCriteria : searchCriteria):void {
     //
-    _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
-    _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN,0); 
+    _searchCriteria.P_FECHA_INICIO_STR = /*this.GetFormattedDate(*/_searchCriteria.P_FECHA_INICIO/*,0)*/;
+    _searchCriteria.P_FECHA_FIN_STR    = /*this.GetFormattedDate(*/_searchCriteria.P_FECHA_FIN/*,0)*/; 
     //
     console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
     console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
@@ -94,9 +95,16 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.model                = new searchCriteria("2"
                                                     ,"99"
-                                                    , new Date()
-                                                    , new Date()
-                                                    ,"","");
+                                                    , "01/09/2022"
+                                                    , "30/09/2022"
+                                                    , "","");
+      //
+      console.log("(DEFAULT VALUES - INIT)");
+      console.log("P_DATA_SOURCE_ID  : " + this.model.P_DATA_SOURCE_ID);
+      console.log("P_ROW_NUM         : " + this.model.P_ROW_NUM);
+      console.log("P_FECHA_INICIO    : " + this.model.P_FECHA_INICIO);      
+      console.log("P_FECHA_FIN       : " + this.model.P_FECHA_FIN); 
+      console.log("(DEFAULT VALUES - END)");
   }
   //
   GetFormattedDate(p_date : Date, order : number) {
