@@ -113,7 +113,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       console.log("(SEARCH INIT)");
       // 
       //this._informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
-      this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
+      this._informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
       //
       const _myObserver = {
         next: (p_logEntry: LogEntry_[])     => { 
