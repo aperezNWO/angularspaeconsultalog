@@ -26,11 +26,24 @@ export class  p_DataSource
     }
 }
 //
+export class  p_TipoLog
+{
+    //
+    constructor(
+        public    M_TIPO_LOG_ID   : string,
+        public    M_TIPO_LOG_NAME : string
+    )
+    {
+        //
+    }
+}
+//
 export class  searchCriteria
 {
     //
     constructor(
         public    P_DATA_SOURCE_ID   : string,
+        public    P_ID_TIPO_LOG      : string,
         public    P_ROW_NUM          : string,
         public    P_FECHA_INICIO     : Date,
         public    P_FECHA_FIN        : Date,

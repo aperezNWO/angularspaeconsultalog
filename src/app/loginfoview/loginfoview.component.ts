@@ -3,7 +3,7 @@ import { FormBuilder, Validators                      } from '@angular/forms';
 import { MatTableDataSource                 } from '@angular/material/table';
 import { MatPaginator                       } from '@angular/material/paginator';
 import { Observable                         } from 'rxjs';
-import { LogEntry_, searchCriteria          } from '../loginfo.model';
+import { LogEntry_, p_TipoLog, searchCriteria          } from '../loginfo.model';
 import { p_DataSource                       } from '../loginfo.model';
 import { LogInfoService                     } from '../loginfo.service';
 //
@@ -25,9 +25,16 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
                                                                           { M_DATA_SOURCE_ID : "1"  , M_DATA_SOURCE_NAME : "RUV_PRODUCCION"},
                                                                           { M_DATA_SOURCE_ID : "2"  , M_DATA_SOURCE_NAME : "RUV_PRUEBAS"   }];
   //
+  P_ID_TIPO_LOGS                      : p_TipoLog[]                     = [{ M_TIPO_LOG_ID : "0"  , M_TIPO_LOG_NAME : "(SELECCIONE OPCION...)"},
+                                                                           { M_TIPO_LOG_ID : "1"  , M_TIPO_LOG_NAME : "Envio de Emails - Enviados"  },
+                                                                           { M_TIPO_LOG_ID : "2"  , M_TIPO_LOG_NAME : "Envio de Emails - Errores"   },
+                                                                           { M_TIPO_LOG_ID : "3"  , M_TIPO_LOG_NAME : "General         - Errores"   }];
+
+  //
   submitted                          : boolean = false;
   //
   model                              = new searchCriteria( "0"
+                                                          ,"0"
                                                           ,"999"
                                                           ,new Date("01/09/2022")
                                                           ,new Date("30/09/2022")
@@ -37,10 +44,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
   _searchForm   = this.formBuilder.group({
-    P_DATA_SOURCE_ID   : ['2'           , Validators.required],
-    P_ROW_NUM          : ['99'          , Validators.required],
-    P_FECHA_INICIO     : ['2022-09-01'  , Validators.required],
-    P_FECHA_FIN        : ['2022-09-30'  , Validators.required],
+    _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
+    _P_DATA_SOURCE_ID   : ["0"           , Validators.required],
+    _P_ROW_NUM          : ["999"         , Validators.required],
+    _P_FECHA_INICIO     : ["2022-09-01"  , Validators.required],
+    _P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
   });
   //
   constructor(private logInfoService : LogInfoService,private formBuilder: FormBuilder) {
@@ -102,7 +110,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       //
       this.dataSource           = new MatTableDataSource<LogEntry_>();
       this.dataSource.paginator = this.paginator;
-      this.model                = new searchCriteria( "2"
+      this.model                = new searchCriteria( "0"
+                                                    , "0"
                                                     , "999"
                                                     , new Date("01/09/2022")
                                                     , new Date("30/09/2022")
@@ -110,6 +119,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       //
       console.log("(DEFAULT VALUES - INIT)");
       console.log("P_DATA_SOURCE_ID  : " + this.model.P_DATA_SOURCE_ID);
+      console.log("P_ID_TIPO_LOG     : " + this.model.P_ID_TIPO_LOG);
       console.log("P_ROW_NUM         : " + this.model.P_ROW_NUM);
       console.log("P_FECHA_INICIO    : " + this.model.P_FECHA_INICIO);      
       console.log("P_FECHA_FIN       : " + this.model.P_FECHA_FIN); 
@@ -153,10 +163,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     console.warn("(NEW SEARCH 2)");
     //
     this._searchForm   = this.formBuilder.group({
-      P_DATA_SOURCE_ID   : ['2'           , Validators.required],
-      P_ROW_NUM          : ['99'          , Validators.required],
-      P_FECHA_INICIO     : ['2022-09-01'  , Validators.required],
-      P_FECHA_FIN        : ['2022-09-30'  , Validators.required],
+      _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
+      _P_DATA_SOURCE_ID   : ["0"           , Validators.required],
+      _P_ROW_NUM          : ["999"         , Validators.required],
+      _P_FECHA_INICIO     : ["2022-09-01"  , Validators.required],
+      _P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
     });
   }
   //

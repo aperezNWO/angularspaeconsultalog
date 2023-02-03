@@ -1,10 +1,10 @@
 <mat-tab-group>
   <mat-tab label="[CONSULTA_1]">
-    <div class="mat-elevation-z8 demo-options">
+    <h2>[CONSULTA_1]</h2>
+    <div class="mat-elevation-z8">
       <hr>  
       <div class="searchPanel">
         <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-          <!-- [_] P_ID_TIPO_LOG    -->
           <!-- [_] P_DATA_SOURCE_ID -->
           <div class="form-group">
             <label for="P_DATA_SOURCE_ID" style="width:100px;">Origen de Datos : </label>
@@ -20,10 +20,25 @@
               Favor seleccione origen de datos
             </div>
           </div>
+          <!-- [_] P_ID_TIPO_LOG    -->
+          <div class="form-group">
+              <label for="P_ID_TIPO_LOG" style="width:100px;">Tipo de Consulta : </label>
+              <select class="form-control" 
+                      id="P_ID_TIPO_LOG"
+                      required
+                      [(ngModel)]="model.P_ID_TIPO_LOG" 
+                      name="P_ID_TIPO_LOG"
+                      #P_ID_TIPO_LOG="ngModel">                    >
+                <option *ngFor="let _pTipoLog of P_ID_TIPO_LOGS" [value]="_pTipoLog.M_TIPO_LOG_ID">{{_pTipoLog.M_TIPO_LOG_NAME}}</option>
+              </select>
+              <div [hidden]="(P_ID_TIPO_LOG.valid || P_ID_TIPO_LOG.pristine)" class="alert alert-danger">
+                Favor seleccione un Tipo de Consulta
+              </div>
+          </div>
           <!--[_] P_ROW_NUM      -->
           <div class="form-group">
-            <label for="P_ROW_NUM" style="width:100px;"># filas : </label>
-            <input class="form-control custom-form-group" type="number" maxlength="3" minlength="1" min="3" max="999"
+            <label for="P_ROW_NUM" style="width:100px;"># registros : </label>
+            <input class="form-control" type="number" maxlength="3" minlength="1" min="3" max="999"
                     id="P_ROW_NUM"
                     required
                     [(ngModel)]="model.P_ROW_NUM"
@@ -93,48 +108,63 @@
       <mat-paginator #paginator
                     class="demo-paginator" 
                     [length]=""
-                    [pageSize]="4"
-                    [pageSizeOptions]="[4, 10, 25, 100]"
+                    [pageSize]="3"
+                    [pageSizeOptions]="[3, 10, 25, 100]"
                     aria-label="informelogremoto"></mat-paginator>
   </div>
   </mat-tab>
   <mat-tab label="[CONSULTA_2]">
-    <div class="searchPanel">
-      <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
-        <!--P_DATA_SOURCE_ID-->
-        <div>
-          <label for="P_DATA_SOURCE_ID">
-            P_DATA_SOURCE_ID
-          </label>
-          <input id="P_DATA_SOURCE_ID" type="text" formControlName="P_DATA_SOURCE_ID">
-        </div>
-        <!--P_ROW_NUM-->
-        <div>
-          <label for="P_ROW_NUM">
-            P_ROW_NUM
-          </label>
-          <input id="P_ROW_NUM" type="text" formControlName="P_ROW_NUM">
-        </div>
-        <!--P_FECHA_INICIO-->
-        <div>
-          <label for="P_FECHA_INICIO">
-            P_FECHA_INICIO
-          </label>
-          <input id="P_FECHA_INICIO" type="date" formControlName="P_FECHA_INICIO">
-        </div>
-        <!--P_FECHA_FIN-->
-        <div>
-          <label for="P_FECHA_FIN">
-            P_FECHA_FIN
-          </label>
-          <input id="P_FECHA_FIN" type="date" formControlName="P_FECHA_FIN">
-        </div>
-        <hr>
-        <div align="right">
-          <button class="button" type="submit">Buscar</button>
-          <button class="button" type="button" (click)="_newSearch()">Nueva</button>
-        </div>
-      </form>
+    <h2>[CONSULTA_2]</h2>
+    <div class="mat-elevation-z8">
+      <hr>  
+      <div class="_searchPanel">
+        <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
+          <!--P_DATA_SOURCE_ID      -->
+          <div>
+            <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
+            <select   id="_P_DATA_SOURCE_ID"
+                      required
+                      name="_P_DATA_SOURCE_ID" formControlName="_P_DATA_SOURCE_ID">                    
+            <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
+            </select>
+          </div>
+          <!-- [_] P_ID_TIPO_LOG    -->
+          <div>
+            <label for="_P_ID_TIPO_LOG">Tipo de Consulta : </label>
+            <select id="_P_ID_TIPO_LOG"
+                    required
+                    name="_P_ID_TIPO_LOG" formControlName="_P_ID_TIPO_LOG">                    
+              <option *ngFor="let _pTipoLog of P_ID_TIPO_LOGS" [value]="_pTipoLog.M_TIPO_LOG_ID">{{_pTipoLog.M_TIPO_LOG_NAME}}</option>
+            </select>
+          </div>
+          <!--P_ROW_NUM-->
+          <div>
+            <label for="_P_ROW_NUM">
+              # de Registros :
+            </label>
+            <input id="_P_ROW_NUM" type="text" formControlName="_P_ROW_NUM">
+          </div>
+          <!--P_FECHA_INICIO-->
+          <div>
+            <label for="_P_FECHA_INICIO">
+              Fecha Inicial :
+            </label>
+            <input id="_P_FECHA_INICIO" type="date" formControlName="_P_FECHA_INICIO">
+          </div>
+          <!--P_FECHA_FIN-->
+          <div>
+            <label for="_P_FECHA_FIN">
+              Fecha Final :
+            </label>
+            <input id="_P_FECHA_FIN" type="date" formControlName="_P_FECHA_FIN">
+          </div>
+          <hr>
+          <div align="right">
+            <button class="button" type="submit">Buscar</button>
+            <button class="button" type="button" (click)="_newSearch()">Nueva</button>
+          </div>
+        </form>
+      </div>
     </div>
   </mat-tab>
   <mat-tab label="[ESTADISTICAS]">ESTADISTICAS</mat-tab>

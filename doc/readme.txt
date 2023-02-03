@@ -13,6 +13,7 @@
 --[_] Desbloquear usuario spae.
 --[_] Modal status.
 --[_] Install Angular Material. 
+--[_] Reset / Default Values. 
 --[_] [Panel de Búsqueda]: 
     --[_] P_ID_DATA_SOURCE. 
     --[_] P_ID_TIPO_LOG. 
