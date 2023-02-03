@@ -81,8 +81,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
     console.log("(SEARCH INIT)");
     // 
-    this.informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
-    //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
+    //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
+    this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
     //
     const myObserver = {
       next: (p_logEntry: LogEntry_[])     => { 
@@ -112,8 +112,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
       console.log("(SEARCH INIT)");
       // 
-      this._informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
-      //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
+      //this._informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
+      this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
       //
       const _myObserver = {
         next: (p_logEntry: LogEntry_[])     => { 
