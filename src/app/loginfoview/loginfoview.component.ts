@@ -16,8 +16,10 @@ import { LogInfoService                     } from '../loginfo.service';
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   informeLogRemoto!                  : Observable<LogEntry_[]>;
+  _informeLogRemoto!                 : Observable<LogEntry_[]>;
   //
   dataSource                         = new MatTableDataSource<LogEntry_>();
+  _dataSource                        = new MatTableDataSource<LogEntry_>();
   // 
   displayedColumns                   : string[]                        = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
   //
@@ -31,8 +33,6 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
                                                                           { M_TIPO_LOG_ID : "3"  , M_TIPO_LOG_NAME : "General         - Errores"   }];
 
   //
-  submitted                          : boolean = false;
-  //
   model                              = new searchCriteria( "0"
                                                           ,"0"
                                                           ,"999"
@@ -41,7 +41,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
                                                           ,""
                                                           ,"");
   //
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild("paginator" ,{read:MatPaginator}) paginator!:  MatPaginator;
+  
+  //
+  @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
+  
   //
   _searchForm   = this.formBuilder.group({
     _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
@@ -95,14 +99,41 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     this.informeLogRemoto.subscribe(myObserver);
   }
   //
+  _update(_searchCriteria : searchCriteria):void {
+      //
+      _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
+      _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN   ,0); 
+      //
+      console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
+      console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
+      console.log("(FROM PARAM) : P_FECHA_INICIO (origen)              : " + _searchCriteria.P_FECHA_INICIO);
+      console.log("(FROM PARAM) : P_FECHA_FIN    (origen)              : " + _searchCriteria.P_FECHA_FIN);  
+      console.log("(FROM PARAM) : P_FECHA_INICIO (valid : 01/09/2022)  : " + _searchCriteria.P_FECHA_INICIO_STR);
+      console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
+      console.log("(SEARCH INIT)");
+      // 
+      this._informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
+      //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
+      //
+      const _myObserver = {
+        next: (p_logEntry: LogEntry_[])     => { 
+          //
+          console.log('RETURN VALUES (Record Count): ' + p_logEntry.length);
+          //
+          this._dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
+          this._dataSource.paginator = this._paginator;
+        },
+        error           : (err: Error)      => console.error('ERROR : ' + JSON.stringify(err.message)),
+        complete        : ()                => console.log('(SEARCH END)'),
+      };
+      //
+      this._informeLogRemoto.subscribe(_myObserver);
+  }
+  //
   onSubmit() 
   { 
       //
       console.warn("(SUBMIT 1)");
-      //
-      this.submitted = true; 
-      //
-      console.log("FORM SUBMIT : " + this.submitted);
       //
       if (this.model.P_DATA_SOURCE_ID != "0")
           this.update(this.model);
@@ -167,6 +198,9 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     //
     console.warn("(NEW SEARCH 2)");
     //
+    this._dataSource           = new MatTableDataSource<LogEntry_>();
+    this._dataSource.paginator = this._paginator;
+    //
     this._searchForm   = this.formBuilder.group({
       _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
       _P_DATA_SOURCE_ID   : ["0"           , Validators.required],
@@ -174,11 +208,37 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       _P_FECHA_INICIO     : ["2022-09-01"  , Validators.required],
       _P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
     });
+    //
+    console.log("(DEFAULT VALUES - INIT)");
+    console.log("P_DATA_SOURCE_ID  : " + (this._searchForm.value["_P_DATA_SOURCE_ID"] || ""));
+    console.log("P_ID_TIPO_LOG     : " + (this._searchForm.value["_P_ID_TIPO_LOG"]    || ""));
+    console.log("P_ROW_NUM         : " + (this._searchForm.value["_P_ROW_NUM"]        || ""));
+    console.log("P_FECHA_INICIO    : " + (this._searchForm.value["_P_FECHA_INICIO"]   || ""));      
+    console.log("P_FECHA_FIN       : " + (this._searchForm.value["_P_FECHA_FIN"]      || "")); 
+    console.log("(DEFAULT VALUES - END)");
   }
   //
   _onSubmit() 
   { 
       //
       console.warn("(SUBMIT 2)");
+      //
+      let _P_DATA_SOURCE_ID  : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
+      let _P_ID_TIPO_LOG     : string = this._searchForm.value["_P_ID_TIPO_LOG"]    || "";
+      let _P_ROW_NUM         : string = this._searchForm.value["_P_ROW_NUM"]        || "";
+      let _P_FECHA_INICIO    : string = this._searchForm.value["_P_FECHA_INICIO"]   || "";      
+      let _P_FECHA_FIN       : string = this._searchForm.value["_P_FECHA_FIN"]      || "";
+
+      //
+      let _model  = new searchCriteria( 
+                              _P_DATA_SOURCE_ID
+                            , _P_ID_TIPO_LOG
+                            , _P_ROW_NUM
+                            , _P_FECHA_INICIO
+                            , _P_FECHA_FIN
+                            , "","");
+      //
+      if (_model.P_DATA_SOURCE_ID != "0")
+          this._update(_model);
   }
 }
