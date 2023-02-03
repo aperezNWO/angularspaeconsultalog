@@ -12,13 +12,11 @@ import { MatPaginatorModule       } from '@angular/material/paginator';
 import { MatTabsModule            } from '@angular/material/tabs';
 import { AppComponent             } from './app.component';
 import { LogInfoViewComponent     } from './loginfoview/loginfoview.component';
-import { LoginfosearchComponent } from './loginfosearch/loginfosearch.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogInfoViewComponent,
-    LoginfosearchComponent
   ],
   imports: [
     FormsModule,

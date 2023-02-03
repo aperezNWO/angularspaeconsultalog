@@ -3,8 +3,8 @@ import { FormBuilder, Validators                      } from '@angular/forms';
 import { MatTableDataSource                 } from '@angular/material/table';
 import { MatPaginator                       } from '@angular/material/paginator';
 import { Observable                         } from 'rxjs';
-import { LogEntry_, p_TipoLog, searchCriteria          } from '../loginfo.model';
-import { p_DataSource                       } from '../loginfo.model';
+import { LogEntry_, p_TipoLog               } from '../loginfo.model';
+import { p_DataSource, searchCriteria       } from '../loginfo.model';
 import { LogInfoService                     } from '../loginfo.service';
 //
 @Component({
@@ -25,10 +25,10 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
                                                                           { M_DATA_SOURCE_ID : "1"  , M_DATA_SOURCE_NAME : "RUV_PRODUCCION"},
                                                                           { M_DATA_SOURCE_ID : "2"  , M_DATA_SOURCE_NAME : "RUV_PRUEBAS"   }];
   //
-  P_ID_TIPO_LOGS                      : p_TipoLog[]                     = [{ M_TIPO_LOG_ID : "0"  , M_TIPO_LOG_NAME : "(SELECCIONE OPCION...)"},
-                                                                           { M_TIPO_LOG_ID : "1"  , M_TIPO_LOG_NAME : "Envio de Emails - Enviados"  },
-                                                                           { M_TIPO_LOG_ID : "2"  , M_TIPO_LOG_NAME : "Envio de Emails - Errores"   },
-                                                                           { M_TIPO_LOG_ID : "3"  , M_TIPO_LOG_NAME : "General         - Errores"   }];
+  P_ID_TIPO_LOGS                     : p_TipoLog[]                     = [{ M_TIPO_LOG_ID : "0"  , M_TIPO_LOG_NAME : "(SELECCIONE OPCION...)"},
+                                                                          { M_TIPO_LOG_ID : "1"  , M_TIPO_LOG_NAME : "Envio de Emails - Enviados"  },
+                                                                          { M_TIPO_LOG_ID : "2"  , M_TIPO_LOG_NAME : "Envio de Emails - Errores"   },
+                                                                          { M_TIPO_LOG_ID : "3"  , M_TIPO_LOG_NAME : "General         - Errores"   }];
 
   //
   submitted                          : boolean = false;
@@ -36,8 +36,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   model                              = new searchCriteria( "0"
                                                           ,"0"
                                                           ,"999"
-                                                          ,new Date("01/09/2022")
-                                                          ,new Date("30/09/2022")
+                                                          ,"2022-09-01"
+                                                          ,"2022-09-30"
                                                           ,""
                                                           ,"");
   //
@@ -53,11 +53,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   constructor(private logInfoService : LogInfoService,private formBuilder: FormBuilder) {
       //
-      this.newSearch();
   }
   //
   ngOnInit(): void {
       //
+      this.newSearch();
   }
   //
   ngAfterViewInit() {
@@ -67,7 +67,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   update(_searchCriteria : searchCriteria):void {
     //
     _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
-    _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN,0); 
+    _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN   ,0); 
     //
     console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
     console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
@@ -98,6 +98,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   onSubmit() 
   { 
       //
+      console.warn("(SUBMIT 1)");
+      //
       this.submitted = true; 
       //
       console.log("FORM SUBMIT : " + this.submitted);
@@ -108,13 +110,15 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   newSearch() {
       //
+      console.warn("(NEW SEARCH 1)");
+      //
       this.dataSource           = new MatTableDataSource<LogEntry_>();
       this.dataSource.paginator = this.paginator;
       this.model                = new searchCriteria( "0"
                                                     , "0"
                                                     , "999"
-                                                    , new Date("01/09/2022")
-                                                    , new Date("30/09/2022")
+                                                    , "2022-09-01"
+                                                    , "2022-09-30"
                                                     , "","");
       //
       console.log("(DEFAULT VALUES - INIT)");
@@ -126,7 +130,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       console.log("(DEFAULT VALUES - END)");
   }
   //
-  GetFormattedDate(p_date : Date, order : number) {
+  GetFormattedDate(p_date : /*Date*/ string, order : number) {
     //
     var today = '';
     switch (order) {
@@ -140,6 +144,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
             break;
         case 1:  // FECHA COMPATIBLE  CON UIX
             //
+            /*
             var _day      :number  = p_date.getDate();
             var _month    :number  = p_date.getMonth() + 1;
             var _yearStr  :string  = p_date.getFullYear().toString();
@@ -149,7 +154,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
             if (_month < 10) _monthStr = "0"   + _month.toString();
             if (_day < 10)   _dayStr   = "0"   + _day.toString();
             //
-            today                 = _yearStr  + "-" + _monthStr + "-" + _dayStr;
+            today                 = _yearStr  + "-" + _monthStr + "-" + _dayStr;*/
             //
             break;
     }
