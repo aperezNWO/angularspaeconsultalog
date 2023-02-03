@@ -3,14 +3,15 @@
 -- STRAREGY
 ==========================================================================================
 
+--[x] Cambiar dominio aplicativos publicados en SOMEE.COM.
+      --[x] angulardemo.somee.com.
+--[x] Reducir rango por defecto de fechas en entorno de producción.
+--[x] Numeros de Versionamiento. 
+--[>] Version de Angular en parte inferior. 
+      --[_] https://dev.to/nightwolfdev/how-to-display-app-version-in-angular-2ge
 --[_] you.ai / chatgpt / https://you.com/code.
 --[_] Desbloquear usuario spae.
---[_] Cambiar dominio aplicativos publicados en SOMEE.COM.
---[_] Formulario de búsqueda.
 --[_] Modal status.
---[_] Reducir rango por defecto de fechas en entorno de producción.
---[_] Numeros de Versionamiento. 
---[_] Version de Angular en parte inferior. 
 --[_] Install Angular Material. 
 --[_] [Panel de Búsqueda]: 
     --[_] P_ID_DATA_SOURCE. 

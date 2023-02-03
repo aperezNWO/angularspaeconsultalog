@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, VERSION } from '@angular/core';
 //
 @Component({
   selector: 'app-root',
@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 //
 export class AppComponent {
   //
-  title   : string = '[SPAE]';
-  version : string = '1.0.0.3'
-}
+  title             : string = '[SPAE]';
+  appName           : string = "[SPAE CONSULTA LOG]"
+  appVersion        : string = '1.0.0.4';
+  runtimeVersion    : string = VERSION.full;
+ }   

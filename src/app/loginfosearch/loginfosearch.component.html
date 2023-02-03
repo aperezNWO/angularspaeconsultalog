@@ -1,0 +1,39 @@
+<div class="searchPanel">
+  <form [formGroup]="searchForm"  (ngSubmit)="onSubmit()">
+    <!--P_DATA_SOURCE_ID-->
+    <div>
+      <label for="P_DATA_SOURCE_ID">
+        P_DATA_SOURCE_ID
+      </label>
+      <input id="P_DATA_SOURCE_ID" type="text" formControlName="P_DATA_SOURCE_ID">
+    </div>
+    <!--P_ROW_NUM-->
+    <div>
+      <label for="P_ROW_NUM">
+        P_ROW_NUM
+      </label>
+      <input id="P_ROW_NUM" type="text" formControlName="P_ROW_NUM">
+    </div>
+    <!--P_FECHA_INICIO-->
+    <div>
+      <label for="P_FECHA_INICIO">
+        P_FECHA_INICIO
+      </label>
+      <input id="P_FECHA_INICIO" type="date" formControlName="P_FECHA_INICIO">
+    </div>
+    <!--P_FECHA_FIN-->
+    <div>
+      <label for="P_FECHA_FIN">
+        P_FECHA_FIN
+      </label>
+      <input id="P_FECHA_FIN" type="date" formControlName="P_FECHA_FIN">
+    </div>
+    <hr>
+    <div align="right">
+      <button class="button" type="submit">Buscar</button>
+      <button class="button" type="button" (click)="newSearch()">Nueva</button>
+    </div>
+  </form>
+</div>
+
+

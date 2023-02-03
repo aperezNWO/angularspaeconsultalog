@@ -1,12 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild  } from '@angular/core';
+import { FormBuilder, Validators                      } from '@angular/forms';
 import { MatTableDataSource                 } from '@angular/material/table';
 import { MatPaginator                       } from '@angular/material/paginator';
-import { Form, NgModel, NgModelGroup                               } from '@angular/forms';
 import { Observable                         } from 'rxjs';
-import { LogEntry_, searchCriteria                          } from '../loginfo.model';
+import { LogEntry_, searchCriteria          } from '../loginfo.model';
 import { p_DataSource                       } from '../loginfo.model';
 import { LogInfoService                     } from '../loginfo.service';
-import { ThisReceiver } from '@angular/compiler';
 //
 @Component({
   selector     : 'loginfoview-app',
@@ -15,8 +14,6 @@ import { ThisReceiver } from '@angular/compiler';
 })
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
-  //
-  title                              : string = '[CONSULTA LOG]';
   //
   informeLogRemoto!                  : Observable<LogEntry_[]>;
   //
@@ -30,11 +27,23 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   submitted                          : boolean = false;
   //
-  model                              = new searchCriteria("0","999","01/09/2022","30/09/2022","","");
+  model                              = new searchCriteria( "0"
+                                                          ,"999"
+                                                          ,new Date("01/09/2022")
+                                                          ,new Date("30/09/2022")
+                                                          ,""
+                                                          ,"");
   //
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   //
-  constructor(private logInfoService : LogInfoService) {
+  _searchForm   = this.formBuilder.group({
+    P_DATA_SOURCE_ID   : ['2'           , Validators.required],
+    P_ROW_NUM          : ['99'          , Validators.required],
+    P_FECHA_INICIO     : ['2022-09-01'  , Validators.required],
+    P_FECHA_FIN        : ['2022-09-30'  , Validators.required],
+  });
+  //
+  constructor(private logInfoService : LogInfoService,private formBuilder: FormBuilder) {
       //
       this.newSearch();
   }
@@ -49,8 +58,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   update(_searchCriteria : searchCriteria):void {
     //
-    _searchCriteria.P_FECHA_INICIO_STR = /*this.GetFormattedDate(*/_searchCriteria.P_FECHA_INICIO/*,0)*/;
-    _searchCriteria.P_FECHA_FIN_STR    = /*this.GetFormattedDate(*/_searchCriteria.P_FECHA_FIN/*,0)*/; 
+    _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
+    _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN,0); 
     //
     console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
     console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
@@ -93,10 +102,10 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       //
       this.dataSource           = new MatTableDataSource<LogEntry_>();
       this.dataSource.paginator = this.paginator;
-      this.model                = new searchCriteria("2"
-                                                    ,"99"
-                                                    , "01/09/2022"
-                                                    , "30/09/2022"
+      this.model                = new searchCriteria( "2"
+                                                    , "999"
+                                                    , new Date("01/09/2022")
+                                                    , new Date("30/09/2022")
                                                     , "","");
       //
       console.log("(DEFAULT VALUES - INIT)");
@@ -136,5 +145,24 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     }
     //
     return today;
-}  
+  } 
+  //
+  _newSearch()
+  {
+    //
+    console.warn("(NEW SEARCH 2)");
+    //
+    this._searchForm   = this.formBuilder.group({
+      P_DATA_SOURCE_ID   : ['2'           , Validators.required],
+      P_ROW_NUM          : ['99'          , Validators.required],
+      P_FECHA_INICIO     : ['2022-09-01'  , Validators.required],
+      P_FECHA_FIN        : ['2022-09-30'  , Validators.required],
+    });
+  }
+  //
+  _onSubmit() 
+  { 
+      //
+      console.warn("(SUBMIT 2)");
+  }
 }
