@@ -21,7 +21,9 @@
     --[_] P_FECHA_FIN.
     --[_] P_ROW_NUM.
 --[_] [FORMS]: 
-    --[_] [https://angular.io/guide/forms-overview]: 
+    --[_] https://angular.io/guide/form-validation#interaction-with-native-html-form-validation
+    --[_] https://angular.io/guide/forms-overview 
+
 
 ==========================================================================================
 -- SCM
