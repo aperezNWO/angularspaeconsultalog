@@ -1,30 +1,3 @@
-
-==========================================================================================
--- STRAREGY
-==========================================================================================
-
---[x] Cambiar dominio aplicativos publicados en SOMEE.COM.
-      --[x] angulardemo.somee.com.
---[x] Reducir rango por defecto de fechas en entorno de producción.
---[x] Numeros de Versionamiento. 
---[>] Version de Angular en parte inferior. 
-      --[_] https://dev.to/nightwolfdev/how-to-display-app-version-in-angular-2ge
---[_] you.ai / chatgpt / https://you.com/code.
---[_] Desbloquear usuario spae.
---[_] Modal status.
---[_] Install Angular Material. 
---[_] Reset / Default Values. 
---[_] [Panel de Búsqueda]: 
-    --[_] P_ID_DATA_SOURCE. 
-    --[_] P_ID_TIPO_LOG. 
-    --[_] P_FECHA_INICIO. 
-    --[_] P_FECHA_FIN.
-    --[_] P_ROW_NUM.
---[_] [FORMS]: 
-    --[_] https://angular.io/guide/form-validation#interaction-with-native-html-form-validation
-    --[_] https://angular.io/guide/forms-overview 
-
-
 ==========================================================================================
 -- SCM
 ==========================================================================================
@@ -77,5 +50,37 @@ public JsonResult GetConsultaLogGet
   </httpProtocol>
 </system.webServer>
 
+==========================================================================================
+-- STRAREGY
+==========================================================================================
 
+--[x] Cambiar dominio aplicativos publicados en SOMEE.COM.
+      --[x] angulardemo.somee.com.
+--[x] Reducir rango por defecto de fechas en entorno de producción.
+--[x] Numeros de Versionamiento. 
+--[>] Version de Angular en parte inferior. 
+      --[_] https://dev.to/nightwolfdev/how-to-display-app-version-in-angular-2ge
+--[_] you.ai / chatgpt / https://you.com/code.
+--[_] Desbloquear usuario spae.
+--[_] Modal status.
+--[_] Install Angular Material. 
+--[_] Reset / Default Values. 
+--[_] [Panel de Búsqueda]: 
+    --[_] P_ID_DATA_SOURCE. 
+    --[_] P_ID_TIPO_LOG. 
+    --[_] P_FECHA_INICIO. 
+    --[_] P_FECHA_FIN.
+    --[_] P_ROW_NUM.
+--[_] [FORMS]: 
+    --[_] Forms Validation 
+        --[_] https://angular.io/guide/forms-overview 
+        --[_] https://angular.io/guide/form-validation#interaction-with-native-html-form-validation
+--[_] [NAVIGATION]: 
+    --[_] RouterLink 
+      --[_] Consulta Dinero.
+      --[_] Consulta Log.
+--[_] [Consulta Dinero]: 
+      --[_] Acceso Provisional.      
+
+==========================================================================================
 

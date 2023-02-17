@@ -8,8 +8,7 @@ import { Component, VERSION } from '@angular/core';
 //
 export class AppComponent {
   //
-  title             : string = '[SPAE CONSULTA LOG]';
-  appName           : string = "[SPAE CONSULTA LOG]"
-  appVersion        : string = '1.0.0.9';
+  appName           : string = "[SPAE CONSULTAS]"
+  appVersion        : string = '1.0.0.10';
   runtimeVersion    : string = VERSION.full;
  }   
