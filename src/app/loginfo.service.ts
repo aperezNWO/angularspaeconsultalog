@@ -1,11 +1,11 @@
 import { Injectable                          } from '@angular/core';
 import { HttpClient                          } from '@angular/common/http';
 import { LogEntry_, searchCriteria           } from './loginfo.model';
-
+//
 @Injectable({
   providedIn: 'root'
 })
-
+//
 export class LogInfoService {
   //
   constructor(    private http: HttpClient  ) {
