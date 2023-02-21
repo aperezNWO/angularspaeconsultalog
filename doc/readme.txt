@@ -1,4 +1,10 @@
 ==========================================================================================
+-- DATA
+==========================================================================================
+
+[{"ID_SOLICITUD":"8951","VIGENCIA":"2022","CEDULA":"40626208","NOMBRE_COMPLETO":"RUBIELA  CARDOZO OLAYA","ID_PERSONA":"58852","ID_HOGAR":"20024","TELEFONO_1":"3223394059","TELEFONO_2":"0579512","TELEFONO_3":"3222339405","EMAIL":"(N/A)","DIRECCION":"barrio CENTRO","BARRIO":"CENTRO","DANE":"50350","DANE_DEPARTAMENTO":"META","DANE_MUNICIPIO":"LA MACARENA","FUD":"CI000476330","ALIMENTACION":"SI","ALOJAMIENTO":"NO","ID_ESTADO":"1","ESTADO_SOLICITUD":"Enlace En creaci\u00f3n","ID_MUNICIPIO":"148","USUARIO":"144239","FUNCIONARIO_SOLICITUD":"BRAYAN ANDRES GUERRERO RAMIREZ","RESPONSABLE_SOLICITUD":"KELLY JOHANNA LEGUIZAMO GUEVARA","OBSERVACION_SOLICITUD":"(N/A)"},{"ID_SOLICITUD":"8911","VIGENCIA":"2022","CEDULA":"40626208","NOMBRE_COMPLETO":"RUBIELA  CARDOZO OLAYA","ID_PERSONA":"58713","ID_HOGAR":"19941","TELEFONO_1":"3223394059","TELEFONO_2":"(N/A)","TELEFONO_3":"3223394059","EMAIL":"(N/A)","DIRECCION":"carrera 7 # 3-34","BARRIO":"CENTRO","DANE":"50350","DANE_DEPARTAMENTO":"META","DANE_MUNICIPIO":"LA MACARENA","FUD":"CI000476330","ALIMENTACION":"SI","ALOJAMIENTO":"NO","ID_ESTADO":"6","ESTADO_SOLICITUD":"Devuelta por Gestion Spae AH\u00cd Nacional","ID_MUNICIPIO":"148","USUARIO":"144239","FUNCIONARIO_SOLICITUD":"BRAYAN ANDRES GUERRERO RAMIREZ","RESPONSABLE_SOLICITUD":"KELLY JOHANNA LEGUIZAMO GUEVARA","OBSERVACION_SOLICITUD":"NO ESTA  LA FIRMA DEL RESPONSABLE DE OFICIO AVAL / quien firma no es el actual responsable."}]
+
+==========================================================================================
 -- SCM
 ==========================================================================================
 
@@ -80,7 +86,8 @@ public JsonResult GetConsultaLogGet
       --[_] Consulta Dinero.
       --[_] Consulta Log.
 --[_] [Consulta Dinero]: 
-      --[_] Acceso Provisional.      
+      --[_] Datagrid.      
+      --[_] Informe Excel.      
 
 ==========================================================================================
 

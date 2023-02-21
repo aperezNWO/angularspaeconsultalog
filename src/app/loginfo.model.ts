@@ -54,3 +54,53 @@ export class  searchCriteria
         //
     }
 }
+
+ //
+ export class dineroSearchCriteria
+ {
+    //
+    constructor(
+        public P_ID_DATA_SOURCE  : string,
+        public P_VIGENCIA        : string,
+        public P_IDENTIFICACION  : string
+    )
+    {
+        //
+    }
+ }
+ //
+ export class DineroSearchResultEntity
+ {
+    //
+    constructor (
+        public ID_SOLICITUD : string
+    )
+    {
+        //
+    }
+    /*
+     public string VIGENCIA                { get; set; }
+     public string CEDULA                  { get; set; }
+     public string NOMBRE_COMPLETO         { get; set; }
+     public string ID_PERSONA              { get; set; }
+     public string ID_HOGAR                { get; set; }
+     public string TELEFONO_1              { get; set; }
+     public string TELEFONO_2              { get; set; }
+     public string TELEFONO_3              { get; set; }
+     public string EMAIL                   { get; set; }
+     public string DIRECCION               { get; set; }
+     public string BARRIO                  { get; set; }
+     public string DANE                    { get; set; }
+     public string DANE_DEPARTAMENTO       { get; set; }
+     public string DANE_MUNICIPIO          { get; set; }
+     public string FUD                     { get; set; }
+     public string ALIMENTACION            { get; set; }
+     public string ALOJAMIENTO             { get; set; }
+     public string ID_ESTADO               { get; set; }
+     public string ESTADO_SOLICITUD        { get; set; }
+     public string ID_MUNICIPIO            { get; set; }
+     public string USUARIO                 { get; set; }
+     public string FUNCIONARIO_SOLICITUD   { get; set; }
+     public string RESPONSABLE_SOLICITUD   { get; set; }
+     public string OBSERVACION_SOLICITUD   { get; set; } */
+ }
