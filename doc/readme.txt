@@ -81,12 +81,12 @@ public JsonResult GetConsultaLogGet
     --[_] Forms Validation 
         --[_] https://angular.io/guide/forms-overview 
         --[_] https://angular.io/guide/form-validation#interaction-with-native-html-form-validation
---[_] [NAVIGATION]: 
-    --[_] RouterLink 
-      --[_] Consulta Dinero.
-      --[_] Consulta Log.
+--[x] [NAVIGATION]: 
+    --[x] RouterLink 
+      --[x] Consulta Dinero.
+      --[x] Consulta Log.
 --[_] [Consulta Dinero]: 
-      --[_] Datagrid.      
+      --[_] Validaciones.      
       --[_] Informe Excel.      
 
 ==========================================================================================
