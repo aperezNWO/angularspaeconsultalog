@@ -57,7 +57,7 @@ public JsonResult GetConsultaLogGet
 </system.webServer>
 
 ==========================================================================================
--- STRAREGY
+-- STRATEGY
 ==========================================================================================
 
 --[x] Cambiar dominio aplicativos publicados en SOMEE.COM.
@@ -87,6 +87,12 @@ public JsonResult GetConsultaLogGet
       --[x] Consulta Log.
 --[_] [Consulta Dinero]: 
       --[_] Validaciones.      
+            --[_] https://angular.io/guide/form-validation
+                --[_] reactive [formControl].  
+                      --[_] https://angular.io/guide/form-validation#validating-input-in-reactive-forms
+                --[_] template-driven (NgModel).
+      --[_] Mensajes a Usuario.      
+      --[_] SCSS.      
       --[_] Informe Excel.      
 
 ==========================================================================================

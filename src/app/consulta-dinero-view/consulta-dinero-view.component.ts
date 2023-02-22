@@ -98,14 +98,18 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       //
       console.log("_P_DATA_SOURCE_ID : " + _P_DATA_SOURCE_ID);
       console.log("_P_CEDULA         : " + _P_CEDULA);
-      console.log("_P_VIGENCIA       : " + _P_CEDULA);
+      console.log("_P_VIGENCIA       : " + _P_VIGENCIA);
       //
       let _model  = new dineroSearchCriteria( 
                               _P_DATA_SOURCE_ID
                             , _P_VIGENCIA
                             , _P_CEDULA);
+      
       //
-      if (_model.P_ID_DATA_SOURCE != "0")
+      this._searchForm.value["_P_DATA_SOURCE_ID"]
+      this._searchForm.valid                           
+      //
+      if (this._searchForm.status == 'VALID')
           this._update(_model);
   }
   //

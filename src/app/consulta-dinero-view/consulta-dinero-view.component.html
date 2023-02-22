@@ -27,7 +27,7 @@
       </div>
       <!--_CEDULA -->
       <div>
-        <label for="_P_CEDULA"> # de Cédula : </label>
+        <label for="_P_CEDULA"> # de Cédula (ej : 40626208) : </label>
         <input  id="_P_CEDULA" 
                 required
                 name="_P_CEDULA" 
@@ -39,6 +39,10 @@
       <div align="right">
         <button class="button" type="submit">Buscar</button>
         <button class="button" type="button" (click)="_newSearch()">Nueva</button>
+      </div>
+      <hr>
+      <div align="center">
+        <p>Form Status: {{ _searchForm.status }}</p>
       </div>
     </form>
 </div>   
