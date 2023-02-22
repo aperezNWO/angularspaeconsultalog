@@ -12,7 +12,7 @@ import { ConsultaDineroViewComponent  } from './consulta-dinero-view/consulta-di
 export class AppComponent {
   //
   appName           : string = "[SPAE CONSULTAS]"
-  appVersion        : string = '1.0.0.12';
+  appVersion        : string = '1.0.0.13';
   runtimeVersion    : string = VERSION.full;
   //
   readonly LogInfoViewComponent_pageTitle        : string = LogInfoViewComponent.pageTitle();

@@ -73,34 +73,46 @@ export class  searchCriteria
  {
     //
     constructor (
-        public ID_SOLICITUD : string
+        public ID_SOLICITUD              : string,
+        public NOMBRE_COMPLETO           : string,
+        public FUD                       : string,
+        public ESTADO_SOLICITUD          : string,
+        public RESPONSABLE_SOLICITUD     : string,
+        public DANE_DEPARTAMENTO         : string,
+        public DANE_MUNICIPIO            : string,
+    	public OBSERVACION_SOLICITUD     : string
     )
     {
         //
     }
-    /*
-     public string VIGENCIA                { get; set; }
-     public string CEDULA                  { get; set; }
-     public string NOMBRE_COMPLETO         { get; set; }
-     public string ID_PERSONA              { get; set; }
-     public string ID_HOGAR                { get; set; }
-     public string TELEFONO_1              { get; set; }
-     public string TELEFONO_2              { get; set; }
-     public string TELEFONO_3              { get; set; }
-     public string EMAIL                   { get; set; }
-     public string DIRECCION               { get; set; }
-     public string BARRIO                  { get; set; }
-     public string DANE                    { get; set; }
-     public string DANE_DEPARTAMENTO       { get; set; }
-     public string DANE_MUNICIPIO          { get; set; }
-     public string FUD                     { get; set; }
-     public string ALIMENTACION            { get; set; }
-     public string ALOJAMIENTO             { get; set; }
-     public string ID_ESTADO               { get; set; }
-     public string ESTADO_SOLICITUD        { get; set; }
-     public string ID_MUNICIPIO            { get; set; }
-     public string USUARIO                 { get; set; }
-     public string FUNCIONARIO_SOLICITUD   { get; set; }
-     public string RESPONSABLE_SOLICITUD   { get; set; }
-     public string OBSERVACION_SOLICITUD   { get; set; } */
+    /* 
+    --[x] public string VIGENCIA                { get; set; }
+    --[x] public string CEDULA                  { get; set; }
+	--[_] public string ID_PERSONA              { get; set; }
+	--[_] public string ID_HOGAR                { get; set; }
+	--[_] public string TELEFONO_1              { get; set; }
+	--[_] public string TELEFONO_2              { get; set; }
+	--[_] public string TELEFONO_3              { get; set; }
+	--[_] public string EMAIL                   { get; set; }
+	--[_] public string DIRECCION               { get; set; }
+	--[_] public string BARRIO                  { get; set; }
+	--[_] public string DANE                    { get; set; }
+	--[_] public string ALIMENTACION            { get; set; }
+	--[_] public string ALOJAMIENTO             { get; set; }
+	--[_] public string ID_ESTADO               { get; set; }
+	--[_] public string ID_MUNICIPIO            { get; set; }
+	--[_] public string USUARIO                 { get; set; }
+	--[_] public string FUNCIONARIO_SOLICITUD   { get; set; } */
  }
+
+export class  p_Vigencia
+{
+    //
+    constructor(
+        public    M_VIGENCIA_ID   : string,
+        public    M_VIGENCIA_NAME : string
+    )
+    {
+        //
+    }
+}

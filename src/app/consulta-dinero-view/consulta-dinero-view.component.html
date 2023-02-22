@@ -15,8 +15,27 @@
         <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
         </select>
       </div>
-      <hr>
+      <!--_VIGENCIA -->
+      <div>
+        <label for="_P_VIGENCIA"> Vigencia : </label>
+        <select   id="_P_VIGENCIA"
+                  required
+                  name="_P_VIGENCIA" 
+                  formControlName="_P_VIGENCIA">                    
+        <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
+        </select>
+      </div>
+      <!--_CEDULA -->
+      <div>
+        <label for="_P_CEDULA"> # de Cédula : </label>
+        <input  id="_P_CEDULA" 
+                required
+                name="_P_CEDULA" 
+                type="number" 
+                formControlName="_P_CEDULA" >
+      </div>
       <!-- BUTTONS PANEL -->
+      <hr>
       <div align="right">
         <button class="button" type="submit">Buscar</button>
         <button class="button" type="button" (click)="_newSearch()">Nueva</button>
@@ -30,19 +49,34 @@
       <th mat-header-cell *matHeaderCellDef>ID_SOLICITUD</th>
       <td mat-cell *matCellDef="let element">{{ element.ID_SOLICITUD  }}</td>
     </ng-container>
-    <!--
-    <ng-container matColumnDef="DATE_TIME">
-      <th mat-header-cell *matHeaderCellDef>DATE_TIME</th>
-      <td mat-cell *matCellDef="let element">{{ element.DATE_TIME }}</td>
+    <ng-container matColumnDef="NOMBRE_COMPLETO">
+      <th mat-header-cell *matHeaderCellDef>NOMBRE_COMPLETO</th>
+      <td mat-cell *matCellDef="let element">{{ element.NOMBRE_COMPLETO }}</td>
     </ng-container> 
-    <ng-container matColumnDef="TEXT_1_WEB">
-      <th mat-header-cell *matHeaderCellDef>TEXT_1_WEB</th>
-      <td mat-cell *matCellDef="let element">{{ element.TEXT_1_WEB}}</td>
+    <ng-container matColumnDef="FUD">
+      <th mat-header-cell *matHeaderCellDef>FUD</th>
+      <td mat-cell *matCellDef="let element">{{ element.FUD}}</td>
     </ng-container> 
-    <ng-container matColumnDef="TEXT_2_WEB">
-      <th mat-header-cell *matHeaderCellDef>TEXT_2_WEB</th>
-      <td mat-cell *matCellDef="let element">{{ element.TEXT_2_WEB}}</td>
-    </ng-container>  -->
+    <ng-container matColumnDef="ESTADO_SOLICITUD">
+      <th mat-header-cell *matHeaderCellDef>ESTADO_SOLICITUD</th>
+      <td mat-cell *matCellDef="let element">{{ element.ESTADO_SOLICITUD}}</td>
+    </ng-container> 
+    <ng-container matColumnDef="RESPONSABLE_SOLICITUD">
+      <th mat-header-cell *matHeaderCellDef>RESPONSABLE_SOLICITUD</th>
+      <td mat-cell *matCellDef="let element">{{ element.RESPONSABLE_SOLICITUD}}</td>
+    </ng-container>
+    <ng-container matColumnDef="DANE_DEPARTAMENTO">
+      <th mat-header-cell *matHeaderCellDef>DANE_DEPARTAMENTO</th>
+      <td mat-cell *matCellDef="let element">{{ element.DANE_DEPARTAMENTO}}</td>
+    </ng-container>
+    <ng-container matColumnDef="DANE_MUNICIPIO">
+      <th mat-header-cell *matHeaderCellDef>DANE_MUNICIPIO</th>
+      <td mat-cell *matCellDef="let element">{{ element.DANE_MUNICIPIO }}</td>
+    </ng-container>      
+    <ng-container matColumnDef="OBSERVACION_SOLICITUD">
+      <th mat-header-cell *matHeaderCellDef>OBSERVACION_SOLICITUD</th>
+      <td mat-cell *matCellDef="let element">{{ element.OBSERVACION_SOLICITUD}}</td>
+    </ng-container>      
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
