@@ -3,7 +3,7 @@ import { FormBuilder, Validators                      } from '@angular/forms';
 import { MatTableDataSource                           } from '@angular/material/table';
 import { MatPaginator                                 } from '@angular/material/paginator';
 import { Observable                                   } from 'rxjs';
-import { DineroSearchResultEntity, LogEntry_, p_TipoLog, p_Vigencia                         } from '../loginfo.model';
+import { DineroSearchResultEntity, p_Vigencia         } from '../loginfo.model';
 import { p_DataSource, dineroSearchCriteria           } from '../loginfo.model';
 import { LogInfoService                               } from '../loginfo.service';
 //
@@ -14,6 +14,7 @@ import { LogInfoService                               } from '../loginfo.service
 })
 //
 export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
+[x: string]: any;
   //
   readonly _pageTitle          : string = "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
   //

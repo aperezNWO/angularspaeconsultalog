@@ -32,8 +32,21 @@
                 required
                 name="_P_CEDULA" 
                 type="number" 
-                formControlName="_P_CEDULA" >
+                formControlName="_P_CEDULA">
       </div>
+      <!-- CEDULA VALIDACION -->
+      <!--
+      <div *ngIf="_searchForm.value['_P_CEDULA'] == ''" class="alert alert-danger">
+        <div *ngIf="_searchForm.value['_P_CEDULA'] == ''">
+          Cédula es requerido.
+        </div>
+        <div *ngIf="_P_CEDULA.errors?.['minlength']">
+          Name must be at least 4 characters long.
+        </div>
+        <div *ngIf="_P_CEDULA.errors?.['forbiddenName']">
+          Name cannot be Bob.
+        </div>
+      </div>-->
       <!-- BUTTONS PANEL -->
       <hr>
       <div align="right">
