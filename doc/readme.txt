@@ -96,4 +96,27 @@ public JsonResult GetConsultaLogGet
       --[_] Informe Excel.      
 
 ==========================================================================================
+// angular reactive forms validation ?
+export class AppComponent {
+   title = 'my-app';
+   formjson = form
+   userDetails:object;
+
+    /** Define your FormGroup here, You have given the same name for, FormGroup and 
+        UserDetails variable, which is not correct
+     */
+    userDetailsForm: FormGroup;
+
+   /** define the getter here, before the constructor gets called */
+   get role_name() {
+       return this.userDetailsForm.get('role_name');
+   }
+}
+
+
+
+
+undefinedSource: https://stackoverflow.com/questions/60705004
+
+
 

@@ -32,31 +32,31 @@
                 required
                 name="_P_CEDULA" 
                 type="number" 
+                [maxlength]="10"
                 formControlName="_P_CEDULA">
       </div>
-      <!-- CEDULA VALIDACION -->
-      <!--
-      <div *ngIf="_searchForm.value['_P_CEDULA'] == ''" class="alert alert-danger">
-        <div *ngIf="_searchForm.value['_P_CEDULA'] == ''">
-          Cédula es requerido.
-        </div>
-        <div *ngIf="_P_CEDULA.errors?.['minlength']">
-          Name must be at least 4 characters long.
-        </div>
-        <div *ngIf="_P_CEDULA.errors?.['forbiddenName']">
-          Name cannot be Bob.
-        </div>
-      </div>-->
       <!-- BUTTONS PANEL -->
       <hr>
       <div align="right">
         <button class="button" type="submit">Buscar</button>
         <button class="button" type="button" (click)="_newSearch()">Nueva</button>
       </div>
-      <hr>
-      <div align="center">
-        <p>Form Status: {{ _searchForm.status }}</p>
+      <div align="left">
+        <!-- CEDULA VALIDACION -->
+        <ul *ngIf="(_searchForm.invalid) && (this._formSubmit == true)" class="alert alert-danger">
+          <p>Favor revise los datos del formulario</p>
+          <li *ngIf="((this._searchForm.value['_P_DATA_SOURCE_ID'] == null) ||  (this._searchForm.value['_P_DATA_SOURCE_ID'] == '') || (this._searchForm.value['_P_DATA_SOURCE_ID'] == '0') ) && (this._formSubmit == true)">
+            El campo 'Origen de datos' es requerido.
+          </li>
+          <li *ngIf="(((this._searchForm.value['_P_VIGENCIA'] == null)  || (this._searchForm.value['_P_VIGENCIA'] == '') || (this._searchForm.value['_P_VIGENCIA'] == '0')) && (this._formSubmit == true) )">
+            El campo 'Vigencia' es requerido.
+          </li>
+          <li *ngIf="(((this._searchForm.value['_P_CEDULA'] == null)  || (this._searchForm.value['_P_CEDULA'] == '')) && (this._formSubmit == true) )">
+            El campo 'Cédula' es requerido.
+          </li>        
+        </ul>
       </div>
+      <hr>
     </form>
 </div>   
 <hr>

@@ -22,6 +22,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     return "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
   }
   //
+  _formSubmit                  : boolean = false;
+  //
   _informeDineroRemoto!        : Observable<DineroSearchResultEntity[]>;
   _informeDineroRemotoSTR!     : Observable<string>;
   //
@@ -71,6 +73,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   _newSearch() : void {
     //
+    this._formSubmit = false;
+    //
     this.model  = new dineroSearchCriteria(  "0"
                                             ,"0"
                                             ,"0");
@@ -90,6 +94,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   _onSubmit() : void {
       //
       console.warn("(SUBMIT 2)");
+      //
+      this._formSubmit = true;
       //
       let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
       let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "";
