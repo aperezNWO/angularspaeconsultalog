@@ -91,7 +91,8 @@ public JsonResult GetConsultaLogGet
                 --[_] reactive [formControl].  
                       --[_] https://angular.io/guide/form-validation#validating-input-in-reactive-forms
                 --[_] template-driven (NgModel).
-      --[_] Mensajes a Usuario.      
+      --[_] Mensajes a Usuario.   
+            --[_] angular change caption button runtime.   
       --[_] SCSS.      
       --[_] Informe Excel.      
 

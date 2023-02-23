@@ -22,6 +22,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     return "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
   }
   //
+  _buttonCaption               : string = "[Buscar]";
+  //
   _formSubmit                  : boolean = false;
   //
   _informeDineroRemoto!        : Observable<DineroSearchResultEntity[]>;
@@ -75,9 +77,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     //
     this._formSubmit = false;
     //
-    this.model  = new dineroSearchCriteria(  "0"
-                                            ,"0"
-                                            ,"0");
+    this.model       = new dineroSearchCriteria(   "0"
+                                                  ,"0"
+                                                  ,"0");
     //                                            
     this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
     this._dataSource.paginator = this._paginator;
@@ -121,6 +123,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   }
   //
   private _update(_searchCriteria: dineroSearchCriteria) {
+      //
+      this._buttonCaption  = "[Favor espere...]";
       // 
       //this._informeDineroRemoto  = this.logInfoService.getConsultaDineroRemoto_DEV(_searchCriteria);
       this._informeDineroRemotoSTR = this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);
@@ -136,7 +140,12 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
           this._dataSource.paginator = this._paginator;
         },
         error           : (err: Error)      => console.error('ERROR : ' + JSON.stringify(err.message)),
-        complete        : ()                => console.log('(SEARCH END)'),
+        complete        : ()                => {
+            //
+            this._buttonCaption  = "[Buscar]";
+            //
+            console.log('(SEARCH END)');
+        },
       };
       //
       this._informeDineroRemotoSTR.subscribe(_myObserver);
