@@ -64,38 +64,62 @@ public JsonResult GetConsultaLogGet
       --[x] angulardemo.somee.com.
 --[x] Reducir rango por defecto de fechas en entorno de producción.
 --[x] Numeros de Versionamiento. 
---[>] Version de Angular en parte inferior. 
+--[x] Version de Angular en parte inferior. 
       --[_] https://dev.to/nightwolfdev/how-to-display-app-version-in-angular-2ge
---[_] you.ai / chatgpt / https://you.com/code.
---[_] Desbloquear usuario spae.
---[_] Modal status.
---[_] Install Angular Material. 
---[_] Reset / Default Values. 
---[_] [Panel de Búsqueda]: 
-    --[_] P_ID_DATA_SOURCE. 
-    --[_] P_ID_TIPO_LOG. 
-    --[_] P_FECHA_INICIO. 
-    --[_] P_FECHA_FIN.
-    --[_] P_ROW_NUM.
---[_] [FORMS]: 
-    --[_] Forms Validation 
-        --[_] https://angular.io/guide/forms-overview 
-        --[_] https://angular.io/guide/form-validation#interaction-with-native-html-form-validation
+--[x] you.ai / chatgpt / https://you.com/code.
+--[x] Desbloquear usuario spae.
 --[x] [NAVIGATION]: 
     --[x] RouterLink 
       --[x] Consulta Dinero.
       --[x] Consulta Log.
+--[>] [FORMS]: 
+    --[_] Forms Validation 
+        --[_] https://angular.io/guide/forms-overview 
+        --[_] https://angular.io/guide/form-validation#interaction-with-native-html-form-validation
+--[>] [CONSULTA LOG / Panel de Búsqueda / Validacion / CONSULTA_1]: 
+    --[>] P_ID_DATA_SOURCE. 
+    --[>] P_ID_TIPO_LOG. 
+    --[>] P_FECHA_INICIO. 
+    --[>] P_FECHA_FIN.
+    --[>] P_ROW_NUM.
+    --[_] Mensajes a Usuario.   
+            --[_] angular change caption button runtime.   
+            --[_] Record count.   
+            --[_] Modal status.
+            --[_] Reset / Default Values. 
+--[>] [CONSULTA LOG / Panel de Búsqueda / Validacion / CONSULTA_2]: 
+    --[>] P_ID_DATA_SOURCE. 
+    --[>] P_ID_TIPO_LOG. 
+    --[>] P_FECHA_INICIO. 
+    --[>] P_FECHA_FIN.
+    --[>] P_ROW_NUM.
+    --[_] Mensajes a Usuario.   
+            --[_] angular change caption button runtime.   
+            --[_] Record count.   
+            --[_] Modal status.
+            --[_] Reset / Default Values. 
 --[_] [Consulta Dinero]: 
-      --[_] Validaciones.      
+    --[>] material tab. 
+    --[x] Validaciones / reactive.  
+    --[_] Validaciones / template driven.      
             --[_] https://angular.io/guide/form-validation
                 --[_] reactive [formControl].  
                       --[_] https://angular.io/guide/form-validation#validating-input-in-reactive-forms
                 --[_] template-driven (NgModel).
-      --[_] Mensajes a Usuario.   
+    --[_] Mensajes a Usuario.   
             --[_] angular change caption button runtime.   
-      --[_] SCSS.      
-      --[_] Informe Excel.      
-
+            --[_] Record count.   
+            --[_] Modal status.
+            --[_] Reset / Default Values. 
+     --[_] Behaviour on Exception.     
+        --[_] Messages.
+        --[_] Buttons.
+        --[_] Status.
+  --[_] Informe Excel.      
+  --[_] Estilos.      
+        --[_] Install Angular Material. 
+        --[_] Bootstrap (mobile).      
+        --[_] SCSS.      
 ==========================================================================================
 // angular reactive forms validation ?
 export class AppComponent {
