@@ -43,7 +43,7 @@
       </div>
       <div align="left">
         <!-- CEDULA VALIDACION -->
-        <ul *ngIf="(_searchForm.invalid) && (this._formSubmit == true)" class="alert alert-danger">
+        <ul *ngIf="(this._searchForm.invalid) && (this._formSubmit == true)" class="alert alert-danger">
           <p>Favor revise los datos del formulario</p>
           <li *ngIf="((this._searchForm.value['_P_DATA_SOURCE_ID'] == null) ||  (this._searchForm.value['_P_DATA_SOURCE_ID'] == '') || (this._searchForm.value['_P_DATA_SOURCE_ID'] == '0') ) && (this._formSubmit == true)">
             El campo 'Origen de datos' es requerido.
@@ -57,6 +57,9 @@
         </ul>
       </div>
       <hr>
+      <div align="rieht">
+        <label id="status" name="searchStatus">{{this._textStatus}}</label>
+      </div>
     </form>
 </div>   
 <hr>

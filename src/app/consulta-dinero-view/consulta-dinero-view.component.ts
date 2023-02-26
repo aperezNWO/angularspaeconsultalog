@@ -22,6 +22,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     return "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
   }
   //
+  _textStatus                  : string = "";
+  //
   _buttonCaption               : string = "[Buscar]";
   //
   _formSubmit                  : boolean = false;
@@ -75,11 +77,15 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   _newSearch() : void {
     //
-    this._formSubmit = false;
+    this._textStatus    = "";
     //
-    this.model       = new dineroSearchCriteria(   "0"
-                                                  ,"0"
-                                                  ,"0");
+    this._formSubmit    = false;
+    //
+    this._buttonCaption = "[Buscar]";
+    //
+    this.model          = new dineroSearchCriteria(   "0"
+                                                     ,"0"
+                                                     ,"0");
     //                                            
     this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
     this._dataSource.paginator = this._paginator;
@@ -97,13 +103,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       //
       console.warn("(SUBMIT 2)");
       //
-      this._formSubmit = true;
-      //
       let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
       let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "";
       let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "";
-      //let _P_FECHA_INICIO    : string = this._searchForm.value["_P_FECHA_INICIO"]   || "";      
-      //let _P_FECHA_FIN       : string = this._searchForm.value["_P_FECHA_FIN"]      || "";
       //
       console.log("_P_DATA_SOURCE_ID : " + _P_DATA_SOURCE_ID);
       console.log("_P_CEDULA         : " + _P_CEDULA);
@@ -113,12 +115,14 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
                               _P_DATA_SOURCE_ID
                             , _P_VIGENCIA
                             , _P_CEDULA);
-      
       //
-      this._searchForm.value["_P_DATA_SOURCE_ID"]
-      this._searchForm.valid                           
+      this._textStatus     = "";
       //
-      if (this._searchForm.status == 'VALID')
+      this._formSubmit     = true;
+      //
+      console.log("Form invalid ? : " + this._searchForm.invalid);
+      //
+      if (this._searchForm.invalid == false)
           this._update(_model);
   }
   //
@@ -138,8 +142,18 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
           //
           this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>(jsonParseResult);
           this._dataSource.paginator = this._paginator;
+          //
+          let recordCount            : string = this._dataSource.data.length.toString();
+          this._textStatus           = "Se encontraron [" + recordCount + "] registatros";
         },
-        error           : (err: Error)      => console.error('ERROR : ' + JSON.stringify(err.message)),
+        error           : (err: Error)      => {
+            //
+            this._textStatus     = "Ha ocurrido un error. Favor intente de nuevo";
+            //
+            this._buttonCaption  = "[Buscar]";              
+            //
+            console.error('ERROR : ' + JSON.stringify(err.message));
+        },
         complete        : ()                => {
             //
             this._buttonCaption  = "[Buscar]";
