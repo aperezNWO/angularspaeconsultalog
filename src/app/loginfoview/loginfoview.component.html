@@ -3,10 +3,11 @@
   <H3>{{_pageTitle}}</H3>
 </span>
 <mat-tab-group>
-  <mat-tab label="[CONSULTA_1]">
-    <h2>[CONSULTA_1]</h2>
+  <mat-tab label="[CONSULTA_1 (TEMPLATE DRIVEN)]">
+    <h2>[CONSULTA_1 (TEMPLATE DRIVEN)]</h2>
     <div class="mat-elevation-z8">
       <hr>  
+      <!-- IBIT SEARCH PANEL -->
       <div class="searchPanel">
         <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
           <!-- [_] P_DATA_SOURCE_ID -->
@@ -85,7 +86,9 @@
           </div>
         </form>
       </div>
+      <!-- END  SERCH PANEL  -->
       <hr>
+      <!-- INIT DATAGRID -->
       <div class="scrollbar">
           <table  mat-table #searchResults [dataSource]="dataSource"  class="mat-elevation-z8" aria-label="informelogremoto">
             <ng-container matColumnDef="ID_LOG">
@@ -108,19 +111,23 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
       </div>
+      <!-- END DATAGRID  -->
       <hr>
+      <!-- INIT PAGINATOR -->
       <mat-paginator #paginator="matPaginator"
                     class="demo-paginator" 
                     [length]=""
                     [pageSize]="3"
                     [pageSizeOptions]="[3, 10, 25, 100]"
                     aria-label="informelogremoto"></mat-paginator>
+      <!-- END PAGINATOR -->
     </div>
   </mat-tab>
-  <mat-tab label="[CONSULTA_2]">
-    <h2>[CONSULTA_2]</h2>
+  <mat-tab label="[CONSULTA_2 (REACTIVE)]">
+    <h2>[CONSULTA_2 (REACTIVE)]</h2>
     <div class="mat-elevation-z8">
       <hr>  
+      <!-- INIT SEARCH PANEL -->
       <div class="searchPanel">
         <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
           <!--P_DATA_SOURCE_ID      -->
@@ -170,7 +177,9 @@
           </div>
         </form>
       </div>
+      <!-- END SEARCH PANEL -->
       <hr>
+      <!-- INIT DATAGRID -->
       <div class="scrollbar">
         <table  mat-table #_searchResults [dataSource]="_dataSource"  class="mat-elevation-z8" aria-label="_informelogremoto">
           <ng-container matColumnDef="ID_LOG">
@@ -193,6 +202,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
       </div>
+      <!-- END  DATAGRID -->
       <hr>
       <mat-paginator #_paginator="matPaginator"
                     class="demo-paginator" 

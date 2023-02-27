@@ -164,4 +164,14 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       //
       this._informeDineroRemotoSTR.subscribe(_myObserver);
   }
+  //-----------------------------------------------------
+  // TEMPLATE DRIVEN FORM
+  //-----------------------------------------------------
+  onSubmit()  : void {
+     //
+  }
+  //
+  newSearch() : void {  
+     //
+  }
 }

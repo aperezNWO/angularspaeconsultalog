@@ -2,104 +2,199 @@
 <span class="subtitle">
     <H3>{{_pageTitle}}</H3>
 </span>
+<mat-tab-group>
+  <mat-tab label="[CONSULTA_1 (REACTIVE)]">
+    <h2>[CONSULTA_1 (REACTIVE)]</h2>
+    <div class="mat-elevation-z8">   
+      <!-- INIT SEARCHPANEL -->
+      <div class="searchPanel">
+          <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
+            <!-- INICIO CAMPOS BUSQUEDA  -->
+            <!-- P_DATA_SOURCE_ID        -->
+            <div>
+              <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
+              <select   id="_P_DATA_SOURCE_ID"
+                        required
+                        name="_P_DATA_SOURCE_ID" 
+                        formControlName="_P_DATA_SOURCE_ID">                    
+              <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
+              </select>
+            </div>
+            <!-- _VIGENCIA -->
+            <div>
+              <label for="_P_VIGENCIA"> Vigencia : </label>
+              <select   id="_P_VIGENCIA"
+                        required
+                        name="_P_VIGENCIA" 
+                        formControlName="_P_VIGENCIA">                    
+              <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
+              </select>
+            </div>
+            <!-- _CEDULA -->
+            <div>
+              <label for="_P_CEDULA"> # de Cédula (ej : 40626208) : </label>
+              <input  id="_P_CEDULA" 
+                      required
+                      name="_P_CEDULA" 
+                      type="number" 
+                      [maxlength]="10"
+                      formControlName="_P_CEDULA">
+            </div>
+            <!-- FIN    CAMPOS BUSQUEDA -->
+            <!-- INICIO BUTTONS PANEL   -->
+            <hr>
+            <div align="right">
+              <button class="button" type="submit" [disabled]="(this._buttonCaption != '[Buscar]')">{{this._buttonCaption}}</button>
+              <button class="button" type="button" (click)="_newSearch()">[Nueva]</button>
+            </div>
+            <!-- FIN BUTTONS PANEL             -->
+            <!-- INICIO MENSAJES VALIDACION    -->
+            <div align="left">
+              <ul *ngIf="(this._searchForm.invalid) && (this._formSubmit == true)" class="alert alert-danger">
+                <p>Favor revise los datos del formulario</p>
+                <li *ngIf="((this._searchForm.value['_P_DATA_SOURCE_ID'] == null) ||  (this._searchForm.value['_P_DATA_SOURCE_ID'] == '') || (this._searchForm.value['_P_DATA_SOURCE_ID'] == '0') ) && (this._formSubmit == true)">
+                  El campo 'Origen de datos' es requerido.
+                </li>
+                <li *ngIf="(((this._searchForm.value['_P_VIGENCIA'] == null)  || (this._searchForm.value['_P_VIGENCIA'] == '') || (this._searchForm.value['_P_VIGENCIA'] == '0')) && (this._formSubmit == true) )">
+                  El campo 'Vigencia' es requerido.
+                </li>
+                <li *ngIf="(((this._searchForm.value['_P_CEDULA'] == null)  || (this._searchForm.value['_P_CEDULA'] == '')) && (this._formSubmit == true) )">
+                  El campo 'Cédula' es requerido.
+                </li>        
+              </ul>
+            </div>
+            <!-- FIN MENBSAJES VALIDACION      -->
+            <hr>
+            <!-- INI9CIO STATUS BUSQUEDA -->
+            <div align="rieht">
+              <label id="status" name="searchStatus">{{this._textStatus}}</label>
+            </div>
+            <!-- FIN     STATUS BUSQUEDA -->
+          </form>
+      </div>
+      <!-- END  SEARCHPANEL -->   
+      <hr>
+      <!-- INIT DATAGRID -->
+      <div class="scrollbar">
+        <table  mat-table #_searchResults [dataSource]="_dataSource"  class="mat-elevation-z8" aria-label="_informeDineroremoto">
+          <ng-container matColumnDef="ID_SOLICITUD">
+            <th mat-header-cell *matHeaderCellDef>ID_SOLICITUD</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID_SOLICITUD  }}</td>
+          </ng-container>
+          <ng-container matColumnDef="NOMBRE_COMPLETO">
+            <th mat-header-cell *matHeaderCellDef>NOMBRE_COMPLETO</th>
+            <td mat-cell *matCellDef="let element">{{ element.NOMBRE_COMPLETO }}</td>
+          </ng-container> 
+          <ng-container matColumnDef="FUD">
+            <th mat-header-cell *matHeaderCellDef>FUD</th>
+            <td mat-cell *matCellDef="let element">{{ element.FUD}}</td>
+          </ng-container> 
+          <ng-container matColumnDef="ESTADO_SOLICITUD">
+            <th mat-header-cell *matHeaderCellDef>ESTADO_SOLICITUD</th>
+            <td mat-cell *matCellDef="let element">{{ element.ESTADO_SOLICITUD}}</td>
+          </ng-container> 
+          <ng-container matColumnDef="RESPONSABLE_SOLICITUD">
+            <th mat-header-cell *matHeaderCellDef>RESPONSABLE_SOLICITUD</th>
+            <td mat-cell *matCellDef="let element">{{ element.RESPONSABLE_SOLICITUD}}</td>
+          </ng-container>
+          <ng-container matColumnDef="DANE_DEPARTAMENTO">
+            <th mat-header-cell *matHeaderCellDef>DANE_DEPARTAMENTO</th>
+            <td mat-cell *matCellDef="let element">{{ element.DANE_DEPARTAMENTO}}</td>
+          </ng-container>
+          <ng-container matColumnDef="DANE_MUNICIPIO">
+            <th mat-header-cell *matHeaderCellDef>DANE_MUNICIPIO</th>
+            <td mat-cell *matCellDef="let element">{{ element.DANE_MUNICIPIO }}</td>
+          </ng-container>      
+          <ng-container matColumnDef="OBSERVACION_SOLICITUD">
+            <th mat-header-cell *matHeaderCellDef>OBSERVACION_SOLICITUD</th>
+            <td mat-cell *matCellDef="let element">{{ element.OBSERVACION_SOLICITUD}}</td>
+          </ng-container>      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <!-- END  DATAGRID -->
+      <hr>
+      <!-- INIT PAGINATOR -->
+      <!-- END  PAGINATOR -->
+    </div>
+  </mat-tab>
+  <mat-tab label="[CONSULTA_2 (TEMPLATE DRIVEN)]">
+    <h2>[CONSULTA_2 (TEMPLATE DRIVEN)]</h2>
+    <div class="mat-elevation-z8">
+      <!-- INIT SEARCHPANEL -->
+      <div class="searchPanel">
+        <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+          <!-- INICIO CAMPOS BUSQUEDA -->
+          <!-- [_] P_DATA_SOURCE_ID -->
+          <div class="form-group">
+            <label for="P_ID_DATA_SOURCE" style="width:100px;">Origen de Datos : </label>
+            <select class="form-control" 
+                    id="P_ID_DATA_SOURCE"
+                    name="P_ID_DATA_SOURCE"
+                    required
+                    [(ngModel)]="model.P_ID_DATA_SOURCE" 
+                    #P_DATA_SOURCE_ID="ngModel">                    >
+            <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
+            </select>
+            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine)" class="alert alert-danger">
+              Favor seleccione origen de datos
+            </div>
+          </div>
+          <!-- _VIGENCIA            -->
+          <div class="form-group">
+            <label for="_P_VIGENCIA"     style="width:100px;"> Vigencia : </label>
+            <select   class="form-control" 
+                      id="_P_VIGENCIA"
+                      name="_P_VIGENCIA" 
+                      required
+                      [(ngModel)]="model.P_VIGENCIA" 
+                      #_P_VIGENCIA ="ngModel">                    
+            <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
+            </select>
+          </div>
+          <!-- _CEDULA                -->
+          <!--
+          <div class="form-group">
+            <label for="P_ROW_NUM" style="width:100px;"># registros : </label>
+            <input class="form-control" type="number" maxlength="3" minlength="1" min="3" max="999"
+                    id="P_ROW_NUM"
+                    required
+                    [(ngModel)]="model.P_ROW_NUM"
+                    name="P_ROW_NUM"                     
+                    #P_ROW_NUM="ngModel"/>
+            <div [hidden]="(P_ROW_NUM.valid || P_ROW_NUM.pristine)" class="alert alert-danger">
+              Favor ingrese # de filas
+            </div>
+          </div>
+          -->
+          <!-- FIN    CAMPOS BUSQUEDA -->
+          <hr/>
+          <!-- INICIO BUTTONS PANEL        -->
+          <div align="right">
+            <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
+            <button type="button" class="btn btn-default" (click)="newSearch();">[Nueva]</button>
+          </div>
+          <!-- FIN BUTTONS PANEL           -->
+          <!-- INICIO MENSAJES VALIDACION  -->
+          <!-- FIN    MENSAJES VALIDACION  -->
+          <!-- INICIO STATUS   BUSQUEDA    -->
+          <!-- FIN    STATUS   BUSQUEDA    -->
+        </form>
+      </div>
+      <!-- END  SEARCHPANEL -->
+      <hr>
+      <!-- INIT DATAGRID -->
+      <div class="scrollbar">
+        
+      </div>
+      <!-- END  DATAGRID -->
+      <hr>
+      <!-- INIT PAGINATOR -->
+      <!-- END  PAGINATOR -->
+    </div>
+  </mat-tab>
+</mat-tab-group>
 
-<div class="searchPanel">
-    <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
-      <!--P_DATA_SOURCE_ID      -->
-      <div>
-        <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
-        <select   id="_P_DATA_SOURCE_ID"
-                  required
-                  name="_P_DATA_SOURCE_ID" 
-                  formControlName="_P_DATA_SOURCE_ID">                    
-        <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
-        </select>
-      </div>
-      <!--_VIGENCIA -->
-      <div>
-        <label for="_P_VIGENCIA"> Vigencia : </label>
-        <select   id="_P_VIGENCIA"
-                  required
-                  name="_P_VIGENCIA" 
-                  formControlName="_P_VIGENCIA">                    
-        <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
-        </select>
-      </div>
-      <!--_CEDULA -->
-      <div>
-        <label for="_P_CEDULA"> # de Cédula (ej : 40626208) : </label>
-        <input  id="_P_CEDULA" 
-                required
-                name="_P_CEDULA" 
-                type="number" 
-                [maxlength]="10"
-                formControlName="_P_CEDULA">
-      </div>
-      <!-- BUTTONS PANEL -->
-      <hr>
-      <div align="right">
-        <button class="button" type="submit" [disabled]="(this._buttonCaption != '[Buscar]')">{{this._buttonCaption}}</button>
-        <button class="button" type="button" (click)="_newSearch()">[Nueva]</button>
-      </div>
-      <div align="left">
-        <!-- CEDULA VALIDACION -->
-        <ul *ngIf="(this._searchForm.invalid) && (this._formSubmit == true)" class="alert alert-danger">
-          <p>Favor revise los datos del formulario</p>
-          <li *ngIf="((this._searchForm.value['_P_DATA_SOURCE_ID'] == null) ||  (this._searchForm.value['_P_DATA_SOURCE_ID'] == '') || (this._searchForm.value['_P_DATA_SOURCE_ID'] == '0') ) && (this._formSubmit == true)">
-            El campo 'Origen de datos' es requerido.
-          </li>
-          <li *ngIf="(((this._searchForm.value['_P_VIGENCIA'] == null)  || (this._searchForm.value['_P_VIGENCIA'] == '') || (this._searchForm.value['_P_VIGENCIA'] == '0')) && (this._formSubmit == true) )">
-            El campo 'Vigencia' es requerido.
-          </li>
-          <li *ngIf="(((this._searchForm.value['_P_CEDULA'] == null)  || (this._searchForm.value['_P_CEDULA'] == '')) && (this._formSubmit == true) )">
-            El campo 'Cédula' es requerido.
-          </li>        
-        </ul>
-      </div>
-      <hr>
-      <div align="rieht">
-        <label id="status" name="searchStatus">{{this._textStatus}}</label>
-      </div>
-    </form>
-</div>   
-<hr>
-<div class="scrollbar">
-  <table  mat-table #_searchResults [dataSource]="_dataSource"  class="mat-elevation-z8" aria-label="_informeDineroremoto">
-    <ng-container matColumnDef="ID_SOLICITUD">
-      <th mat-header-cell *matHeaderCellDef>ID_SOLICITUD</th>
-      <td mat-cell *matCellDef="let element">{{ element.ID_SOLICITUD  }}</td>
-    </ng-container>
-    <ng-container matColumnDef="NOMBRE_COMPLETO">
-      <th mat-header-cell *matHeaderCellDef>NOMBRE_COMPLETO</th>
-      <td mat-cell *matCellDef="let element">{{ element.NOMBRE_COMPLETO }}</td>
-    </ng-container> 
-    <ng-container matColumnDef="FUD">
-      <th mat-header-cell *matHeaderCellDef>FUD</th>
-      <td mat-cell *matCellDef="let element">{{ element.FUD}}</td>
-    </ng-container> 
-    <ng-container matColumnDef="ESTADO_SOLICITUD">
-      <th mat-header-cell *matHeaderCellDef>ESTADO_SOLICITUD</th>
-      <td mat-cell *matCellDef="let element">{{ element.ESTADO_SOLICITUD}}</td>
-    </ng-container> 
-    <ng-container matColumnDef="RESPONSABLE_SOLICITUD">
-      <th mat-header-cell *matHeaderCellDef>RESPONSABLE_SOLICITUD</th>
-      <td mat-cell *matCellDef="let element">{{ element.RESPONSABLE_SOLICITUD}}</td>
-    </ng-container>
-    <ng-container matColumnDef="DANE_DEPARTAMENTO">
-      <th mat-header-cell *matHeaderCellDef>DANE_DEPARTAMENTO</th>
-      <td mat-cell *matCellDef="let element">{{ element.DANE_DEPARTAMENTO}}</td>
-    </ng-container>
-    <ng-container matColumnDef="DANE_MUNICIPIO">
-      <th mat-header-cell *matHeaderCellDef>DANE_MUNICIPIO</th>
-      <td mat-cell *matCellDef="let element">{{ element.DANE_MUNICIPIO }}</td>
-    </ng-container>      
-    <ng-container matColumnDef="OBSERVACION_SOLICITUD">
-      <th mat-header-cell *matHeaderCellDef>OBSERVACION_SOLICITUD</th>
-      <td mat-cell *matCellDef="let element">{{ element.OBSERVACION_SOLICITUD}}</td>
-    </ng-container>      
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</div>
-<hr>
+
 
