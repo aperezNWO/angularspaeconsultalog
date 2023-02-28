@@ -21,6 +21,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   static pageTitle()           : string {
     return "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
   }
+  //------------------------------------------------------------------------------------------------
+  //  REACTIVE FORM
+  //------------------------------------------------------------------------------------------------
   //
   _textStatus                  : string = "";
   //
@@ -50,12 +53,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   model                              = new dineroSearchCriteria( "0"
                                                                 ,"0"
                                                                 ,"0");
-  
-  //                                                                 
-  _model                              = new dineroSearchCriteria(  "0"
-                                                                  ,"0"
-                                                                  ,"0");
-                                                                //
+  //
   @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
   //
   _searchForm   = this.formBuilder.group({
@@ -63,16 +61,30 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     _P_CEDULA             : [""            , Validators.required], 
     _P_VIGENCIA           : [""            , Validators.required],
   });
-  //  
+  //------------------------------------------------------------------------------------------------
+  // TEMPLATE DRIVEN FORM
+  //------------------------------------------------------------------------------------------------
+  td_dataSource                         = new MatTableDataSource<DineroSearchResultEntity>();
+  //
+  td_model                              = new dineroSearchCriteria(   "0"
+                                                                     ,"0"
+                                                                     ,"0");
+  //
+  td_informeDineroRemotoSTR!            : Observable<string>;
+  // 
+  td_displayedColumns                   : string[]                = ['ID_SOLICITUD'/*,'NOMBRE_COMPLETO','FUD','ESTADO_SOLICITUD','RESPONSABLE_SOLICITUD', 'DANE_DEPARTAMENTO','DANE_MUNICIPIO','OBSERVACION_SOLICITUD'*/];
+  //
+  @ViewChild('td_paginator',{read: MatPaginator}) td_paginator!: MatPaginator;
+  //                                                                  
   constructor(private logInfoService : LogInfoService, private formBuilder: FormBuilder) {
     //
   }
   //
   ngOnInit(): void {
-      //
-      this.newSearch();
-      //
+      // REACTIVE FORM
       this._newSearch();
+      // TEMPLATE DRIVEN FORM
+      this.td_newSearch();
   }
   //
   ngAfterViewInit() {
@@ -105,7 +117,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   _onSubmit() : void {
       //
-      console.warn("(SUBMIT 2)");
+      console.warn("(SUBMIT 1)");
       //
       let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
       let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "";
@@ -171,14 +183,61 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //-----------------------------------------------------
   // TEMPLATE DRIVEN FORM
   //-----------------------------------------------------
-  onSubmit()  : void {
-     //
+  td_onSubmit()  : void {
+    //
+    console.warn("(SUBMIT 2)");
+    //
+    console.log("_P_DATA_SOURCE_ID : " + this.td_model.P_ID_DATA_SOURCE);
+    console.log("_P_CEDULA         : " + this.td_model.P_IDENTIFICACION);
+    console.log("_P_VIGENCIA       : " + this.td_model.P_VIGENCIA);
+    //
+    this.td_update(this.td_model);
   }
   //
-  newSearch() : void {  
+  td_newSearch() : void {  
     //
-    this._model          = new dineroSearchCriteria(   ""
-                                                      ,""
-                                                      ,"");
-    }
+    this.td_model                = new dineroSearchCriteria(   "0"
+                                                              ,"0"
+                                                              ,"0");
+    //                                            
+    this.td_dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
+    this.td_dataSource.paginator = this._paginator;
+  }
+  //
+  private td_update(_searchCriteria: dineroSearchCriteria) : void {
+      //
+      //this._informeDineroRemoto    = this.logInfoService.getConsultaDineroRemoto_DEV(_searchCriteria);
+      this.td_informeDineroRemotoSTR = this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);
+      //
+      const _tdObserver = {
+        next: (p_dineroSearchResult : string)     => { 
+          //
+          console.log('RETURN VALUES : '  +  p_dineroSearchResult);
+          //
+          let jsonParseResult        : [] =  JSON.parse(p_dineroSearchResult);
+          //
+          this.td_dataSource           = new MatTableDataSource<DineroSearchResultEntity>(jsonParseResult);
+          this.td_dataSource.paginator = this.td_paginator;
+          //
+          let recordCount            : string = this._dataSource.data.length.toString();
+          this._textStatus           = "Se encontraron [" + recordCount + "] registatros";
+        },
+        error           : (err: Error)      => {
+            //
+            //this._textStatus     = "Ha ocurrido un error. Favor intente de nuevo";
+            //
+            //this._buttonCaption  = "[Buscar]";              
+            //
+            console.error('ERROR : ' + JSON.stringify(err.message));
+        },
+        complete        : ()                => {
+            //
+            //this._buttonCaption  = "[Buscar]";
+            //
+            console.log('(SEARCH END)');
+        },
+      };
+      //
+      this.td_informeDineroRemotoSTR.subscribe(_tdObserver);
+  }
 }

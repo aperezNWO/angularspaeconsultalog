@@ -65,11 +65,11 @@
             </div>
             <!-- FIN MENBSAJES VALIDACION      -->
             <hr>
-            <!-- INI9CIO STATUS BUSQUEDA -->
+            <!-- INICIO STATUS BUSQUEDA -->
             <div align="rieht">
               <label id="status" name="searchStatus">{{this._textStatus}}</label>
             </div>
-            <!-- FIN     STATUS BUSQUEDA -->
+            <!-- FIN    STATUS BUSQUEDA -->
           </form>
       </div>
       <!-- END  SEARCHPANEL -->   
@@ -124,7 +124,7 @@
     <div class="mat-elevation-z8">
       <!-- INIT SEARCHPANEL -->
       <div class="searchPanel">
-        <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+        <form (ngSubmit)="td_onSubmit()" #searchForm="ngForm">
           <!-- INICIO CAMPOS BUSQUEDA -->
           <!-- [_] P_DATA_SOURCE_ID -->
           <div class="form-group">
@@ -132,7 +132,7 @@
             <select class="form-control" 
                     id="P_ID_DATA_SOURCE"
                     name="P_ID_DATA_SOURCE"
-                    [(ngModel)]="_model.P_ID_DATA_SOURCE" 
+                    [(ngModel)]="td_model.P_ID_DATA_SOURCE" 
                     #P_DATA_SOURCE_ID="ngModel"
                     required>                    
             <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
@@ -144,7 +144,7 @@
             <select   class="form-control" 
                       id="_P_VIGENCIA"
                       name="_P_VIGENCIA" 
-                      [(ngModel)]="_model.P_VIGENCIA" 
+                      [(ngModel)]="td_model.P_VIGENCIA" 
                       #_P_VIGENCIA ="ngModel"
                       required>                    
             <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
@@ -157,7 +157,7 @@
                     type="number"
                     id="P_IDENTIFICACION"
                     name="P_IDENTIFICACION"  
-                    [(ngModel)]="_model.P_IDENTIFICACION"
+                    [(ngModel)]="td_model.P_IDENTIFICACION"
                     #P_IDENTIFICACION="ngModel"
                     type="number" 
                     required/>
@@ -167,7 +167,7 @@
           <!-- INICIO BUTTONS PANEL        -->
           <div align="right">
             <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
-            <button type="button" class="btn btn-default" (click)="newSearch();">[Nueva]</button>
+            <button type="button" class="btn btn-default" (click)="td_newSearch();">[Nueva]</button>
           </div>
           <!-- FIN BUTTONS PANEL           -->
           <!-- INICIO MENSAJES VALIDACION  -->
@@ -188,7 +188,14 @@
       <hr>
       <!-- INIT DATAGRID -->
       <div class="scrollbar">
-        
+        <table  mat-table #td_searchResults [dataSource]="td_dataSource"  class="mat-elevation-z8" aria-label="td_informeDineroremoto">
+          <ng-container matColumnDef="ID_SOLICITUD">
+            <th mat-header-cell *matHeaderCellDef>ID_SOLICITUD</th>
+            <td mat-cell *matCellDef="let element">{{ element.ID_SOLICITUD  }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="td_displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: td_displayedColumns"></tr>
+        </table>
       </div>
       <!-- END  DATAGRID -->
       <hr>
