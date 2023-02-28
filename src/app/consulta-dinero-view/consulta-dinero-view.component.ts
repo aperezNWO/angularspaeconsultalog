@@ -64,6 +64,13 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //------------------------------------------------------------------------------------------------
   // TEMPLATE DRIVEN FORM
   //------------------------------------------------------------------------------------------------
+  //
+  td_textStatus                  : string = "";
+  //
+  td_buttonCaption               : string = "[Buscar]";
+  //
+  td_formSubmit                  : boolean = false;
+  //
   td_dataSource                         = new MatTableDataSource<DineroSearchResultEntity>();
   //
   td_model                              = new dineroSearchCriteria(   "0"
@@ -190,10 +197,17 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     console.log("_P_DATA_SOURCE_ID : " + this.td_model.P_ID_DATA_SOURCE);
     console.log("_P_CEDULA         : " + this.td_model.P_IDENTIFICACION);
     console.log("_P_VIGENCIA       : " + this.td_model.P_VIGENCIA);
-    // 
-    //console.log("Form invalid ? : " + this['td_searchForm'].form.valid);
     //
-    this.td_update(this.td_model);
+    this.td_textStatus     = "";
+    //
+    this.td_formSubmit     = true;
+    //
+    let td_valid_form     : boolean = ((this.td_model.P_ID_DATA_SOURCE != "0") && (this.td_model.P_IDENTIFICACION != "0") && ((this.td_model.P_VIGENCIA != "")));
+    //
+    console.log("Form valid ? : " + td_valid_form);
+    //
+    if (td_valid_form)
+       this.td_update(this.td_model);
   }
   //
   td_newSearch() : void {  
@@ -207,6 +221,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   }
   //
   private td_update(_searchCriteria: dineroSearchCriteria) : void {
+      //
+      this.td_buttonCaption  = "[Favor espere...]";
       //
       //this._informeDineroRemoto    = this.logInfoService.getConsultaDineroRemoto_DEV(_searchCriteria);
       this.td_informeDineroRemotoSTR = this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);
@@ -226,15 +242,15 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
         },
         error           : (err: Error)      => {
             //
-            //this._textStatus     = "Ha ocurrido un error. Favor intente de nuevo";
+            this.td_textStatus     = "Ha ocurrido un error. Favor intente de nuevo";
             //
-            //this._buttonCaption  = "[Buscar]";              
+            this.td_buttonCaption  = "[Buscar]";              
             //
             console.error('ERROR : ' + JSON.stringify(err.message));
         },
         complete        : ()                => {
             //
-            //this._buttonCaption  = "[Buscar]";
+            this.td_buttonCaption  = "[Buscar]";
             //
             console.log('(SEARCH END)');
         },

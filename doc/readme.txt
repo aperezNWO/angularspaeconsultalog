@@ -1,3 +1,37 @@
+//angular pagination?
+<ul uib-pagination total-items="filteredData.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm pagination" rotate="false" boundary-links="true" items-per-page="itemsPerPage"></ul>
+
+
+<uib-pagination total-items="filteredData.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm pagination" rotate="false" boundary-links="true" items-per-page="itemsPerPage"></uib-pagination>
+
+
+<pagination total-items="filteredData.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm pagination" rotate="false" boundary-links="true" items-per-page="itemsPerPage"></pagination>
+
+
+$scope.currentPage = 1;
+$scope.itemsPerPage = 5;
+$scope.maxSize = 5; //Number of pager buttons to show
+
+
+<tr ng-repeat="cate in filteredData = (categoryList | filter : search:Name) | limitTo:itemsPerPage:itemsPerPage*(currentPage-1) track by $index">
+   <td>{{$index+1}}</td>
+   <td>{{cate.Name}}</td>
+   <td>{{cate.Description}}</td>
+</tr>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+
+
+
+undefinedSource: https://stackoverflow.com/questions/44289424
+
+
 
 ==========================================================================================
 // angular reactive forms validation ?

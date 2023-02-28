@@ -166,8 +166,8 @@
           <hr/>
           <!-- INICIO BUTTONS PANEL        -->
           <div align="right">
-            <button type="submit" class="btn btn-success" [disabled]="!td_searchForm.form.valid">[Buscar]</button>
-            <button type="button" class="btn btn-default" (click)="td_newSearch();">[Nueva]</button>
+            <button class="button" type="submit" [disabled]="(this.td_buttonCaption != '[Buscar]')">{{this.td_buttonCaption}}</button>
+            <button class="button" type="button" (click)="td_newSearch()">[Nueva]</button>
           </div>
           <!-- FIN BUTTONS PANEL           -->
           <!-- INICIO MENSAJES VALIDACION  -->
