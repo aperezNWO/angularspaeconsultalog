@@ -124,7 +124,7 @@
     <div class="mat-elevation-z8">
       <!-- INIT SEARCHPANEL -->
       <div class="searchPanel">
-        <form (ngSubmit)="td_onSubmit()" #searchForm="ngForm">
+        <form (ngSubmit)="td_onSubmit()" #td_searchForm="ngForm">
           <!-- INICIO CAMPOS BUSQUEDA -->
           <!-- [_] P_DATA_SOURCE_ID -->
           <div class="form-group">
@@ -166,7 +166,7 @@
           <hr/>
           <!-- INICIO BUTTONS PANEL        -->
           <div align="right">
-            <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
+            <button type="submit" class="btn btn-success" [disabled]="!td_searchForm.form.valid">[Buscar]</button>
             <button type="button" class="btn btn-default" (click)="td_newSearch();">[Nueva]</button>
           </div>
           <!-- FIN BUTTONS PANEL           -->

@@ -190,6 +190,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     console.log("_P_DATA_SOURCE_ID : " + this.td_model.P_ID_DATA_SOURCE);
     console.log("_P_CEDULA         : " + this.td_model.P_IDENTIFICACION);
     console.log("_P_VIGENCIA       : " + this.td_model.P_VIGENCIA);
+    // 
+    //console.log("Form invalid ? : " + this['td_searchForm'].form.valid);
     //
     this.td_update(this.td_model);
   }
