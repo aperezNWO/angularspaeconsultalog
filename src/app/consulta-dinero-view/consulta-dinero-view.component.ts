@@ -51,15 +51,17 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
                                                                 ,"0"
                                                                 ,"0");
   
-  //
+  //                                                                 
+  _model                              = new dineroSearchCriteria(  "0"
+                                                                  ,"0"
+                                                                  ,"0");
+                                                                //
   @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
   //
   _searchForm   = this.formBuilder.group({
     _P_DATA_SOURCE_ID     : [""            , Validators.required],
     _P_CEDULA             : [""            , Validators.required], 
     _P_VIGENCIA           : [""            , Validators.required],
-    //_P_FECHA_INICIO     : ["2022-09-01"  , Validators.required],
-    //_P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
   });
   //  
   constructor(private logInfoService : LogInfoService, private formBuilder: FormBuilder) {
@@ -68,13 +70,17 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   ngOnInit(): void {
       //
+      this.newSearch();
+      //
       this._newSearch();
   }
   //
   ngAfterViewInit() {
     //
   }
-  //
+  //-----------------------------------------------------
+  // REACTIVE FORM
+  //-----------------------------------------------------
   _newSearch() : void {
     //
     this._textStatus    = "";
@@ -94,8 +100,6 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       _P_DATA_SOURCE_ID     : [""            , Validators.required],
       _P_CEDULA             : [""            , Validators.required], 
       _P_VIGENCIA           : [""            , Validators.required],
-      //_P_FECHA_INICIO     : ["2022-09-01"  , Validators.required],
-      //_P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
     });
   }
   //
@@ -172,6 +176,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   }
   //
   newSearch() : void {  
-     //
-  }
+    //
+    this._model          = new dineroSearchCriteria(   ""
+                                                      ,""
+                                                      ,"");
+    }
 }

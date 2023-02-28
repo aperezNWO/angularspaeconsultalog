@@ -1,3 +1,25 @@
+
+==========================================================================================
+// angular reactive forms validation ?
+export class AppComponent {
+   title = 'my-app';
+   formjson = form
+   userDetails:object;
+
+    /** Define your FormGroup here, You have given the same name for, FormGroup and 
+        UserDetails variable, which is not correct
+     */
+    userDetailsForm: FormGroup;
+
+   /** define the getter here, before the constructor gets called */
+   get role_name() {
+       return this.userDetailsForm.get('role_name');
+   }
+}
+
+undefinedSource: https://stackoverflow.com/questions/60705004
+
+==========================================================================================
 ==========================================================================================
 -- DATA
 ==========================================================================================
@@ -69,79 +91,46 @@ public JsonResult GetConsultaLogGet
 --[x] you.ai / chatgpt / https://you.com/code.
 --[x] Desbloquear usuario spae.
 --[x] [NAVIGATION]: 
-    --[x] RouterLink 
+      --[x] RouterLink 
       --[x] Consulta Dinero.
       --[x] Consulta Log.
 --[>] [FORMS]: 
-    --[_] Forms Validation 
+    --[X] material tab. 
+    --[_] Validaciones
         --[_] https://angular.io/guide/forms-overview 
-        --[_] https://angular.io/guide/form-validation#interaction-with-native-html-form-validation
---[>] [CONSULTA LOG / Panel de Búsqueda / Validacion / CONSULTA_1]: 
+        --[_] https://angular.io/guide/form-validation
+        --[x] Validaciones / reactive        [formControl]. 
+              --[_] https://angular.io/guide/form-validation#validating-input-in-reactive-forms 
+        --[X] Validaciones / template driven (NgModel).      
+              --[_] .
+--[>] [CONSULTA (HISTORICO DE DINERO) / Panel de Búsqueda / Validacion / CONSULTA_1 (REACTIVE)]: 
     --[>] P_ID_DATA_SOURCE. 
-    --[>] P_ID_TIPO_LOG. 
-    --[>] P_FECHA_INICIO. 
-    --[>] P_FECHA_FIN.
-    --[>] P_ROW_NUM.
+    --[>] P_VIGENCIA. 
+    --[>] P_IDENTIFICACION. 
     --[_] Mensajes a Usuario.   
             --[_] angular change caption button runtime.   
             --[_] Record count.   
             --[_] Modal status.
             --[_] Reset / Default Values. 
---[>] [CONSULTA LOG / Panel de Búsqueda / Validacion / CONSULTA_2]: 
+--[>] [CONSULTA (HISTORICO DE DINERO)  / Panel de Búsqueda / Validacion / CONSULTA_2 (TEMPLATE DRIVEN)]: 
     --[>] P_ID_DATA_SOURCE. 
-    --[>] P_ID_TIPO_LOG. 
-    --[>] P_FECHA_INICIO. 
-    --[>] P_FECHA_FIN.
-    --[>] P_ROW_NUM.
+    --[>] P_VIGENCIA. 
+    --[>] P_IDENTIFICACION. 
     --[_] Mensajes a Usuario.   
             --[_] angular change caption button runtime.   
             --[_] Record count.   
             --[_] Modal status.
             --[_] Reset / Default Values. 
---[_] [Consulta Dinero]: 
-    --[>] material tab. 
-    --[x] Validaciones / reactive.  
-    --[_] Validaciones / template driven.      
-            --[_] https://angular.io/guide/form-validation
-                --[_] reactive [formControl].  
-                      --[_] https://angular.io/guide/form-validation#validating-input-in-reactive-forms
-                --[_] template-driven (NgModel).
-    --[_] Mensajes a Usuario.   
-            --[_] angular change caption button runtime.   
-            --[_] Record count.   
-            --[_] Modal status.
-            --[_] Reset / Default Values. 
-     --[_] Behaviour on Exception.     
-        --[_] Messages.
-        --[_] Buttons.
-        --[_] Status.
+  --[_] Behaviour on Exception.     
+            --[_] Messages.
+            --[_] Buttons.
+            --[_] Status.
   --[_] Informe Excel.      
   --[_] Estilos.      
         --[_] Install Angular Material. 
         --[_] Bootstrap (mobile).      
         --[_] SCSS.      
+
 ==========================================================================================
-// angular reactive forms validation ?
-export class AppComponent {
-   title = 'my-app';
-   formjson = form
-   userDetails:object;
-
-    /** Define your FormGroup here, You have given the same name for, FormGroup and 
-        UserDetails variable, which is not correct
-     */
-    userDetailsForm: FormGroup;
-
-   /** define the getter here, before the constructor gets called */
-   get role_name() {
-       return this.userDetailsForm.get('role_name');
-   }
-}
-
-
-
-
-undefinedSource: https://stackoverflow.com/questions/60705004
-
 
 

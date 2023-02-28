@@ -128,46 +128,40 @@
           <!-- INICIO CAMPOS BUSQUEDA -->
           <!-- [_] P_DATA_SOURCE_ID -->
           <div class="form-group">
-            <label for="P_ID_DATA_SOURCE" style="width:100px;">Origen de Datos : </label>
+            <label for="P_ID_DATA_SOURCE">Origen de Datos : </label>
             <select class="form-control" 
                     id="P_ID_DATA_SOURCE"
                     name="P_ID_DATA_SOURCE"
-                    required
-                    [(ngModel)]="model.P_ID_DATA_SOURCE" 
-                    #P_DATA_SOURCE_ID="ngModel">                    >
+                    [(ngModel)]="_model.P_ID_DATA_SOURCE" 
+                    #P_DATA_SOURCE_ID="ngModel"
+                    required>                    
             <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
             </select>
-            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine)" class="alert alert-danger">
-              Favor seleccione origen de datos
-            </div>
           </div>
           <!-- _VIGENCIA            -->
           <div class="form-group">
-            <label for="_P_VIGENCIA"     style="width:100px;"> Vigencia : </label>
+            <label for="_P_VIGENCIA"> Vigencia : </label>
             <select   class="form-control" 
                       id="_P_VIGENCIA"
                       name="_P_VIGENCIA" 
-                      required
-                      [(ngModel)]="model.P_VIGENCIA" 
-                      #_P_VIGENCIA ="ngModel">                    
+                      [(ngModel)]="_model.P_VIGENCIA" 
+                      #_P_VIGENCIA ="ngModel"
+                      required>                    
             <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
             </select>
           </div>
           <!-- _CEDULA                -->
-          <!--
           <div class="form-group">
-            <label for="P_ROW_NUM" style="width:100px;"># registros : </label>
-            <input class="form-control" type="number" maxlength="3" minlength="1" min="3" max="999"
-                    id="P_ROW_NUM"
-                    required
-                    [(ngModel)]="model.P_ROW_NUM"
-                    name="P_ROW_NUM"                     
-                    #P_ROW_NUM="ngModel"/>
-            <div [hidden]="(P_ROW_NUM.valid || P_ROW_NUM.pristine)" class="alert alert-danger">
-              Favor ingrese # de filas
-            </div>
+            <label for="P_IDENTIFICACION"># de Cédula (ej : 40626208):</label>
+            <input class="form-control" 
+                    type="number"
+                    id="P_IDENTIFICACION"
+                    name="P_IDENTIFICACION"  
+                    [(ngModel)]="_model.P_IDENTIFICACION"
+                    #P_IDENTIFICACION="ngModel"
+                    type="number" 
+                    required/>
           </div>
-          -->
           <!-- FIN    CAMPOS BUSQUEDA -->
           <hr/>
           <!-- INICIO BUTTONS PANEL        -->
@@ -177,6 +171,14 @@
           </div>
           <!-- FIN BUTTONS PANEL           -->
           <!-- INICIO MENSAJES VALIDACION  -->
+          <div *ngIf="false">
+            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine)" class="alert alert-danger">
+              Favor seleccione origen de datos
+            </div>
+            <div [hidden]="(P_IDENTIFICACION.valid || P_IDENTIFICACION.pristine)" class="alert alert-danger">
+              Favor ingrese # Cédula
+            </div>
+          </div>
           <!-- FIN    MENSAJES VALIDACION  -->
           <!-- INICIO STATUS   BUSQUEDA    -->
           <!-- FIN    STATUS   BUSQUEDA    -->
