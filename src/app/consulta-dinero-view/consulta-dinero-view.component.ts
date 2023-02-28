@@ -21,6 +21,11 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   static pageTitle()           : string {
     return "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
   }
+  //
+  td_valid_form() : boolean {
+      return  ((this.td_model.P_ID_DATA_SOURCE != "0") && (this.td_model.P_IDENTIFICACION != "0") && ((this.td_model.P_VIGENCIA != "")));
+  }
+
   //------------------------------------------------------------------------------------------------
   //  REACTIVE FORM
   //------------------------------------------------------------------------------------------------
@@ -202,15 +207,19 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     //
     this.td_formSubmit     = true;
     //
-    let td_valid_form     : boolean = ((this.td_model.P_ID_DATA_SOURCE != "0") && (this.td_model.P_IDENTIFICACION != "0") && ((this.td_model.P_VIGENCIA != "")));
+    console.log("Form valid ? : " + this.td_valid_form());
     //
-    console.log("Form valid ? : " + td_valid_form);
-    //
-    if (td_valid_form)
+    if (this.td_valid_form())
        this.td_update(this.td_model);
   }
   //
   td_newSearch() : void {  
+    //
+    this.td_textStatus    = "";
+    //
+    this.td_formSubmit    = false;
+    //
+    this.td_buttonCaption = "[Buscar]";
     //
     this.td_model                = new dineroSearchCriteria(   "0"
                                                               ,"0"
@@ -237,8 +246,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
           this.td_dataSource           = new MatTableDataSource<DineroSearchResultEntity>(jsonParseResult);
           this.td_dataSource.paginator = this.td_paginator;
           //
-          let recordCount            : string = this._dataSource.data.length.toString();
-          this._textStatus           = "Se encontraron [" + recordCount + "] registatros";
+          let recordCount            : string = this.td_dataSource.data.length.toString();
+          this.td_textStatus         = "Se encontraron [" + recordCount + "] registatros";
         },
         error           : (err: Error)      => {
             //

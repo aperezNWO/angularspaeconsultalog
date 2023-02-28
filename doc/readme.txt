@@ -1,3 +1,7 @@
+==========================================================================================
+-- BLACK BOX QUERIES
+==========================================================================================
+
 //angular pagination?
 <ul uib-pagination total-items="filteredData.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm pagination" rotate="false" boundary-links="true" items-per-page="itemsPerPage"></ul>
 
@@ -26,17 +30,12 @@ $scope.maxSize = 5; //Number of pager buttons to show
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 
-
-
-
 undefinedSource: https://stackoverflow.com/questions/44289424
-
-
 
 ==========================================================================================
 // angular reactive forms validation ?
 export class AppComponent {
-   title = 'my-app';
+   title    = 'my-app';
    formjson = form
    userDetails:object;
 
@@ -138,27 +137,37 @@ public JsonResult GetConsultaLogGet
         --[X] Validaciones / template driven (NgModel).      
               --[_] .
 --[>] [CONSULTA (HISTORICO DE DINERO) / Panel de Búsqueda / Validacion / CONSULTA_1 (REACTIVE)]: 
-    --[>] P_ID_DATA_SOURCE. 
-    --[>] P_VIGENCIA. 
-    --[>] P_IDENTIFICACION. 
-    --[_] Mensajes a Usuario.   
-            --[_] angular change caption button runtime.   
-            --[_] Record count.   
-            --[_] Modal status.
-            --[_] Reset / Default Values. 
+            --[>] P_ID_DATA_SOURCE. 
+            --[>] P_VIGENCIA. 
+            --[>] P_IDENTIFICACION. 
+            --[_] Validaciones.
+                        --[_] Field Messages.
+                        --[_] Buttons.
+                        --[_] Status.
+            --[_] Mensajes a Usuario.   
+                        --[_] angular change caption button runtime.   
+                        --[_] Record count.   
+                        --[_] Modal status.
+                        --[_] Reset / Default Values. 
 --[>] [CONSULTA (HISTORICO DE DINERO)  / Panel de Búsqueda / Validacion / CONSULTA_2 (TEMPLATE DRIVEN)]: 
-    --[>] P_ID_DATA_SOURCE. 
-    --[>] P_VIGENCIA. 
-    --[>] P_IDENTIFICACION. 
-    --[_] Mensajes a Usuario.   
-            --[_] angular change caption button runtime.   
-            --[_] Record count.   
-            --[_] Modal status.
-            --[_] Reset / Default Values. 
-  --[_] Behaviour on Exception.     
-            --[_] Messages.
-            --[_] Buttons.
-            --[_] Status.
+            --[x] P_ID_DATA_SOURCE. 
+            --[x] P_VIGENCIA. 
+            --[x] P_IDENTIFICACION. 
+            --[>] Validaciones.
+                        --[_] Field Messages.
+                        --[_] Buttons.
+                        --[_] Status.
+            --[_] Mensajes a Usuario.   
+                        --[_] angular change caption button runtime.   
+                        --[_] Record count.   
+                        --[_] Modal status.
+                        --[_] Reset / Default Values. 
+            --[_] Behaviour on Exception.     
+                        --[_] Messages.
+                        --[_] Buttons.
+                        --[_] Status.
+            --[_] DataGrid.     
+                        --[_] <>.
   --[_] Informe Excel.      
   --[_] Estilos.      
         --[_] Install Angular Material. 

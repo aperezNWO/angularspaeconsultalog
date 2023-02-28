@@ -128,12 +128,12 @@
           <!-- INICIO CAMPOS BUSQUEDA -->
           <!-- [_] P_DATA_SOURCE_ID -->
           <div class="form-group">
-            <label for="P_ID_DATA_SOURCE">Origen de Datos : </label>
+            <label for="_P_ID_DATA_SOURCE">Origen de Datos : </label>
             <select class="form-control" 
-                    id="P_ID_DATA_SOURCE"
-                    name="P_ID_DATA_SOURCE"
+                    id="_P_ID_DATA_SOURCE"
+                    name="_P_ID_DATA_SOURCE"
                     [(ngModel)]="td_model.P_ID_DATA_SOURCE" 
-                    #P_DATA_SOURCE_ID="ngModel"
+                    #_P_DATA_SOURCE_ID="ngModel"
                     required>                    
             <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
             </select>
@@ -152,15 +152,14 @@
           </div>
           <!-- _CEDULA                -->
           <div class="form-group">
-            <label for="P_IDENTIFICACION"># de Cédula (ej : 40626208):</label>
+            <label for="_P_IDENTIFICACION"># de Cédula (ej : 40626208):</label>
             <input class="form-control" 
-                    type="number"
-                    id="P_IDENTIFICACION"
-                    name="P_IDENTIFICACION"  
+                    id="_P_IDENTIFICACION"
+                    name="_P_IDENTIFICACION"  
                     [(ngModel)]="td_model.P_IDENTIFICACION"
-                    #P_IDENTIFICACION="ngModel"
+                    #_P_IDENTIFICACION="ngModel"
                     type="number" 
-                    required/>
+                    required />
           </div>
           <!-- FIN    CAMPOS BUSQUEDA -->
           <hr/>
@@ -169,19 +168,29 @@
             <button class="button" type="submit" [disabled]="(this.td_buttonCaption != '[Buscar]')">{{this.td_buttonCaption}}</button>
             <button class="button" type="button" (click)="td_newSearch()">[Nueva]</button>
           </div>
+          <hr>
           <!-- FIN BUTTONS PANEL           -->
           <!-- INICIO MENSAJES VALIDACION  -->
-          <div *ngIf="false">
-            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine)" class="alert alert-danger">
-              Favor seleccione origen de datos
-            </div>
-            <div [hidden]="(P_IDENTIFICACION.valid || P_IDENTIFICACION.pristine)" class="alert alert-danger">
-              Favor ingrese # Cédula
-            </div>
+          <div align="left">
+            <ul *ngIf="((!this.td_valid_form()) && (this.td_formSubmit))">
+              <p>Favor revise los datos del formulario</p>
+              <li *ngIf="(this.td_model.P_ID_DATA_SOURCE == '0')" class="alert alert-danger">
+                Favor seleccione origen de datos
+              </li>
+              <li *ngIf="(this.td_model.P_VIGENCIA       == '0')"       class="alert alert-danger">
+                Favor ingrese vigencia
+              </li>
+              <li *ngIf="((this.td_model.P_IDENTIFICACION == '') || (this.td_model.P_IDENTIFICACION == null))" class="alert alert-danger">
+                Favor ingrese # Cédula
+              </li>
+            </ul>
           </div>
           <!-- FIN    MENSAJES VALIDACION  -->
-          <!-- INICIO STATUS   BUSQUEDA    -->
-          <!-- FIN    STATUS   BUSQUEDA    -->
+          <!-- INICIO STATUS BUSQUEDA      -->
+          <div align="rieht">
+            <label id="status" name="searchStatus">{{this.td_textStatus}}</label>
+          </div>
+          <!-- FIN    STATUS BUSQUEDA      -->
         </form>
       </div>
       <!-- END  SEARCHPANEL -->
