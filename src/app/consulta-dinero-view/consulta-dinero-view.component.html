@@ -180,7 +180,7 @@
               <li *ngIf="(this.td_model.P_VIGENCIA       == '0')"       class="alert alert-danger">
                 Favor ingrese vigencia
               </li>
-              <li *ngIf="((this.td_model.P_IDENTIFICACION == '') || (this.td_model.P_IDENTIFICACION == null))" class="alert alert-danger">
+              <li *ngIf="((this.td_model.P_IDENTIFICACION == '0') || (this.td_model.P_IDENTIFICACION == null) || (this.td_model.P_IDENTIFICACION == ''))" class="alert alert-danger">
                 Favor ingrese # Cédula
               </li>
             </ul>

@@ -157,6 +157,7 @@ public JsonResult GetConsultaLogGet
                         --[_] Field Messages.
                         --[_] Buttons.
                         --[_] Status.
+                        --[_] Cedula.
             --[_] Mensajes a Usuario.   
                         --[_] angular change caption button runtime.   
                         --[_] Record count.   
