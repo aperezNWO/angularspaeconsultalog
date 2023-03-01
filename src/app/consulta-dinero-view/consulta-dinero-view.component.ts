@@ -79,10 +79,12 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   td_informeDineroRemotoSTR!            : Observable<string>;
   // 
-  td_displayedColumns                   : string[]                = ['ID_SOLICITUD'/*,'NOMBRE_COMPLETO','FUD','ESTADO_SOLICITUD','RESPONSABLE_SOLICITUD', 'DANE_DEPARTAMENTO','DANE_MUNICIPIO','OBSERVACION_SOLICITUD'*/];
+  td_displayedColumns                   : string[]                = ['ID_SOLICITUD','NOMBRE_COMPLETO','FUD','ESTADO_SOLICITUD','RESPONSABLE_SOLICITUD', 'DANE_DEPARTAMENTO','DANE_MUNICIPIO','OBSERVACION_SOLICITUD'];
   //
   td_valid_form() : boolean {
-      return  ((this.td_model.P_ID_DATA_SOURCE != "0") && (this.td_model.P_IDENTIFICACION != "0") && ((this.td_model.P_VIGENCIA != "")));
+      return  (      (   this.td_model.P_ID_DATA_SOURCE != "0") 
+                  && ( ( this.td_model.P_IDENTIFICACION != "" ) && (this.td_model.P_IDENTIFICACION !=  null) && (this.td_model.P_IDENTIFICACION != "0") ) 
+                  && ( ( this.td_model.P_VIGENCIA       != "0"))    );         
   }
   //
   @ViewChild('td_paginator',{read: MatPaginator}) td_paginator!: MatPaginator;

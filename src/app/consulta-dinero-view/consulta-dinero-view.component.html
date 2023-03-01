@@ -198,10 +198,38 @@
       <!-- INIT DATAGRID -->
       <div class="scrollbar">
         <table  mat-table #td_searchResults [dataSource]="td_dataSource"  class="mat-elevation-z8" aria-label="td_informeDineroremoto">
-          <ng-container matColumnDef="ID_SOLICITUD">
+            <ng-container matColumnDef="ID_SOLICITUD">
             <th mat-header-cell *matHeaderCellDef>ID_SOLICITUD</th>
             <td mat-cell *matCellDef="let element">{{ element.ID_SOLICITUD  }}</td>
-          </ng-container>
+            </ng-container>
+            <ng-container matColumnDef="NOMBRE_COMPLETO">
+              <th mat-header-cell *matHeaderCellDef>NOMBRE_COMPLETO</th>
+              <td mat-cell *matCellDef="let element">{{ element.NOMBRE_COMPLETO }}</td>
+            </ng-container> 
+            <ng-container matColumnDef="FUD">
+              <th mat-header-cell *matHeaderCellDef>FUD</th>
+              <td mat-cell *matCellDef="let element">{{ element.FUD}}</td>
+            </ng-container> 
+            <ng-container matColumnDef="ESTADO_SOLICITUD">
+              <th mat-header-cell *matHeaderCellDef>ESTADO_SOLICITUD</th>
+              <td mat-cell *matCellDef="let element">{{ element.ESTADO_SOLICITUD}}</td>
+            </ng-container> 
+            <ng-container matColumnDef="RESPONSABLE_SOLICITUD">
+              <th mat-header-cell *matHeaderCellDef>RESPONSABLE_SOLICITUD</th>
+              <td mat-cell *matCellDef="let element">{{ element.RESPONSABLE_SOLICITUD}}</td>
+            </ng-container>
+            <ng-container matColumnDef="DANE_DEPARTAMENTO">
+              <th mat-header-cell *matHeaderCellDef>DANE_DEPARTAMENTO</th>
+              <td mat-cell *matCellDef="let element">{{ element.DANE_DEPARTAMENTO}}</td>
+            </ng-container>
+            <ng-container matColumnDef="DANE_MUNICIPIO">
+              <th mat-header-cell *matHeaderCellDef>DANE_MUNICIPIO</th>
+              <td mat-cell *matCellDef="let element">{{ element.DANE_MUNICIPIO }}</td>
+            </ng-container>      
+            <ng-container matColumnDef="OBSERVACION_SOLICITUD">
+              <th mat-header-cell *matHeaderCellDef>OBSERVACION_SOLICITUD</th>
+              <td mat-cell *matCellDef="let element">{{ element.OBSERVACION_SOLICITUD}}</td>
+            </ng-container>                  
           <tr mat-header-row *matHeaderRowDef="td_displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: td_displayedColumns"></tr>
         </table>

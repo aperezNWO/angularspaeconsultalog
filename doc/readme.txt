@@ -156,21 +156,22 @@ public JsonResult GetConsultaLogGet
             --[>] Validaciones.
                         --[_] Field Messages.
                         --[_] Buttons.
-                        --[_] Status.
-                        --[_] Cedula.
+                        --[x] Status.
+                        --[x] Cedula.
             --[_] Mensajes a Usuario.   
-                        --[_] angular change caption button runtime.   
-                        --[_] Record count.   
-                        --[_] Modal status.
-                        --[_] Reset / Default Values. 
+                        --[x] Angular change caption button runtime.   
+                        --[x] Record count.   
+                        --[x] Reset / Default Values. 
             --[_] Behaviour on Exception.     
                         --[_] Messages.
                         --[_] Buttons.
                         --[_] Status.
             --[_] DataGrid.     
-                        --[_] <>.
+                        --[_] Campos.
+                        --[_] Paginación.
   --[_] Informe Excel.      
   --[_] Estilos.      
+        --[_] Modal status.
         --[_] Install Angular Material. 
         --[_] Bootstrap (mobile).      
         --[_] SCSS.      
