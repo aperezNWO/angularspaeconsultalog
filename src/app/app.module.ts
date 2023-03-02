@@ -13,12 +13,14 @@ import { MatTabsModule            } from '@angular/material/tabs';
 import { AppComponent                 } from './app.component';
 import { LogInfoViewComponent         } from './loginfoview/loginfoview.component';
 import { ConsultaDineroViewComponent  } from './consulta-dinero-view/consulta-dinero-view.component';
+import { ConsultahistoricodineroComponent } from './consultahistoricodinero/consultahistoricodinero.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogInfoViewComponent,
     ConsultaDineroViewComponent,
+    ConsultahistoricodineroComponent,
   ],
   imports: [
     FormsModule,
