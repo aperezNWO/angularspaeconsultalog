@@ -159,6 +159,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       this._formSubmit     = true;
       //
       this._buttonCaption  = "[Favor espere...]";
+      //
+      this._textStatus      = "";
       // 
       //this._informeDineroRemoto  = this.logInfoService.getConsultaDineroRemoto_DEV(_searchCriteria);
       this._informeDineroRemotoSTR = this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);
@@ -238,6 +240,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   private td_update(_searchCriteria: dineroSearchCriteria) : void {
       //
       this.td_buttonCaption  = "[Favor espere...]";
+      //
+      this.td_textStatus     = "";
       //
       //this._informeDineroRemoto    = this.logInfoService.getConsultaDineroRemoto_DEV(_searchCriteria);
       this.td_informeDineroRemotoSTR = this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);

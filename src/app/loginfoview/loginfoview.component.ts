@@ -38,6 +38,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   // FIELDS - TEMPLATE DRIVEN FORM
   //-------------------------------------------------------------------------------------
   //
+  td_textStatus           : string = "";
+  //
   td_formSubmit           : boolean        = false;
   //
   td_buttonCaption        : string         = "[Buscar]";
@@ -54,17 +56,17 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   td_dataSource                         = new MatTableDataSource<LogEntry_>();
   //
-  td_textStatus                         : string = "";
-  //
   //-------------------------------------------------------------------------------------
   // FIELDS  - REACTIVE FORM 
   //-------------------------------------------------------------------------------------
   //
-  rf_textStatus                                                : string          = "";
+  rf_textStatus           : string          = "";
   //
-  rf_formSubmit                                                : boolean         = false;
+  rf_formSubmit           : boolean         = false;
   //
-  @ViewChild('rf_Paginator',{read: MatPaginator}) rf_paginator!: MatPaginator;
+  rf_buttonCaption        : string         = "[Buscar]";
+  //
+  @ViewChild('rf_paginator',{read: MatPaginator}) rf_paginator!: MatPaginator;
   //
   rf_dataSource                                                 = new MatTableDataSource<LogEntry_>();
   //
@@ -158,6 +160,8 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     //
     this.td_buttonCaption = "[Favor espere...]";
     //
+    this.td_textStatus    = "";
+    //
     td_searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(td_searchCriteria.P_FECHA_INICIO,0);
     td_searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(td_searchCriteria.P_FECHA_FIN   ,0); 
     //
@@ -234,10 +238,20 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   // METHODS - REACTIVE FORM
   //-------------------------------------------------------------------------------------
   //
+  rf_valid_form() : boolean {
+    return (     
+           (   this.rf_searchForm.value["_P_DATA_SOURCE_ID"]?.toString() != "0") 
+        && (   this.rf_searchForm.value["_P_ID_TIPO_LOG"]?.toString()    != "0")  
+        && ( ( this.rf_searchForm.value["_P_ROW_NUM"]?.toString()        != "" ) && (this.rf_searchForm.value["_P_ROW_NUM"]       !=  null) && (this.rf_searchForm.value["_P_ROW_NUM"]?.toString() != "0") ) 
+        && ( ( this.rf_searchForm.value["_P_FECHA_INICIO"]?.toString()   != "" ) && (this.rf_searchForm.value["_P_FECHA_INICIO"]  !=  null) ) 
+        && ( ( this.rf_searchForm.value["_P_FECHA_FIN"]?.toString()      != "" ) && (this.rf_searchForm.value["_P_FECHA_FIN"]     !=  null) ) 
+    );  
+  }
+  //
   rf_onSubmit() 
   { 
         //
-        console.warn("(SUBMIT 2)");
+        console.warn("REACTIVE FORM (SUBMIT)");
         //
         let _P_DATA_SOURCE_ID  : string = this.rf_searchForm.value["_P_DATA_SOURCE_ID"] || "";
         let _P_ID_TIPO_LOG     : string = this.rf_searchForm.value["_P_ID_TIPO_LOG"]    || "";
@@ -254,13 +268,19 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
                               , _P_FECHA_FIN
                               , "","");
         //
-        if (rf_model.P_DATA_SOURCE_ID != "0")
+        this.rf_formSubmit    = true;
+        //
+        console.warn("REACTIVE FORM - (VALID) : " + this.rf_valid_form());
+        //
+        if (this.rf_valid_form() == true)
             this.rf_update(rf_model);
   }
   //
   rf_update(_searchCriteria : searchCriteria):void {
     //
-    this.rf_formSubmit = true;
+    this.rf_buttonCaption = "[Favor espere...]";
+    //
+    this.rf_textStatus    = "";
     //
     _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
     _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN   ,0); 
@@ -285,23 +305,25 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
         this.rf_dataSource           = new MatTableDataSource<LogEntry_>(rf_logEntry);
         this.rf_dataSource.paginator = this.rf_paginator;
         //
-        this.rf_formSubmit = false;
-        //
         this.rf_textStatus = "Se encontraron [" + rf_logEntry.length + "] registros ";
       },
       error           : (err: Error)      => {
           //
           console.error('ERROR : ' + JSON.stringify(err.message));
           //
-          this.td_formSubmit = false;
+          this.rf_textStatus           = "Ha ocurrido un error";
           //
-          this.rf_textStatus = "Ha ocurrido un error";
+          this.rf_formSubmit           = false;
+          //
+          this.rf_buttonCaption        = "[Buscar]";
       },
       complete        : ()                => {
           //
           console.log('(SEARCH END)')
           //
-          this.td_formSubmit = false;
+          this.rf_formSubmit           = false;
+          //
+          this.rf_buttonCaption        = "[Buscar]";
       },
     };
     //
@@ -311,7 +333,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   rf_newSearch()
   {
     //
-    console.warn("(NEW SEARCH 2)");
+    console.warn("REACTIVE FORM - (NEW SEARCH)");
+    //
+    this.rf_textStatus           = "";
+    //
+    this.rf_formSubmit           = false;
     //
     this.rf_dataSource           = new MatTableDataSource<LogEntry_>();
     this.rf_dataSource.paginator = this.rf_paginator;
@@ -331,5 +357,6 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     console.log("P_FECHA_INICIO    : " + (this.rf_searchForm.value["_P_FECHA_INICIO"]   || ""));      
     console.log("P_FECHA_FIN       : " + (this.rf_searchForm.value["_P_FECHA_FIN"]      || "")); 
     console.log("(DEFAULT VALUES - END)");
+    //
   }
 }

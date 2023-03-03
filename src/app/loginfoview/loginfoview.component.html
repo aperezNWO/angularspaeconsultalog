@@ -70,7 +70,7 @@
             <button class="button" type="submit" [disabled]="(this.td_buttonCaption != '[Buscar]')">{{this.td_buttonCaption}}</button>
             <button class="button" type="button" (click)="td_newSearch()">[Nueva]</button>
           </div>
-          <!-- FIN    PANEL DE VALIDACION    -->
+          <!-- FIN    PANEL DE BOTONES    -->
           <!-- INICIO MENSAJES DE VALIDACION -->
           <div align="left">
             <ul *ngIf="((!this.td_valid_form()) && (this.td_formSubmit))">
@@ -92,7 +92,7 @@
               </li> 
             </ul>
           </div>
-          <!-- FIN MENBSAJES VALIDACION      -->
+          <!-- FIN    MENSAJES VALIDACION      -->
           <hr>
           <!-- INICIO STATUS BUSQUEDA -->
           <div align="center">
@@ -185,12 +185,35 @@
             <input id="_P_FECHA_FIN" type="date" formControlName="_P_FECHA_FIN">
           </div>
           <hr>
-          <!-- INICIO BUTTONS PANEL -->
+          <!-- INICIO PANEL DE BOTONES    -->
           <div align="right">
-            <button class="button" type="submit">Buscar</button>
-            <button class="button" type="button" (click)="rf_newSearch()">Nueva</button>
+            <button class="button" type="submit" [disabled]="(this.rf_buttonCaption != '[Buscar]')">{{this.rf_buttonCaption}}</button>
+            <button class="button" type="button" (click)="rf_newSearch()">[Nueva]</button>
           </div>
-          <!-- FIN BUTTONS PANEL -->
+          <!-- FIN    PANEL DE BOTONES    -->
+          <hr>
+          <!-- INICIO MENSAJES DE VALIDACION -->
+          <div align="left">
+            <ul *ngIf="(this.rf_valid_form()==false) && (this.rf_formSubmit == true)" class="alert alert-danger">
+              <p>Favor revise los datos del formulario</p>
+              <li *ngIf="(this.rf_searchForm.value['_P_DATA_SOURCE_ID']?.toString() == '0')">
+                El campo 'Origen de datos' es requerido.
+              </li>
+              <li *ngIf="(this.rf_searchForm.value['_P_ID_TIPO_LOG']?.toString()    == '0')">
+                El campo 'Tipo de Consulta' es requerido.
+              </li>
+              <li *ngIf="( (this.rf_searchForm.value['_P_ROW_NUM']?.toString()      == '0') || (this.rf_searchForm.value['_P_ROW_NUM']?.toString()  == '') || (this.rf_searchForm.value['_P_ROW_NUM'] == null) )">
+                El campo '# de Registros' es requerido.
+              </li>
+              <li *ngIf="( (this.rf_searchForm.value['_P_FECHA_INICIO']?.toString() == '')  || (this.rf_searchForm.value['_P_FECHA_INICIO'] == null) )">
+                El campo 'Fecha de Inicio' es requerido.
+              </li>
+              <li *ngIf="( (this.rf_searchForm.value['_P_FECHA_FIN']?.toString()    == '')  || (this.rf_searchForm.value['_P_FECHA_FIN']    == null) )">
+                El campo 'Fecha Final' es requerido.
+              </li>
+            </ul>
+          </div>
+          <!-- FIN    MENSAJES DE VALIDACION -->
           <!-- INICIO STATUS BUSQUEDA -->
           <div align="center">
             <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this.rf_textStatus}}</label>
@@ -202,6 +225,7 @@
       </div>
       <!-- END SEARCH PANEL -->
       <hr>
+      <!-- INICIO DATAGRID -->
       <div class="scrollbar">
         <table  mat-table #_searchResults [dataSource]="rf_dataSource"  class="mat-elevation-z8" aria-label="_informelogremoto">
           <ng-container matColumnDef="ID_LOG">
@@ -224,14 +248,16 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
       </div>
-      <!-- END  DATAGRID -->
+      <!-- END  DATAGRID   -->
       <hr>
+      <!-- INICIO PAGINADOR -->
       <mat-paginator #rf_paginator="matPaginator"
                     class="demo-paginator" 
                     [length]=""
                     [pageSize]="3"
                     [pageSizeOptions]="[3, 10, 25, 100]"
-                    aria-label="_informelogremoto"></mat-paginator>
+                    aria-label="rf_informelogremoto"></mat-paginator>
+      <!-- FIN    PAGINADOR -->
     </div>
   </mat-tab>
 </mat-tab-group>
