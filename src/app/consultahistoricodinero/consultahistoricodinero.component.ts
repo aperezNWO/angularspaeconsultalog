@@ -7,8 +7,7 @@ import { Component } from '@angular/core';
 })
 //
 export class ConsultahistoricodineroComponent {
-    //
-      //
+  //
   readonly _pageTitle          : string = "[CONSULTA - HISTORICO DE DINERO]";
   //
   static pageTitle()           : string {

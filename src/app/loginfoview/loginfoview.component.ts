@@ -14,7 +14,9 @@ import { LogInfoService                     } from '../loginfo.service';
 })
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
-  //
+  //------------------------------------------------------------------------
+  // FIELDS - COMMON
+  //------------------------------------------------------------------------
   readonly _pageTitle  : string = "[CONSULTA - LOG DE APLICATIVO] (PRUEBAS)";
   //
   static pageTitle()   : string {
@@ -23,9 +25,6 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   informeLogRemoto!                  : Observable<LogEntry_[]>;
   _informeLogRemoto!                 : Observable<LogEntry_[]>;
-  //
-  dataSource                         = new MatTableDataSource<LogEntry_>();
-  _dataSource                        = new MatTableDataSource<LogEntry_>();
   // 
   displayedColumns                   : string[]                        = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
   //
@@ -39,20 +38,6 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
                                                                           { M_TIPO_LOG_ID : "3"  , M_TIPO_LOG_NAME : "General         - Errores"   }];
 
   //
-  model                              = new searchCriteria( "0"
-                                                          ,"0"
-                                                          ,"999"
-                                                          ,"2022-09-01"
-                                                          ,"2022-09-30"
-                                                          ,""
-                                                          ,"");
-  //
-  @ViewChild("paginator" ,{read:MatPaginator}) paginator!:  MatPaginator;
-  
-  //
-  @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
-  
-  //
   rf_searchForm   = this.formBuilder.group({
     _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
     _P_DATA_SOURCE_ID   : ["0"           , Validators.required],
@@ -61,28 +46,163 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     _P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
   });
   //
-  _formSubmit           : boolean        = false;
   formSubmit            : boolean        = false;
   //
   _textStatus           : string         = "";
   textStatus            : string         = "";           
+  //-------------------------------------------------------------------------------------
+  // FIELDS - TEMPLATE DRIVEN FORM
+  //-------------------------------------------------------------------------------------
   //
+  td_formSubmit           : boolean        = false;
+  //
+  @ViewChild("td_paginator" ,{read:MatPaginator}) td_paginator!:  MatPaginator;
+  //
+  td_model               = new searchCriteria( "0"
+    ,"0"
+    ,"999"
+    ,"2022-09-01"
+    ,"2022-09-30"
+    ,""
+    ,"");
+  //
+  td_dataSource                         = new MatTableDataSource<LogEntry_>();
+  //
+  //-------------------------------------------------------------------------------------
+  // FIELDS  - REACTIVE FORM 
+  //-------------------------------------------------------------------------------------
+  //
+  rf_formSubmit          : boolean         = false;
+  //
+  @ViewChild('rf_Paginator',{read: MatPaginator}) rf_paginator!: MatPaginator;
+  //
+  rf_dataSource                            = new MatTableDataSource<LogEntry_>();
+  //
+  //-------------------------------------------------------------------------------------
+  // EVENT HANDLERS
+  //-------------------------------------------------------------------------------------
   constructor(private logInfoService : LogInfoService,private formBuilder: FormBuilder) {
       //
   }
   //
   ngOnInit(): void {
       //
-      this.newSearch();
+      this.td_newSearch();
+      //
+      this.rf_newSearch();
   }
   //
   ngAfterViewInit() {
     //
   }
+  //-------------------------------------------------------------------------------------
+  // METHODS - COMMON
+  //-------------------------------------------------------------------------------------
+  GetFormattedDate(p_date : /*Date*/ string, order : number) {
+      //
+      var today = '';
+      switch (order) {
+          case 0:  // FECHA COMPLATIBLE CON ORACLE
+              var p_dates = p_date.toString().split('-'); // P_DATE   = 2022-04-09
+              var day     = p_dates[2];
+              var month   = p_dates[1];
+              var year    = p_dates[0];
+              today       = day + "/" + month + "/" + year;
+              //
+              break;
+          case 1:  // FECHA COMPATIBLE  CON UIX
+              //
+              /*
+              var _day      :number  = p_date.getDate();
+              var _month    :number  = p_date.getMonth() + 1;
+              var _yearStr  :string  = p_date.getFullYear().toString();
+              var _monthStr :string  = "";
+              var _dayStr   :string  = "";
+              //
+              if (_month < 10) _monthStr = "0"   + _month.toString();
+              if (_day < 10)   _dayStr   = "0"   + _day.toString();
+              //
+              today                 = _yearStr  + "-" + _monthStr + "-" + _dayStr;*/
+              //
+              break;
+      }
+      //
+      return today;
+  } 
+  //-------------------------------------------------------------------------------------
+  // METHODS- TEMPLATE DRIVEN FORM
+  //-------------------------------------------------------------------------------------
+  //
+  td_onSubmit() 
+  { 
+      //
+      console.warn("(SUBMIT TEMPLATE DRIVEN)");
+      //
+      if (this.td_model.P_DATA_SOURCE_ID != "0")
+          this.td_update(this.td_model);
+  }
+  //
+  td_update(_searchCriteria : searchCriteria):void {
+    //
+    this.td_formSubmit = true;
+    //
+    _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
+    _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN   ,0); 
+    //
+    console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
+    console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
+    console.log("(FROM PARAM) : P_FECHA_INICIO (origen)              : " + _searchCriteria.P_FECHA_INICIO);
+    console.log("(FROM PARAM) : P_FECHA_FIN    (origen)              : " + _searchCriteria.P_FECHA_FIN);  
+    console.log("(FROM PARAM) : P_FECHA_INICIO (valid : 01/09/2022)  : " + _searchCriteria.P_FECHA_INICIO_STR);
+    console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
+    console.log("(SEARCH INIT)");
+    // 
+    this._informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
+    //this._informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
+    //
+    const _myObserver = {
+      next: (p_logEntry: LogEntry_[])     => { 
+        //
+        console.log('RETURN VALUES (Record Count): ' + p_logEntry.length);
+        //
+        this.td_dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
+        this.td_dataSource.paginator = this.td_paginator;
+      },
+      error           : (err: Error)      => console.error('ERROR : ' + JSON.stringify(err.message)),
+      complete        : ()                => console.log('(SEARCH END)'),
+    };
+    //
+    this._informeLogRemoto.subscribe(_myObserver);
+  }
+  //
+  td_newSearch() {
+      //
+      console.warn("(NEW SEARCH 1)");
+      //
+      this.td_dataSource           = new MatTableDataSource<LogEntry_>();
+      this.td_dataSource.paginator = this.td_paginator;
+      this.td_model                = new searchCriteria( "0"
+                                                    , "0"
+                                                    , "999"
+                                                    , "2022-09-01"
+                                                    , "2022-09-30"
+                                                    , "","");
+      //
+      console.log("(DEFAULT VALUES - INIT)");
+      console.log("P_DATA_SOURCE_ID  : " + this.td_model.P_DATA_SOURCE_ID);
+      console.log("P_ID_TIPO_LOG     : " + this.td_model.P_ID_TIPO_LOG);
+      console.log("P_ROW_NUM         : " + this.td_model.P_ROW_NUM);
+      console.log("P_FECHA_INICIO    : " + this.td_model.P_FECHA_INICIO);      
+      console.log("P_FECHA_FIN       : " + this.td_model.P_FECHA_FIN); 
+      console.log("(DEFAULT VALUES - END)");
+  }
+  //-------------------------------------------------------------------------------------
+  // METHODS - REACTIVE FORM
+  //-------------------------------------------------------------------------------------
   //
   rf_update(_searchCriteria : searchCriteria):void {
     //
-    this._formSubmit = true;
+    this.rf_formSubmit = true;
     //
     _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
     _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN   ,0); 
@@ -103,10 +223,10 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
         //
         console.log('RETURN VALUES (Record Count): ' + p_logEntry.length);
         //
-        this.dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
-        this.dataSource.paginator = this.paginator;
+        this.rf_dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
+        this.rf_dataSource.paginator = this.rf_paginator;
         //
-        this._formSubmit = false;
+        this.rf_formSubmit = false;
         //
         this._textStatus = "Se encontraron [" + p_logEntry.length + "] registros ";
       },
@@ -114,7 +234,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
           //
           console.error('ERROR : ' + JSON.stringify(err.message));
           //
-          this._formSubmit = false;
+          this.td_formSubmit = false;
           //
           this._textStatus = "Ha ocurrido un error";
       },
@@ -122,116 +242,20 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
           //
           console.log('(SEARCH END)')
           //
-          this._formSubmit = false;
+          this.td_formSubmit = false;
       },
     };
     //
     this.informeLogRemoto.subscribe(myObserver);
   }
   //
-  td_update(_searchCriteria : searchCriteria):void {
-      //
-      this._formSubmit = true;
-      //
-      _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
-      _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN   ,0); 
-      //
-      console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
-      console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
-      console.log("(FROM PARAM) : P_FECHA_INICIO (origen)              : " + _searchCriteria.P_FECHA_INICIO);
-      console.log("(FROM PARAM) : P_FECHA_FIN    (origen)              : " + _searchCriteria.P_FECHA_FIN);  
-      console.log("(FROM PARAM) : P_FECHA_INICIO (valid : 01/09/2022)  : " + _searchCriteria.P_FECHA_INICIO_STR);
-      console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
-      console.log("(SEARCH INIT)");
-      // 
-      this._informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
-      //this._informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
-      //
-      const _myObserver = {
-        next: (p_logEntry: LogEntry_[])     => { 
-          //
-          console.log('RETURN VALUES (Record Count): ' + p_logEntry.length);
-          //
-          this._dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
-          this._dataSource.paginator = this._paginator;
-        },
-        error           : (err: Error)      => console.error('ERROR : ' + JSON.stringify(err.message)),
-        complete        : ()                => console.log('(SEARCH END)'),
-      };
-      //
-      this._informeLogRemoto.subscribe(_myObserver);
-  }
-  //
-  td_onSubmit() 
-  { 
-      //
-      console.warn("(SUBMIT 1)");
-      //
-      if (this.model.P_DATA_SOURCE_ID != "0")
-          this.td_update(this.model);
-  }
-  //
-  newSearch() {
-      //
-      console.warn("(NEW SEARCH 1)");
-      //
-      this.dataSource           = new MatTableDataSource<LogEntry_>();
-      this.dataSource.paginator = this.paginator;
-      this.model                = new searchCriteria( "0"
-                                                    , "0"
-                                                    , "999"
-                                                    , "2022-09-01"
-                                                    , "2022-09-30"
-                                                    , "","");
-      //
-      console.log("(DEFAULT VALUES - INIT)");
-      console.log("P_DATA_SOURCE_ID  : " + this.model.P_DATA_SOURCE_ID);
-      console.log("P_ID_TIPO_LOG     : " + this.model.P_ID_TIPO_LOG);
-      console.log("P_ROW_NUM         : " + this.model.P_ROW_NUM);
-      console.log("P_FECHA_INICIO    : " + this.model.P_FECHA_INICIO);      
-      console.log("P_FECHA_FIN       : " + this.model.P_FECHA_FIN); 
-      console.log("(DEFAULT VALUES - END)");
-  }
-  //
-  GetFormattedDate(p_date : /*Date*/ string, order : number) {
-    //
-    var today = '';
-    switch (order) {
-        case 0:  // FECHA COMPLATIBLE CON ORACLE
-            var p_dates = p_date.toString().split('-'); // P_DATE   = 2022-04-09
-            var day     = p_dates[2];
-            var month   = p_dates[1];
-            var year    = p_dates[0];
-            today       = day + "/" + month + "/" + year;
-            //
-            break;
-        case 1:  // FECHA COMPATIBLE  CON UIX
-            //
-            /*
-            var _day      :number  = p_date.getDate();
-            var _month    :number  = p_date.getMonth() + 1;
-            var _yearStr  :string  = p_date.getFullYear().toString();
-            var _monthStr :string  = "";
-            var _dayStr   :string  = "";
-            //
-            if (_month < 10) _monthStr = "0"   + _month.toString();
-            if (_day < 10)   _dayStr   = "0"   + _day.toString();
-            //
-            today                 = _yearStr  + "-" + _monthStr + "-" + _dayStr;*/
-            //
-            break;
-    }
-    //
-    return today;
-  } 
-  //
   rf_newSearch()
   {
     //
     console.warn("(NEW SEARCH 2)");
     //
-    this._dataSource           = new MatTableDataSource<LogEntry_>();
-    this._dataSource.paginator = this._paginator;
+    this.rf_dataSource           = new MatTableDataSource<LogEntry_>();
+    this.rf_dataSource.paginator = this.rf_paginator;
     //
     this.rf_searchForm   = this.formBuilder.group({
       _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
