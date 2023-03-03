@@ -131,18 +131,30 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   // METHODS- TEMPLATE DRIVEN FORM
   //-------------------------------------------------------------------------------------
   //
+  td_valid_form() : boolean {
+    return (     
+           (   this.td_model.P_DATA_SOURCE_ID != "0") 
+        && (   this.td_model.P_ID_TIPO_LOG    != "0")  
+        && ( ( this.td_model.P_ROW_NUM        != "" ) && (this.td_model.P_ROW_NUM       !=  null) && (this.td_model.P_ROW_NUM      != "0") ) 
+        && ( ( this.td_model.P_FECHA_INICIO   != "" ) && (this.td_model.P_FECHA_INICIO  !=  null) ) 
+        && ( ( this.td_model.P_FECHA_FIN      != "" ) && (this.td_model.P_FECHA_FIN     !=  null) ) 
+    );  
+  }
+  //
   td_onSubmit() 
   { 
       //
       console.warn("TEMPLATE DRIVEN - (SUBMIT)");
       //
-      if (this.td_model.P_DATA_SOURCE_ID != "0")
+      console.warn("TEMPLATE DRIVEN - FORM VALID : " + this.td_valid_form());
+      //
+      this.td_formSubmit    = true;
+      //
+      if (this.td_valid_form())
           this.td_update(this.td_model);
   }
   //
   td_update(td_searchCriteria : searchCriteria):void {
-    //
-    this.td_formSubmit    = true;
     //
     this.td_buttonCaption = "[Favor espere...]";
     //
@@ -195,9 +207,11 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   td_newSearch() {
       //
-      console.warn("(NEW SEARCH 1)");
+      console.warn("TEMPLATE DRIVEN - (NEW SEARCH)");
       //
       this.td_textStatus           = "";
+      //
+      this.td_formSubmit           = false;
       //
       this.td_dataSource           = new MatTableDataSource<LogEntry_>();
       this.td_dataSource.paginator = this.td_paginator;

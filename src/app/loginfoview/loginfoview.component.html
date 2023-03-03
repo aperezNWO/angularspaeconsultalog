@@ -73,25 +73,23 @@
           <!-- FIN    PANEL DE VALIDACION    -->
           <!-- INICIO MENSAJES DE VALIDACION -->
           <div align="left">
-            <ul *ngIf="(!this.td_searchForm.valid) && (this.td_formSubmit == true)" class="alert alert-danger">
+            <ul *ngIf="((!this.td_valid_form()) && (this.td_formSubmit))">
               <p>Favor revise los datos del formulario</p>
-              <li *ngIf="((this.td_searchForm.value['_P_DATA_SOURCE_ID'] == null) ||  (this.td_searchForm.value['_P_DATA_SOURCE_ID'] == '') || (this.td_searchForm.value['_P_DATA_SOURCE_ID'] == '0') ) && (this.td_formSubmit == true)">
-                El campo 'Origen de datos' es requerido.
+              <li *ngIf="(this.td_model.P_DATA_SOURCE_ID == '0')" class="alert alert-danger">
+                Favor seleccione el campo 'Origen de datos'
               </li>
-              <!--
-              <div [hidden]="(P_ID_TIPO_LOG.valid || P_ID_TIPO_LOG.pristine)" class="alert alert-danger">
-                Favor seleccione un Tipo de Consulta
-              </div>
-              <div [hidden]="(P_ROW_NUM.valid || P_ROW_NUM.pristine)" class="alert alert-danger">
-                Favor ingrese # de filas
-              </div>
-              <div [hidden]="(P_FECHA_INICIO.valid || P_FECHA_INICIO.pristine)" class="alert alert-danger">
-                Favor ingrese fecha inicial
-              </div>
-              <div [hidden]="(P_FECHA_FIN.valid || P_FECHA_FIN.pristine)" class="alert alert-danger">
-                Favor ingrese fecha final
-              </div>
-              -->      
+              <li *ngIf="(this.td_model.P_ID_TIPO_LOG == '0')"    class="alert alert-danger">
+                Favor seleccione el campo 'Tipo de Consulta'
+              </li>
+              <li *ngIf="((this.td_model.P_ROW_NUM       == '0') || (this.td_model.P_ROW_NUM       == '') || (this.td_model.P_ROW_NUM  == null))" class="alert alert-danger">
+                Favor seleccione el campo 'Número de Filas'
+              </li>
+              <li *ngIf="((this.td_model.P_FECHA_INICIO  == '')  || (this.td_model.P_FECHA_INICIO  == null))"                                     class="alert alert-danger">
+                Favor seleccione el campo 'Fecha de Inicio'
+              </li>
+              <li *ngIf="((this.td_model.P_FECHA_FIN     == '')  || (this.td_model.P_FECHA_FIN     == null))"                                     class="alert alert-danger">
+                Favor seleccione el campo 'Fecha Final'
+              </li> 
             </ul>
           </div>
           <!-- FIN MENBSAJES VALIDACION      -->
