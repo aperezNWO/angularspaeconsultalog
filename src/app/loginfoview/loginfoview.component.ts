@@ -22,9 +22,6 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   static pageTitle()   : string {
     return "[CONSULTA - LOG DE APLICATIVO] (PRUEBAS)";
   }
-  //
-  informeLogRemoto!                  : Observable<LogEntry_[]>;
-  _informeLogRemoto!                 : Observable<LogEntry_[]>;
   // 
   displayedColumns                   : string[]                        = ['ID_LOG','DATE_TIME','TEXT_1_WEB','TEXT_2_WEB'];
   //
@@ -37,28 +34,17 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
                                                                           { M_TIPO_LOG_ID : "2"  , M_TIPO_LOG_NAME : "Envio de Emails - Errores"   },
                                                                           { M_TIPO_LOG_ID : "3"  , M_TIPO_LOG_NAME : "General         - Errores"   }];
 
-  //
-  rf_searchForm   = this.formBuilder.group({
-    _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
-    _P_DATA_SOURCE_ID   : ["0"           , Validators.required],
-    _P_ROW_NUM          : ["999"         , Validators.required],
-    _P_FECHA_INICIO     : ["2022-09-01"  , Validators.required],
-    _P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
-  });
-  //
-  formSubmit            : boolean        = false;
-  //
-  _textStatus           : string         = "";
-  textStatus            : string         = "";           
   //-------------------------------------------------------------------------------------
   // FIELDS - TEMPLATE DRIVEN FORM
   //-------------------------------------------------------------------------------------
   //
   td_formSubmit           : boolean        = false;
   //
+  td_buttonCaption        : string         = "[Buscar]";
+  //
   @ViewChild("td_paginator" ,{read:MatPaginator}) td_paginator!:  MatPaginator;
   //
-  td_model               = new searchCriteria( "0"
+  td_model                  = new searchCriteria( "0"
     ,"0"
     ,"999"
     ,"2022-09-01"
@@ -68,15 +54,27 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
   td_dataSource                         = new MatTableDataSource<LogEntry_>();
   //
+  td_textStatus                         : string = "";
+  //
   //-------------------------------------------------------------------------------------
   // FIELDS  - REACTIVE FORM 
   //-------------------------------------------------------------------------------------
   //
-  rf_formSubmit          : boolean         = false;
+  rf_textStatus                                                : string          = "";
+  //
+  rf_formSubmit                                                : boolean         = false;
   //
   @ViewChild('rf_Paginator',{read: MatPaginator}) rf_paginator!: MatPaginator;
   //
-  rf_dataSource                            = new MatTableDataSource<LogEntry_>();
+  rf_dataSource                                                 = new MatTableDataSource<LogEntry_>();
+  //
+  rf_searchForm   = this.formBuilder.group({
+    _P_ID_TIPO_LOG      : ["0"           , Validators.required], 
+    _P_DATA_SOURCE_ID   : ["0"           , Validators.required],
+    _P_ROW_NUM          : ["999"         , Validators.required],
+    _P_FECHA_INICIO     : ["2022-09-01"  , Validators.required],
+    _P_FECHA_FIN        : ["2022-09-30"  , Validators.required],
+  });
   //
   //-------------------------------------------------------------------------------------
   // EVENT HANDLERS
@@ -136,48 +134,70 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   td_onSubmit() 
   { 
       //
-      console.warn("(SUBMIT TEMPLATE DRIVEN)");
+      console.warn("TEMPLATE DRIVEN - (SUBMIT)");
       //
       if (this.td_model.P_DATA_SOURCE_ID != "0")
           this.td_update(this.td_model);
   }
   //
-  td_update(_searchCriteria : searchCriteria):void {
+  td_update(td_searchCriteria : searchCriteria):void {
     //
-    this.td_formSubmit = true;
+    this.td_formSubmit    = true;
     //
-    _searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(_searchCriteria.P_FECHA_INICIO,0);
-    _searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(_searchCriteria.P_FECHA_FIN   ,0); 
+    this.td_buttonCaption = "[Favor espere...]";
     //
-    console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + _searchCriteria.P_DATA_SOURCE_ID);
-    console.log("(FROM PARAM) : P_ROW_NUM                            : " + _searchCriteria.P_ROW_NUM);  
-    console.log("(FROM PARAM) : P_FECHA_INICIO (origen)              : " + _searchCriteria.P_FECHA_INICIO);
-    console.log("(FROM PARAM) : P_FECHA_FIN    (origen)              : " + _searchCriteria.P_FECHA_FIN);  
-    console.log("(FROM PARAM) : P_FECHA_INICIO (valid : 01/09/2022)  : " + _searchCriteria.P_FECHA_INICIO_STR);
-    console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
+    td_searchCriteria.P_FECHA_INICIO_STR = this.GetFormattedDate(td_searchCriteria.P_FECHA_INICIO,0);
+    td_searchCriteria.P_FECHA_FIN_STR    = this.GetFormattedDate(td_searchCriteria.P_FECHA_FIN   ,0); 
+    //
+    console.log("(FROM PARAM) : P_DATA_SOURCE_ID                     : " + td_searchCriteria.P_DATA_SOURCE_ID);
+    console.log("(FROM PARAM) : P_ROW_NUM                            : " + td_searchCriteria.P_ROW_NUM);  
+    console.log("(FROM PARAM) : P_FECHA_INICIO (origen)              : " + td_searchCriteria.P_FECHA_INICIO);
+    console.log("(FROM PARAM) : P_FECHA_FIN    (origen)              : " + td_searchCriteria.P_FECHA_FIN);  
+    console.log("(FROM PARAM) : P_FECHA_INICIO (valid : 01/09/2022)  : " + td_searchCriteria.P_FECHA_INICIO_STR);
+    console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + td_searchCriteria.P_FECHA_FIN_STR);
     console.log("(SEARCH INIT)");
     // 
-    this._informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
-    //this._informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
+    let td_informeLogRemoto!                 : Observable<LogEntry_[]>;
+    td_informeLogRemoto                      = this.logInfoService.getLogRemoto_DEV(td_searchCriteria);
+    //this._informeLogRemoto                 = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
     //
-    const _myObserver = {
-      next: (p_logEntry: LogEntry_[])     => { 
+    const td_observer = {
+      next: (td_logEntry: LogEntry_[])     => { 
         //
-        console.log('RETURN VALUES (Record Count): ' + p_logEntry.length);
+        console.log('TEMPLATE DRIVEN - RETURN VALUES (Record Count): ' + td_logEntry.length);
         //
-        this.td_dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
+        this.td_dataSource           = new MatTableDataSource<LogEntry_>(td_logEntry);
         this.td_dataSource.paginator = this.td_paginator;
+        //
+        this.td_textStatus           = "Se encontraron [" + td_logEntry.length + "] registros ";
+        this.td_formSubmit           = false;
       },
-      error           : (err: Error)      => console.error('ERROR : ' + JSON.stringify(err.message)),
-      complete        : ()                => console.log('(SEARCH END)'),
+      error           : (err: Error)      => {
+        //
+        console.error('TEMPLATE DRIVEN - (ERROR) : ' + JSON.stringify(err.message));
+        //
+        this.td_textStatus           = "Ha ocurrido un error. Favor intente de nuevo";
+        this.td_formSubmit           = false;
+        this.td_buttonCaption        = "[Buscar]";
+        //
+      },
+      complete        : ()                => {
+        //
+        console.log('TEMPLATE DRIVEN -  (SEARCH END)');
+        //
+        this.td_formSubmit           = false;
+        this.td_buttonCaption        = "[Buscar]";
+      },
     };
     //
-    this._informeLogRemoto.subscribe(_myObserver);
+    td_informeLogRemoto.subscribe(td_observer);
   }
   //
   td_newSearch() {
       //
       console.warn("(NEW SEARCH 1)");
+      //
+      this.td_textStatus           = "";
       //
       this.td_dataSource           = new MatTableDataSource<LogEntry_>();
       this.td_dataSource.paginator = this.td_paginator;
@@ -200,6 +220,30 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
   // METHODS - REACTIVE FORM
   //-------------------------------------------------------------------------------------
   //
+  rf_onSubmit() 
+  { 
+        //
+        console.warn("(SUBMIT 2)");
+        //
+        let _P_DATA_SOURCE_ID  : string = this.rf_searchForm.value["_P_DATA_SOURCE_ID"] || "";
+        let _P_ID_TIPO_LOG     : string = this.rf_searchForm.value["_P_ID_TIPO_LOG"]    || "";
+        let _P_ROW_NUM         : string = this.rf_searchForm.value["_P_ROW_NUM"]        || "";
+        let _P_FECHA_INICIO    : string = this.rf_searchForm.value["_P_FECHA_INICIO"]   || "";      
+        let _P_FECHA_FIN       : string = this.rf_searchForm.value["_P_FECHA_FIN"]      || "";
+  
+        //
+        let rf_model  = new searchCriteria( 
+                                _P_DATA_SOURCE_ID
+                              , _P_ID_TIPO_LOG
+                              , _P_ROW_NUM
+                              , _P_FECHA_INICIO
+                              , _P_FECHA_FIN
+                              , "","");
+        //
+        if (rf_model.P_DATA_SOURCE_ID != "0")
+            this.rf_update(rf_model);
+  }
+  //
   rf_update(_searchCriteria : searchCriteria):void {
     //
     this.rf_formSubmit = true;
@@ -215,20 +259,21 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     console.log("(FROM PARAM) : P_FECHA_FIN    (valid : 30/09/2022)  : " + _searchCriteria.P_FECHA_FIN_STR);
     console.log("(SEARCH INIT)");
     // 
-    this.informeLogRemoto = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
+    let rf_informeLogRemoto!                   : Observable<LogEntry_[]>;
+    rf_informeLogRemoto                        = this.logInfoService.getLogRemoto_DEV(_searchCriteria);
     //this.informeLogRemoto = this.logInfoService.getLogRemoto_DEPLOY_SPAE(_searchCriteria);
     //
-    const myObserver = {
-      next: (p_logEntry: LogEntry_[])     => { 
+    const rf_observer = {
+      next: (rf_logEntry: LogEntry_[])     => { 
         //
-        console.log('RETURN VALUES (Record Count): ' + p_logEntry.length);
+        console.log('RETURN VALUES (Record Count): ' + rf_logEntry.length);
         //
-        this.rf_dataSource           = new MatTableDataSource<LogEntry_>(p_logEntry);
+        this.rf_dataSource           = new MatTableDataSource<LogEntry_>(rf_logEntry);
         this.rf_dataSource.paginator = this.rf_paginator;
         //
         this.rf_formSubmit = false;
         //
-        this._textStatus = "Se encontraron [" + p_logEntry.length + "] registros ";
+        this.rf_textStatus = "Se encontraron [" + rf_logEntry.length + "] registros ";
       },
       error           : (err: Error)      => {
           //
@@ -236,7 +281,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
           //
           this.td_formSubmit = false;
           //
-          this._textStatus = "Ha ocurrido un error";
+          this.rf_textStatus = "Ha ocurrido un error";
       },
       complete        : ()                => {
           //
@@ -246,7 +291,7 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
       },
     };
     //
-    this.informeLogRemoto.subscribe(myObserver);
+    rf_informeLogRemoto.subscribe(rf_observer);
   }
   //
   rf_newSearch()
@@ -272,29 +317,5 @@ export class LogInfoViewComponent implements OnInit, AfterViewInit {
     console.log("P_FECHA_INICIO    : " + (this.rf_searchForm.value["_P_FECHA_INICIO"]   || ""));      
     console.log("P_FECHA_FIN       : " + (this.rf_searchForm.value["_P_FECHA_FIN"]      || "")); 
     console.log("(DEFAULT VALUES - END)");
-  }
-  //
-  rf_onSubmit() 
-  { 
-      //
-      console.warn("(SUBMIT 2)");
-      //
-      let _P_DATA_SOURCE_ID  : string = this.rf_searchForm.value["_P_DATA_SOURCE_ID"] || "";
-      let _P_ID_TIPO_LOG     : string = this.rf_searchForm.value["_P_ID_TIPO_LOG"]    || "";
-      let _P_ROW_NUM         : string = this.rf_searchForm.value["_P_ROW_NUM"]        || "";
-      let _P_FECHA_INICIO    : string = this.rf_searchForm.value["_P_FECHA_INICIO"]   || "";      
-      let _P_FECHA_FIN       : string = this.rf_searchForm.value["_P_FECHA_FIN"]      || "";
-
-      //
-      let _model  = new searchCriteria( 
-                              _P_DATA_SOURCE_ID
-                            , _P_ID_TIPO_LOG
-                            , _P_ROW_NUM
-                            , _P_FECHA_INICIO
-                            , _P_FECHA_FIN
-                            , "","");
-      //
-      if (_model.P_DATA_SOURCE_ID != "0")
-          this.rf_update(_model);
   }
 }

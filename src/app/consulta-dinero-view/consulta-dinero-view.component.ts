@@ -21,7 +21,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     return "[CONSULTA - HISTORICO DE DINERO] (PRUEBAS)";
   }
   //------------------------------------------------------------------------------------------------
-  //  REACTIVE FORM
+  //  REACTIVE FORM - FIELDS
   //------------------------------------------------------------------------------------------------
   //
   _textStatus                  : string = "";

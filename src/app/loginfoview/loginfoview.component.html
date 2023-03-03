@@ -67,8 +67,8 @@
           <hr>
           <!-- INICIO PANEL DE BOTONES    -->
           <div align="right">
-              <button type="submit" class="btn btn-success" [disabled]="!td_searchForm.form.valid">[Buscar]</button>
-              <button type="button" class="btn btn-default" (click)="td_newSearch();">[Nueva]</button>
+            <button class="button" type="submit" [disabled]="(this.td_buttonCaption != '[Buscar]')">{{this.td_buttonCaption}}</button>
+            <button class="button" type="button" (click)="td_newSearch()">[Nueva]</button>
           </div>
           <!-- FIN    PANEL DE VALIDACION    -->
           <!-- INICIO MENSAJES DE VALIDACION -->
@@ -98,7 +98,7 @@
           <hr>
           <!-- INICIO STATUS BUSQUEDA -->
           <div align="center">
-            <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this._textStatus}}</label>
+            <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this.td_textStatus}}</label>
           </div>
           <!-- FIN    STATUS BUSQUEDA -->
         </form>
@@ -187,16 +187,23 @@
             <input id="_P_FECHA_FIN" type="date" formControlName="_P_FECHA_FIN">
           </div>
           <hr>
-          <!-- BUTTONS PANEL -->
+          <!-- INICIO BUTTONS PANEL -->
           <div align="right">
             <button class="button" type="submit">Buscar</button>
             <button class="button" type="button" (click)="rf_newSearch()">Nueva</button>
           </div>
+          <!-- FIN BUTTONS PANEL -->
+          <!-- INICIO STATUS BUSQUEDA -->
+          <div align="center">
+            <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this.rf_textStatus}}</label>
+          </div>
+          <!-- FIN    STATUS BUSQUEDA -->
+      <hr>
+      <!-- INIT DATAGRID -->
         </form>
       </div>
       <!-- END SEARCH PANEL -->
       <hr>
-      <!-- INIT DATAGRID -->
       <div class="scrollbar">
         <table  mat-table #_searchResults [dataSource]="rf_dataSource"  class="mat-elevation-z8" aria-label="_informelogremoto">
           <ng-container matColumnDef="ID_LOG">
