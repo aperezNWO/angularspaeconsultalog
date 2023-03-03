@@ -156,6 +156,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   private _update(_searchCriteria: dineroSearchCriteria) {
       //
+      this._formSubmit     = true;
+      //
       this._buttonCaption  = "[Favor espere...]";
       // 
       //this._informeDineroRemoto  = this.logInfoService.getConsultaDineroRemoto_DEV(_searchCriteria);

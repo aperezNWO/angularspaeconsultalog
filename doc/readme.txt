@@ -137,18 +137,22 @@ public JsonResult GetConsultaLogGet
         --[X] Validaciones / template driven (NgModel).      
               --[_] .
 --[>] [CONSULTA (HISTORICO DE DINERO) / Panel de Búsqueda / Validacion / CONSULTA_1 (REACTIVE)]: 
-            --[>] P_ID_DATA_SOURCE. 
-            --[>] P_VIGENCIA. 
-            --[>] P_IDENTIFICACION. 
-            --[_] Validaciones.
-                        --[_] Field Messages.
-                        --[_] Buttons.
-                        --[_] Status.
-            --[_] Mensajes a Usuario.   
-                        --[_] angular change caption button runtime.   
-                        --[_] Record count.   
-                        --[_] Modal status.
-                        --[_] Reset / Default Values. 
+            --[X] P_ID_DATA_SOURCE. 
+            --[X] P_VIGENCIA. 
+            --[X] P_IDENTIFICACION. 
+            --[X] Validaciones.
+                        --[X] Field Messages.
+                        --[X] Buttons.
+                        --[X] Status.
+            --[X] Mensajes a Usuario.   
+                        --[X] angular change caption button runtime.   
+                        --[X] Record count.   
+                        --[X] Modal status.
+                        --[X] Reset / Default Values. 
+            --[>] DataGrid.     
+                        --[x] Campos.
+                        --[_] Paginación.
+
 --[>] [CONSULTA (HISTORICO DE DINERO)  / Panel de Búsqueda / Validacion / CONSULTA_2 (TEMPLATE DRIVEN)]: 
             --[x] P_ID_DATA_SOURCE. 
             --[x] P_VIGENCIA. 
@@ -162,21 +166,31 @@ public JsonResult GetConsultaLogGet
                         --[x] Angular change caption button runtime.   
                         --[x] Record count.   
                         --[x] Reset / Default Values. 
-            --[>] Behaviour on Exception.     
-                        --[_] Messages.
-                        --[_] Buttons.
-                        --[_] Status.
+            --[X] Behaviour on Exception.     
+                        --[x] Messages.
+                        --[x] Buttons.
+                        --[x] Status.
             --[>] DataGrid.     
-                        --[_] Campos.
+                        --[x] Campos.
                         --[_] Paginación.
-  --[_] Informe Excel.      
-  --[_] Estilos.      
+
+--[>] [CONSULTA LOG (PRUEBAS)]: 
+
+      --[_] VALIDACIONES.
+            --[_] TEMPLATE DRIVEN.
+            --[_] REACTIVE.
+
+--[>] [CONSULTA (HISTORICO DE DINERO)  / NELSON ROJAS ]:
+
+--[_] Informe Excel.      
+
+--[_] Estilos.      
         --[_] Modal status.
         --[_] Install Angular Material. 
         --[_] Bootstrap (mobile).      
         --[_] SCSS.      
-  --[_] Dynamic Forms.   
-  --[>] [CONSULTA (HISTORICO DE DINERO)  / NELSON ROJAS ]:
+
+--[_] Dynamic Forms.   
 
 ==========================================================================================
 

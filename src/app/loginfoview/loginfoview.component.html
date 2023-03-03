@@ -9,7 +9,7 @@
       <hr>  
       <!-- IBIT SEARCH PANEL -->
       <div class="searchPanel">
-        <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+        <form (ngSubmit)="td_onSubmit()" #td_searchForm="ngForm">
           <!-- [_] P_DATA_SOURCE_ID -->
           <div class="form-group">
             <label for="P_DATA_SOURCE_ID" style="width:100px;">Origen de Datos : </label>
@@ -21,9 +21,6 @@
                     #P_DATA_SOURCE_ID="ngModel">                    >
               <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
             </select>
-            <div [hidden]="(P_DATA_SOURCE_ID.valid || P_DATA_SOURCE_ID.pristine)" class="alert alert-danger">
-              Favor seleccione origen de datos
-            </div>
           </div>
           <!-- [_] P_ID_TIPO_LOG    -->
           <div class="form-group">
@@ -36,9 +33,6 @@
                       #P_ID_TIPO_LOG="ngModel">                    >
                 <option *ngFor="let _pTipoLog of P_ID_TIPO_LOGS" [value]="_pTipoLog.M_TIPO_LOG_ID">{{_pTipoLog.M_TIPO_LOG_NAME}}</option>
               </select>
-              <div [hidden]="(P_ID_TIPO_LOG.valid || P_ID_TIPO_LOG.pristine)" class="alert alert-danger">
-                Favor seleccione un Tipo de Consulta
-              </div>
           </div>
           <!--[_] P_ROW_NUM      -->
           <div class="form-group">
@@ -49,9 +43,6 @@
                     [(ngModel)]="model.P_ROW_NUM"
                     name="P_ROW_NUM"                     
                     #P_ROW_NUM="ngModel"/>
-            <div [hidden]="(P_ROW_NUM.valid || P_ROW_NUM.pristine)" class="alert alert-danger">
-              Favor ingrese # de filas
-            </div>
           </div>
           <!--[_] P_FECHA_INICIO --> 
           <div class="form-group">
@@ -62,9 +53,6 @@
                     [(ngModel)]="model.P_FECHA_INICIO"
                     name="P_FECHA_INICIO"                     
                     #P_FECHA_INICIO="ngModel"/>            
-            <div [hidden]="(P_FECHA_INICIO.valid || P_FECHA_INICIO.pristine)" class="alert alert-danger">
-              Favor ingrese fecha inicial
-            </div>
           </div>
           <!--[_] P_FECHA_FIN.   --> 
           <div class="form-group">
@@ -75,15 +63,44 @@
                     [(ngModel)]="model.P_FECHA_FIN"
                     name="P_FECHA_FIN"                     
                     #P_FECHA_FIN="ngModel"/>
-            <div [hidden]="(P_FECHA_FIN.valid || P_FECHA_FIN.pristine)" class="alert alert-danger">
-              Favor ingrese fecha final
-            </div>
           </div>        
           <hr>
+          <!-- INICIO PANEL DE BOTONES    -->
           <div align="right">
-              <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">[Buscar]</button>
+              <button type="submit" class="btn btn-success" [disabled]="!td_searchForm.form.valid">[Buscar]</button>
               <button type="button" class="btn btn-default" (click)="newSearch();">[Nueva]</button>
           </div>
+          <!-- FIN    PANEL DE VALIDACION    -->
+          <!-- INICIO MENSAJES DE VALIDACION -->
+          <div align="left">
+            <ul *ngIf="(this.td_searchForm.valid) && (this._formSubmit == true)" class="alert alert-danger">
+              <p>Favor revise los datos del formulario</p>
+              <li *ngIf="((this.td_searchForm.value['_P_DATA_SOURCE_ID'] == null) ||  (this.td_searchForm.value['_P_DATA_SOURCE_ID'] == '') || (this.td_searchForm.value['_P_DATA_SOURCE_ID'] == '0') ) && (this._formSubmit == true)">
+                El campo 'Origen de datos' es requerido.
+              </li>
+              <!--
+              <div [hidden]="(P_ID_TIPO_LOG.valid || P_ID_TIPO_LOG.pristine)" class="alert alert-danger">
+                Favor seleccione un Tipo de Consulta
+              </div>
+              <div [hidden]="(P_ROW_NUM.valid || P_ROW_NUM.pristine)" class="alert alert-danger">
+                Favor ingrese # de filas
+              </div>
+              <div [hidden]="(P_FECHA_INICIO.valid || P_FECHA_INICIO.pristine)" class="alert alert-danger">
+                Favor ingrese fecha inicial
+              </div>
+              <div [hidden]="(P_FECHA_FIN.valid || P_FECHA_FIN.pristine)" class="alert alert-danger">
+                Favor ingrese fecha final
+              </div>
+              -->      
+            </ul>
+          </div>
+          <!-- FIN MENBSAJES VALIDACION      -->
+          <hr>
+          <!-- INICIO STATUS BUSQUEDA -->
+          <div align="center">
+            <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this._textStatus}}</label>
+          </div>
+          <!-- FIN    STATUS BUSQUEDA -->
         </form>
       </div>
       <!-- END  SERCH PANEL  -->
@@ -129,7 +146,7 @@
       <hr>  
       <!-- INIT SEARCH PANEL -->
       <div class="searchPanel">
-        <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
+        <form [formGroup]="rf_searchForm" (ngSubmit)="rf_onSubmit()">
           <!--P_DATA_SOURCE_ID      -->
           <div>
             <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
@@ -173,7 +190,7 @@
           <!-- BUTTONS PANEL -->
           <div align="right">
             <button class="button" type="submit">Buscar</button>
-            <button class="button" type="button" (click)="_newSearch()">Nueva</button>
+            <button class="button" type="button" (click)="rf_newSearch()">Nueva</button>
           </div>
         </form>
       </div>
