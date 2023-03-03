@@ -15,10 +15,10 @@ import { LogInfoService                     } from '../loginfo.service';
 //
 export class LogInfoViewComponent implements OnInit, AfterViewInit {
   //
-  readonly _pageTitle  : string = "[CONSULTA - LOG DE APLICATIVO]";
+  readonly _pageTitle  : string = "[CONSULTA - LOG DE APLICATIVO] (PRUEBAS)";
   //
-  static pageTitle(): string {
-    return "[CONSULTA - LOG DE APLICATIVO]";
+  static pageTitle()   : string {
+    return "[CONSULTA - LOG DE APLICATIVO] (PRUEBAS)";
   }
   //
   informeLogRemoto!                  : Observable<LogEntry_[]>;

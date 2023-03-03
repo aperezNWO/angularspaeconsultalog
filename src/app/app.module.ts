@@ -35,8 +35,9 @@ import { ConsultahistoricodineroComponent } from './consultahistoricodinero/cons
     MatPaginatorModule,
     MatTabsModule,
     RouterModule.forRoot([
-      {  path: 'consultadineroview'      , component: ConsultaDineroViewComponent   },
-      {  path: 'loginfoview'             , component: LogInfoViewComponent          }, 
+      {  path: 'consultadineroview'      , component: ConsultaDineroViewComponent               },
+      {  path: 'loginfoview'             , component: LogInfoViewComponent                      }, 
+      {  path: 'consultadinerohistorico' , component: ConsultahistoricodineroComponent          }, 
     ])    
   ],
   providers: [],

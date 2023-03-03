@@ -1,6 +1,7 @@
-import { Component, VERSION           } from '@angular/core';
-import { LogInfoViewComponent         } from './loginfoview/loginfoview.component';
-import { ConsultaDineroViewComponent  } from './consulta-dinero-view/consulta-dinero-view.component';
+import { Component, VERSION               } from '@angular/core';
+import { LogInfoViewComponent             } from './loginfoview/loginfoview.component';
+import { ConsultaDineroViewComponent      } from './consulta-dinero-view/consulta-dinero-view.component';
+import { ConsultahistoricodineroComponent } from './consultahistoricodinero/consultahistoricodinero.component';
 
 //
 @Component({
@@ -12,11 +13,12 @@ import { ConsultaDineroViewComponent  } from './consulta-dinero-view/consulta-di
 export class AppComponent {
   //
   appName           : string = "[SPAE CONSULTAS]"
-  appVersion        : string = '1.0.0.25';
+  appVersion        : string = '1.0.0.26';
   runtimeVersion    : string = VERSION.full;
   //
-  readonly LogInfoViewComponent_pageTitle        : string = LogInfoViewComponent.pageTitle();
-  readonly ConsultaDineroViewComponent_pageTitle : string = ConsultaDineroViewComponent.pageTitle();
+  readonly LogInfoViewComponent_pageTitle             : string = LogInfoViewComponent.pageTitle();
+  readonly ConsultaDineroViewComponent_pageTitle      : string = ConsultaDineroViewComponent.pageTitle();
+  readonly ConsultaDineroHistoricoComponent_pageTitle : string = ConsultahistoricodineroComponent.pageTitle();
   //
   constructor() {
     //

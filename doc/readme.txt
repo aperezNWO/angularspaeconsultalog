@@ -153,20 +153,20 @@ public JsonResult GetConsultaLogGet
             --[x] P_ID_DATA_SOURCE. 
             --[x] P_VIGENCIA. 
             --[x] P_IDENTIFICACION. 
-            --[>] Validaciones.
-                        --[_] Field Messages.
-                        --[_] Buttons.
+            --[x] Validaciones.
+                        --[x] Field Messages.
+                        --[x] Buttons.
                         --[x] Status.
                         --[x] Cedula.
-            --[_] Mensajes a Usuario.   
+            --[x] Mensajes a Usuario.   
                         --[x] Angular change caption button runtime.   
                         --[x] Record count.   
                         --[x] Reset / Default Values. 
-            --[_] Behaviour on Exception.     
+            --[>] Behaviour on Exception.     
                         --[_] Messages.
                         --[_] Buttons.
                         --[_] Status.
-            --[_] DataGrid.     
+            --[>] DataGrid.     
                         --[_] Campos.
                         --[_] Paginación.
   --[_] Informe Excel.      
@@ -176,6 +176,8 @@ public JsonResult GetConsultaLogGet
         --[_] Bootstrap (mobile).      
         --[_] SCSS.      
   --[_] Dynamic Forms.   
+  --[>] [CONSULTA (HISTORICO DE DINERO)  / NELSON ROJAS ]:
+
 ==========================================================================================
 
 

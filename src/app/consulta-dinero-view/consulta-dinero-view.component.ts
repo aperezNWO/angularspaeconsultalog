@@ -14,12 +14,11 @@ import { LogInfoService                               } from '../loginfo.service
 })
 //
 export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
-[x: string]: any;
   //
-  readonly _pageTitle          : string = "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
+  readonly _pageTitle          : string = "[CONSULTA - HISTORICO DE DINERO] (PRUEBAS)";
   //
   static pageTitle()           : string {
-    return "[CONSULTA - SOLICITUDES DE DINERO (HISTORICO)]";
+    return "[CONSULTA - HISTORICO DE DINERO] (PRUEBAS)";
   }
   //------------------------------------------------------------------------------------------------
   //  REACTIVE FORM
@@ -179,13 +178,17 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
             //
             this._textStatus     = "Ha ocurrido un error. Favor intente de nuevo";
             //
-            this._buttonCaption  = "[Buscar]";              
+            this._buttonCaption  = "[Buscar]";  
+            //
+            this._formSubmit      = false;
             //
             console.error('ERROR : ' + JSON.stringify(err.message));
         },
         complete        : ()                => {
             //
             this._buttonCaption  = "[Buscar]";
+            //
+            this._formSubmit     = false;
             //
             console.log('(SEARCH END)');
         },
@@ -254,13 +257,17 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
             //
             this.td_textStatus     = "Ha ocurrido un error. Favor intente de nuevo";
             //
-            this.td_buttonCaption  = "[Buscar]";              
+            this.td_buttonCaption  = "[Buscar]";    
+            //
+            this.td_formSubmit     = false;           
             //
             console.error('ERROR : ' + JSON.stringify(err.message));
         },
         complete        : ()                => {
             //
             this.td_buttonCaption  = "[Buscar]";
+            //
+            this.td_formSubmit     = false;
             //
             console.log('(SEARCH END)');
         },
