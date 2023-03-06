@@ -111,6 +111,69 @@ public JsonResult GetConsultaLogGet
   </httpProtocol>
 </system.webServer>
 
+=============================================================================
+--  cedulas consulta historico de Dinero
+=============================================================================
+
+x 1006597298
+
+x 18112959
+
+x 18613774
+
+x 1001027726
+
+x 19003255
+
+x 1061776928
+
+x 29181484
+
+x 1085688839
+
+x 1073969030
+
+1125412272
+
+1073971764
+
+1118026425
+
+55154152
+
+1075234436
+
+36308023
+
+1072642441
+
+1075293228
+
+1075260747
+
+1056770576
+
+55163426
+
+1075253612
+
+1005878017
+
+15488792
+
+26260570
+
+1077438028
+
+x 1063294090
+
+x 1061759906
+
+x 1002793005
+
+x 41116130
+
+
 ==========================================================================================
 -- STRATEGY
 ==========================================================================================
@@ -129,13 +192,12 @@ public JsonResult GetConsultaLogGet
       --[x] Consulta Log.
 --[>] [FORMS]: 
     --[X] material tab. 
-    --[_] Validaciones
-        --[_] https://angular.io/guide/forms-overview 
-        --[_] https://angular.io/guide/form-validation
-        --[x] Validaciones / reactive        [formControl]. 
-              --[_] https://angular.io/guide/form-validation#validating-input-in-reactive-forms 
+    --[x] Validaciones
+        --[x] https://angular.io/guide/forms-overview 
+         --[x] Validaciones / reactive        [formControl]. 
+              --[x] https://angular.io/guide/form-validation#validating-input-in-reactive-forms 
         --[X] Validaciones / template driven (NgModel).      
-              --[_] .
+              --[x] https://angular.io/guide/form-validation
 --[>] [CONSULTA (HISTORICO DE DINERO) / Panel de Búsqueda / Validacion / CONSULTA_1 (REACTIVE)]: 
             --[X] P_ID_DATA_SOURCE. 
             --[X] P_VIGENCIA. 
@@ -149,7 +211,7 @@ public JsonResult GetConsultaLogGet
                         --[X] Record count.   
                         --[X] Modal status.
                         --[X] Reset / Default Values. 
-            --[>] DataGrid.     
+            --[x] DataGrid.     
                         --[x] Campos.
                         --[_] Paginación.
 
@@ -176,21 +238,40 @@ public JsonResult GetConsultaLogGet
 
 --[>] [CONSULTA LOG (PRUEBAS)]: 
 
-      --[_] VALIDACIONES.
-            --[_] TEMPLATE DRIVEN.
-            --[_] REACTIVE.
+      --[x] VALIDACIONES.
+            --[x] TEMPLATE DRIVEN.
+            --[x] REACTIVE.
 
 --[>] [CONSULTA (HISTORICO DE DINERO)  / NELSON ROJAS ]:
+      
+      --[x] Verificar filtro por año de vigencia.    
 
---[_] Informe Excel.      
+      --[_] Checkboxes campos de busqueda (opcionales) / TEMPLATE DRIVEN.   
 
---[_] Estilos.      
-        --[_] Modal status.
+      --[_] Paginación.  
+      
+      --[_] Filtro por otros campos.  
+
+            --[_] vigencia.
+            --[_] idententificacion.
+            --[_] fud.
+            --[_] estado.
+            --[_] departamento/municipio.
+            --[_] nombre solicititante.
+            --[_] nombre funcionario/responsable.
+            --[_] observaciones.
+
+      --[_] scss / material.  
+
+--[_] Estilos. 
+
+        --[_] Modal status (POPPER).
         --[_] Install Angular Material. 
         --[_] Bootstrap (mobile).      
         --[_] SCSS.      
 
 --[_] Dynamic Forms.   
+--[_] Temario Angular.
 
 ==========================================================================================
 

@@ -13,7 +13,7 @@ import { ConsultahistoricodineroComponent } from './consultahistoricodinero/cons
 export class AppComponent {
   //
   appName           : string = "[SPAE CONSULTAS]"
-  appVersion        : string = '1.0.0.31';
+  appVersion        : string = '1.0.0.32';
   runtimeVersion    : string = VERSION.full;
   //
   readonly LogInfoViewComponent_pageTitle             : string = LogInfoViewComponent.pageTitle();
