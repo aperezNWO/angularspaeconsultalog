@@ -6,6 +6,7 @@ import { Observable                                   } from 'rxjs';
 import { DineroSearchResultEntity, p_Vigencia         } from '../loginfo.model';
 import { p_DataSource, dineroSearchCriteria           } from '../loginfo.model';
 import { LogInfoService                               } from '../loginfo.service';
+import { ThisReceiver } from '@angular/compiler';
 //
 @Component({
   selector: 'app-consulta-dinero-view',
@@ -49,9 +50,11 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     { M_VIGENCIA_ID : "2022"  , M_VIGENCIA_NAME : "2022"   },
     { M_VIGENCIA_ID : "2023"  , M_VIGENCIA_NAME : "2023"   }];
   //                                                                 
-  model                              = new dineroSearchCriteria( "0"
-                                                                ,"0"
-                                                                ,"0");
+  model                              = new dineroSearchCriteria(  "0"
+                                                                , "0"
+                                                                , "0"
+                                                                , ""
+                                                                , "0");
   //
   @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
   //
@@ -74,6 +77,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   td_model                              = new dineroSearchCriteria(   "0"
                                                                      ,"0"
+                                                                     ,"0"
+                                                                     , ""
                                                                      ,"0");
   //
   td_informeDineroRemotoSTR!            : Observable<string>;
@@ -115,6 +120,8 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     //
     this.model          = new dineroSearchCriteria(   "0"
                                                      ,"0"
+                                                     ,"0"
+                                                     ,"0"
                                                      ,"0");
     //                                            
     this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
@@ -129,20 +136,26 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   _onSubmit() : void {
       //
-      console.warn("(SUBMIT 1)");
+      console.warn("(REACTIVE - SUBMIT)");
       //
       let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
       let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "";
       let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "";
+      let _P_FUD               : string = "0";
+      let _P_ID_ESTADO         : string = "0";
       //
       console.log("_P_DATA_SOURCE_ID : " + _P_DATA_SOURCE_ID);
       console.log("_P_CEDULA         : " + _P_CEDULA);
       console.log("_P_VIGENCIA       : " + _P_VIGENCIA);
+      console.log("_P_FUD            : " + _P_FUD);
+      console.log("_P_ID_ESTADO      : " + _P_ID_ESTADO);
       //
       let _model  = new dineroSearchCriteria( 
                               _P_DATA_SOURCE_ID
                             , _P_VIGENCIA
-                            , _P_CEDULA);
+                            , _P_CEDULA
+                            , _P_FUD
+                            , _P_ID_ESTADO);
       //
       this._textStatus     = "";
       //
@@ -194,7 +207,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
             //
             this._formSubmit     = false;
             //
-            console.log('(SEARCH END)');
+            console.log('(REACTIVE - SEARCH END)');
         },
       };
       //
@@ -205,11 +218,17 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //-----------------------------------------------------
   td_onSubmit()  : void {
     //
-    console.warn("(SUBMIT 2)");
+    console.warn("(TEMPLATE DRIVEN - SUBMIT)");
+    //
+    this.td_model.P_FUD       = "0";
+    this.td_model.P_ID_ESTADO = "0";
     //
     console.log("_P_DATA_SOURCE_ID : " + this.td_model.P_ID_DATA_SOURCE);
     console.log("_P_CEDULA         : " + this.td_model.P_IDENTIFICACION);
     console.log("_P_VIGENCIA       : " + this.td_model.P_VIGENCIA);
+    console.log("_P_FUD            : " + this.td_model.P_FUD);
+    console.log("_P_ID_ESTADO      : " + this.td_model.P_ID_ESTADO);
+
     //
     this.td_textStatus     = "";
     //
@@ -229,9 +248,11 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     //
     this.td_buttonCaption = "[Buscar]";
     //
-    this.td_model                = new dineroSearchCriteria(   "0"
-                                                              ,"0"
-                                                              ,"0");
+    this.td_model                = new dineroSearchCriteria(    "0"
+                                                              , "0"
+                                                              , "0"
+                                                              , "0"
+                                                              , "0");
     //                                            
     this.td_dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
     this.td_dataSource.paginator = this._paginator;

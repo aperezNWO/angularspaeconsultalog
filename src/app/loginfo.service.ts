@@ -78,7 +78,13 @@ export class LogInfoService {
     //
     //let prefix   = 'http://localhost:80/';
     let prefix     = 'http://172.20.14.128:80/';
-    let url        = prefix + '/HOME/GetConsultaDineroGet?P_ID_DATA_SOURCE=' + _searchCriteria.P_ID_DATA_SOURCE + '&P_VIGENCIA=' + _searchCriteria.P_VIGENCIA + '&p_identificacion=' + _searchCriteria.P_IDENTIFICACION;
+    let url        = prefix + '/HOME/GetConsultaDineroGet?'
+                            + 'P_ID_DATA_SOURCE='  + _searchCriteria.P_ID_DATA_SOURCE 
+                            + '&P_VIGENCIA='       + _searchCriteria.P_VIGENCIA 
+                            + '&p_identificacion=' + _searchCriteria.P_IDENTIFICACION
+                            + '&p_fud='            + _searchCriteria.P_FUD
+                            + '&p_id_estado='      + _searchCriteria.P_ID_ESTADO
+    ;
     //    
     return this.http.get<string>(url);
   }

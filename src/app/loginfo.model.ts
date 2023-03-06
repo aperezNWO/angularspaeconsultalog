@@ -62,7 +62,9 @@ export class  searchCriteria
     constructor(
         public P_ID_DATA_SOURCE  : string,
         public P_VIGENCIA        : string,
-        public P_IDENTIFICACION  : string
+        public P_IDENTIFICACION  : string,
+        public P_FUD             : string,
+        public P_ID_ESTADO       : string
     )
     {
         //
