@@ -2,5 +2,15 @@
 <span class="subtitle">
     <H3>{{_pageTitle}}</H3>
 </span>
-<hr>
-<hr>
+<div class="searchPanel">
+    <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
+        <!-- INICIO BUTTONS PANEL   -->
+        <hr>
+        <div align="right">
+            <button class="button" type="submit" [disabled]="(this._buttonCaption != '[Buscar]')">{{this._buttonCaption}}</button>
+            <button class="button" type="button" (click)="_newSearch()">[Nueva]</button>
+        </div>
+        <!-- FIN BUTTONS PANEL             -->
+        <hr>
+    </form>
+</div>        
