@@ -14,12 +14,27 @@ import { LogInfoService                               } from '../loginfo.service
 })
 //
 export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
+  //------------------------------------------------------------------------------------------------
+  //  COMMON FIELDS / PROPERTIES
+  //------------------------------------------------------------------------------------------------
   //
   readonly _pageTitle          : string = "[CONSULTA - HISTORICO DE DINERO] (PRUEBAS)";
   //
   static pageTitle()           : string {
     return "[CONSULTA - HISTORICO DE DINERO] (PRUEBAS)";
   }
+  //
+  P_DATA_SOURCES                     : p_DataSource[]          = [{ M_DATA_SOURCE_ID : "0"  , M_DATA_SOURCE_NAME : "(SELECCIONE OPCION...)"},
+  { M_DATA_SOURCE_ID : "1"  , M_DATA_SOURCE_NAME : "RUV_PRODUCCION"},
+  { M_DATA_SOURCE_ID : "2"  , M_DATA_SOURCE_NAME : "RUV_PRUEBAS"   }];
+
+  //
+  P_VIGENCIAS                       : p_Vigencia[]           = [{ M_VIGENCIA_ID : "0"  , M_VIGENCIA_NAME : "(SELECCIONE OPCION...)"},
+  { M_VIGENCIA_ID : "2019"  , M_VIGENCIA_NAME : "2019"   },
+  { M_VIGENCIA_ID : "2020"  , M_VIGENCIA_NAME : "2020"   },
+  { M_VIGENCIA_ID : "2021"  , M_VIGENCIA_NAME : "2021"   },
+  { M_VIGENCIA_ID : "2022"  , M_VIGENCIA_NAME : "2022"   },
+  { M_VIGENCIA_ID : "2023"  , M_VIGENCIA_NAME : "2023"   }];
   //------------------------------------------------------------------------------------------------
   //  REACTIVE FORM - FIELDS
   //------------------------------------------------------------------------------------------------
@@ -36,18 +51,6 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   _dataSource                  = new MatTableDataSource<DineroSearchResultEntity>();
   // 
   displayedColumns                   : string[]                = ['ID_SOLICITUD','NOMBRE_COMPLETO','FUD','ESTADO_SOLICITUD','RESPONSABLE_SOLICITUD', 'DANE_DEPARTAMENTO','DANE_MUNICIPIO','OBSERVACION_SOLICITUD'];
-  //
-  P_DATA_SOURCES                     : p_DataSource[]          = [{ M_DATA_SOURCE_ID : "0"  , M_DATA_SOURCE_NAME : "(SELECCIONE OPCION...)"},
-                                                                  { M_DATA_SOURCE_ID : "1"  , M_DATA_SOURCE_NAME : "RUV_PRODUCCION"},
-                                                                  { M_DATA_SOURCE_ID : "2"  , M_DATA_SOURCE_NAME : "RUV_PRUEBAS"   }];
-
-  //
-  P_VIGENCIAS                       : p_Vigencia[]           = [{ M_VIGENCIA_ID : "0"  , M_VIGENCIA_NAME : "(SELECCIONE OPCION...)"},
-    { M_VIGENCIA_ID : "2019"  , M_VIGENCIA_NAME : "2019"   },
-    { M_VIGENCIA_ID : "2020"  , M_VIGENCIA_NAME : "2020"   },
-    { M_VIGENCIA_ID : "2021"  , M_VIGENCIA_NAME : "2021"   },
-    { M_VIGENCIA_ID : "2022"  , M_VIGENCIA_NAME : "2022"   },
-    { M_VIGENCIA_ID : "2023"  , M_VIGENCIA_NAME : "2023"   }];
   //                                                                 
   model                              = new dineroSearchCriteria(  "0"
                                                                 , "0"
@@ -63,7 +66,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     _P_VIGENCIA           : [""            , Validators.required],
   });
   //------------------------------------------------------------------------------------------------
-  // TEMPLATE DRIVEN FORM
+  // TEMPLATE DRIVEN FORM - FIELDS
   //------------------------------------------------------------------------------------------------
   //
   td_textStatus                  : string = "";
@@ -91,7 +94,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   }
   //
   @ViewChild('td_paginator',{read: MatPaginator}) td_paginator!: MatPaginator;
-  //                                                                  
+  //----------------------------------------------------------------------------------------------
+  // EVENT HANDLERLS
+  //----------------------------------------------------------------------------------------------
   constructor(private logInfoService : LogInfoService, private formBuilder: FormBuilder) {
     //
   }
@@ -107,7 +112,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     //
   }
   //-----------------------------------------------------
-  // REACTIVE FORM
+  // REACTIVE FORM - METHODS
   //-----------------------------------------------------
   _newSearch() : void {
     //
@@ -126,13 +131,13 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
     this._dataSource.paginator = this._paginator;
     //
-    this._searchForm   = this.formBuilder.group({
+    this._searchForm           = this.formBuilder.group({
       _P_DATA_SOURCE_ID     : [""            , Validators.required],
       _P_CEDULA             : [""            , Validators.required], 
       _P_VIGENCIA           : [""            , Validators.required],
     });
   }
-  //
+  //---------------------------------------------------------------------------------------
   _onSubmit() : void {
       //
       console.warn("(REACTIVE - SUBMIT)");
@@ -165,7 +170,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       if (this._searchForm.invalid == false)
           this._update(_model);
   }
-  //
+  //---------------------------------------------------------------------------------------
   private _update(_searchCriteria: dineroSearchCriteria) {
       //
       this._formSubmit     = true;
@@ -213,7 +218,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       this._informeDineroRemotoSTR.subscribe(_myObserver);
   }
   //-----------------------------------------------------
-  // TEMPLATE DRIVEN FORM
+  // TEMPLATE DRIVEN FORM - METHODS
   //-----------------------------------------------------
   td_onSubmit()  : void {
     //
@@ -238,7 +243,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     if (this.td_valid_form())
        this.td_update(this.td_model);
   }
-  //
+  //---------------------------------------------------------------------------------------
   td_newSearch() : void {  
     //
     this.td_textStatus    = "";
@@ -256,7 +261,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     this.td_dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
     this.td_dataSource.paginator = this._paginator;
   }
-  //
+  //---------------------------------------------------------------------------------------
   private td_update(_searchCriteria: dineroSearchCriteria) : void {
       //
       this.td_buttonCaption  = "[Favor espere...]";
@@ -301,4 +306,5 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
       //
       this.td_informeDineroRemotoSTR.subscribe(_tdObserver);
   }
+  //---------------------------------------------------------------------------------------
 }

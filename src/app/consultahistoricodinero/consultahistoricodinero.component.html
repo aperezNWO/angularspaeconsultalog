@@ -4,6 +4,38 @@
 </span>
 <div class="searchPanel">
     <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
+        <!-- INICIO - CAMPOS DE BUSQUEDA -->
+        <!-- P_DATA_SOURCE_ID        -->
+        <div>
+            <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
+            <select   id="_P_DATA_SOURCE_ID"
+                        required
+                        name="_P_DATA_SOURCE_ID" 
+                        formControlName="_P_DATA_SOURCE_ID">                    
+            <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
+            </select>
+        </div>
+        <!-- _VIGENCIA -->
+        <div>
+            <label for="_P_VIGENCIA"> Vigencia : </label>
+            <select   id="_P_VIGENCIA"
+                        required
+                        name="_P_VIGENCIA" 
+                        formControlName="_P_VIGENCIA">                    
+            <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
+            </select>
+        </div>
+        <!-- _CEDULA -->
+        <div>
+            <label for="_P_CEDULA"> # de Cédula (ej : 40626208) : </label>
+            <input  id="_P_CEDULA" 
+                    required
+                    name="_P_CEDULA" 
+                    type="number" 
+                    [maxlength]="10"
+                    formControlName="_P_CEDULA">
+        </div>
+        <!-- FIN CAMPOS DE BUSQUEDA -->            
         <!-- INICIO BUTTONS PANEL   -->
         <hr>
         <div align="right">

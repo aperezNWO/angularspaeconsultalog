@@ -1,7 +1,7 @@
 import { Component            } from '@angular/core';
 import { FormBuilder, Validators          } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { dineroSearchCriteria } from '../loginfo.model';
+import { dineroSearchCriteria, p_DataSource, p_Vigencia } from '../loginfo.model';
 import { LogInfoService       } from '../loginfo.service';
 //
 @Component({
@@ -23,6 +23,8 @@ export class ConsultahistoricodineroComponent {
     _P_DATA_SOURCE_ID     : [""            , Validators.required],
     _P_CEDULA             : [""            , Validators.required], 
     _P_VIGENCIA           : [""            , Validators.required],
+    _P_FUD                : [""            , Validators.required],
+    
   });
   //
   _model  = new dineroSearchCriteria( 
@@ -31,6 +33,18 @@ export class ConsultahistoricodineroComponent {
         , "0"
         , "0"
         , "0");
+  //
+  P_DATA_SOURCES                     : p_DataSource[]          = [{ M_DATA_SOURCE_ID : "0"  , M_DATA_SOURCE_NAME : "(SELECCIONE OPCION...)"},
+  { M_DATA_SOURCE_ID : "1"  , M_DATA_SOURCE_NAME : "RUV_PRODUCCION"},
+  { M_DATA_SOURCE_ID : "2"  , M_DATA_SOURCE_NAME : "RUV_PRUEBAS"   }];
+
+  //
+  P_VIGENCIAS                        : p_Vigencia[]            = [{ M_VIGENCIA_ID : "0"  , M_VIGENCIA_NAME : "(SELECCIONE OPCION...)"},
+  { M_VIGENCIA_ID : "2019"  , M_VIGENCIA_NAME : "2019"   },
+  { M_VIGENCIA_ID : "2020"  , M_VIGENCIA_NAME : "2020"   },
+  { M_VIGENCIA_ID : "2021"  , M_VIGENCIA_NAME : "2021"   },
+  { M_VIGENCIA_ID : "2022"  , M_VIGENCIA_NAME : "2022"   },
+  { M_VIGENCIA_ID : "2023"  , M_VIGENCIA_NAME : "2023"   }];  
   //--------------------------------------------------------------------------------------
   // propiedades
   //--------------------------------------------------------------------------------------
@@ -50,9 +64,9 @@ export class ConsultahistoricodineroComponent {
       //
       console.warn("[REACTIVE] - (busqueda historico dinero) - (SUBMIT)");
       //
-      let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "1";
+      let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
+      let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "";
       let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "40626208";
-      let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "2022";
       let _P_FUD               : string = "0";
       let _P_ID_ESTADO         : string = "0";
       //
