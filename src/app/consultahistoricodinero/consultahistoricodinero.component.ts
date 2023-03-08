@@ -24,6 +24,13 @@ export class ConsultahistoricodineroComponent {
     _P_CEDULA             : [""            , Validators.required], 
     _P_VIGENCIA           : [""            , Validators.required],
   });
+  //
+  _model  = new dineroSearchCriteria( 
+          "0"
+        , "0"
+        , "0"
+        , "0"
+        , "0");
   //--------------------------------------------------------------------------------------
   // propiedades
   //--------------------------------------------------------------------------------------
@@ -43,9 +50,9 @@ export class ConsultahistoricodineroComponent {
       //
       console.warn("[REACTIVE] - (busqueda historico dinero) - (SUBMIT)");
       //
-      let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
-      let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "";
-      let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "";
+      let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "1";
+      let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "40626208";
+      let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "2022";
       let _P_FUD               : string = "0";
       let _P_ID_ESTADO         : string = "0";
       //
@@ -55,7 +62,7 @@ export class ConsultahistoricodineroComponent {
       console.log("_P_FUD            : " + _P_FUD);
       console.log("_P_ID_ESTADO      : " + _P_ID_ESTADO);
       //
-      let _model  = new dineroSearchCriteria( 
+      this._model  = new dineroSearchCriteria( 
                               _P_DATA_SOURCE_ID
                             , _P_VIGENCIA
                             , _P_CEDULA
@@ -66,32 +73,44 @@ export class ConsultahistoricodineroComponent {
       //
       //this._formSubmit     = true;
       //
-      console.log("[REACTIVE] - (busqueda historico dinero) - Form invalid ? : " + this._searchForm.invalid);
+      console.log("[REACTIVE] - (busqueda historico dinero) - Form valid ? : " + this.td_valid_form());
       //
-      if (this._searchForm.invalid == false)
-          this._update(_model);
+      //if (this.td_valid_form() == true)
+          this._update(this._model);
   }
   //--------------------------------------------------------------------------------------
   // methods
+  //--------------------------------------------------------------------------------------
+  //
+  td_valid_form() : boolean {
+      return  (      
+           ( this._model.P_ID_DATA_SOURCE != "0") 
+      && ( ( this._model.P_IDENTIFICACION != "" ) && (this._model.P_IDENTIFICACION !=  null) && (this._model.P_IDENTIFICACION != "0") ) 
+      && ( ( this._model.P_VIGENCIA       != "0"))    
+      && ( ( this._model.P_FUD            != "" ) && (this._model.P_FUD            !=  null) && (this._model.P_FUD            != "0") ) 
+      &&   ( this._model.P_ID_ESTADO      != "0") 
+              );
+  }
   //--------------------------------------------------------------------------------------
   private _update(_searchCriteria: dineroSearchCriteria) 
   {
     //
     let _informeDineroRemotoSTR!     : Observable<string>;
-    this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);
+    _informeDineroRemotoSTR!         = this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);
       //
       const _rfobserver = {
         next: (p_dineroSearchResult : string)     => { 
           //
-          console.log('[REACTIVE] - (busqueda historico dinero) - RETURN VALUES : '  +  p_dineroSearchResult);
+          let jsonParseResult        : [] =  JSON.parse(p_dineroSearchResult);
           //
-          //let jsonParseResult        : [] =  JSON.parse(p_dineroSearchResult);
+          let recordCount            : string = jsonParseResult.length.toString();
+          //this._textStatus           = "Se encontraron [" + recordCount + "] registatros";
+          console.log('[REACTIVE] - (busqueda historico dinero) - RECORD COUNT   : '  +  recordCount);
+          //
+          console.log('[REACTIVE] - (busqueda historico dinero) - RETURN VALUES  : '  +  p_dineroSearchResult);
           //
           //this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>(jsonParseResult);
           //this._dataSource.paginator = this._paginator;
-          //
-          let recordCount            : string = p_dineroSearchResult.length.toString();
-          //this._textStatus           = "Se encontraron [" + recordCount + "] registatros";
         },
         error           : (err: Error)      => {
             //

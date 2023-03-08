@@ -6,7 +6,6 @@ import { Observable                                   } from 'rxjs';
 import { DineroSearchResultEntity, p_Vigencia         } from '../loginfo.model';
 import { p_DataSource, dineroSearchCriteria           } from '../loginfo.model';
 import { LogInfoService                               } from '../loginfo.service';
-import { ThisReceiver } from '@angular/compiler';
 //
 @Component({
   selector: 'app-consulta-dinero-view',
