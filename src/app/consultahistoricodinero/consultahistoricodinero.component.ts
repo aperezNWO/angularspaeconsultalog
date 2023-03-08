@@ -1,7 +1,9 @@
-import { Component            } from '@angular/core';
+import { Component, ViewChild            } from '@angular/core';
 import { FormBuilder, Validators          } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { dineroSearchCriteria, p_DataSource, p_Vigencia } from '../loginfo.model';
+import { dineroSearchCriteria, DineroSearchResultEntity, p_DataSource, p_EstadosFormmalizacion, p_Vigencia } from '../loginfo.model';
 import { LogInfoService       } from '../loginfo.service';
 //
 @Component({
@@ -20,12 +22,14 @@ export class ConsultahistoricodineroComponent {
   _buttonCaption               : string = "[Buscar]"; 
   //
   _searchForm   = this.formBuilder.group({
-    _P_DATA_SOURCE_ID     : [""            , Validators.required],
-    _P_CEDULA             : [""            , Validators.required], 
-    _P_VIGENCIA           : [""            , Validators.required],
-    _P_FUD                : [""            , Validators.required],
-    
+    _P_DATA_SOURCE_ID     : ["0"            , Validators.required],
+    _P_CEDULA             : ["0"            , Validators.required], 
+    _P_VIGENCIA           : ["0"            , Validators.required],
+    _P_FUD                : ["0"            , Validators.required],
+    _P_ID_ESTADO          : ["0"            , Validators.required],  
   });
+  //
+  @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
   //
   _model  = new dineroSearchCriteria( 
           "0"
@@ -33,6 +37,10 @@ export class ConsultahistoricodineroComponent {
         , "0"
         , "0"
         , "0");
+  //
+  _dataSource                  = new MatTableDataSource<DineroSearchResultEntity>();
+  //
+  displayedColumns                   : string[]                = ['ID_SOLICITUD','NOMBRE_COMPLETO','FUD','ESTADO_SOLICITUD','RESPONSABLE_SOLICITUD', 'DANE_DEPARTAMENTO','DANE_MUNICIPIO','OBSERVACION_SOLICITUD'];
   //
   P_DATA_SOURCES                     : p_DataSource[]          = [{ M_DATA_SOURCE_ID : "0"  , M_DATA_SOURCE_NAME : "(SELECCIONE OPCION...)"},
   { M_DATA_SOURCE_ID : "1"  , M_DATA_SOURCE_NAME : "RUV_PRODUCCION"},
@@ -44,7 +52,18 @@ export class ConsultahistoricodineroComponent {
   { M_VIGENCIA_ID : "2020"  , M_VIGENCIA_NAME : "2020"   },
   { M_VIGENCIA_ID : "2021"  , M_VIGENCIA_NAME : "2021"   },
   { M_VIGENCIA_ID : "2022"  , M_VIGENCIA_NAME : "2022"   },
-  { M_VIGENCIA_ID : "2023"  , M_VIGENCIA_NAME : "2023"   }];  
+  { M_VIGENCIA_ID : "2023"  , M_VIGENCIA_NAME : "2023"   }]; 
+  //
+  P_ESTADOS_FORMALIZACION : p_EstadosFormmalizacion[]         = [ { M_ID_ESTADO_SOL_FORMALIZACION : "0", M_DESCRIPCION : "(SELECCIONE OPCION...)"}, 
+  { M_ID_ESTADO_SOL_FORMALIZACION : "1", M_DESCRIPCION : "En creación"}, 
+  { M_ID_ESTADO_SOL_FORMALIZACION : "2", M_DESCRIPCION : "Enviada a direccion territorial"}, 
+  { M_ID_ESTADO_SOL_FORMALIZACION : "3", M_DESCRIPCION : "Devuelta al municipio por direccion territorial"}, 
+  { M_ID_ESTADO_SOL_FORMALIZACION : "4", M_DESCRIPCION : "Enviada al nivel central"},
+  { M_ID_ESTADO_SOL_FORMALIZACION : "5", M_DESCRIPCION : "Devuelta al municipio por nivel central"}, 
+  { M_ID_ESTADO_SOL_FORMALIZACION : "6", M_DESCRIPCION : "Aceptada por nivel central"},
+  { M_ID_ESTADO_SOL_FORMALIZACION : "7", M_DESCRIPCION : "Anulada"},
+];
+
   //--------------------------------------------------------------------------------------
   // propiedades
   //--------------------------------------------------------------------------------------
@@ -64,15 +83,15 @@ export class ConsultahistoricodineroComponent {
       //
       console.warn("[REACTIVE] - (busqueda historico dinero) - (SUBMIT)");
       //
-      let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "";
-      let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "";
-      let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "40626208";
-      let _P_FUD               : string = "0";
-      let _P_ID_ESTADO         : string = "0";
+      let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "0";
+      let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "0";
+      let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "0";
+      let _P_FUD               : string = this._searchForm.value["_P_FUD"]            || "0";
+      let _P_ID_ESTADO         : string = this._searchForm.value["_P_ID_ESTADO"]      || "0";
       //
       console.log("_P_DATA_SOURCE_ID : " + _P_DATA_SOURCE_ID);
       console.log("_P_CEDULA         : " + _P_CEDULA);
-      console.log("_P_VIGENCIA       : " + _P_VIGENCIA);
+      console.log("_P_VIGENCIA       : " + _P_VIGENCIA);        
       console.log("_P_FUD            : " + _P_FUD);
       console.log("_P_ID_ESTADO      : " + _P_ID_ESTADO);
       //
@@ -123,8 +142,8 @@ export class ConsultahistoricodineroComponent {
           //
           console.log('[REACTIVE] - (busqueda historico dinero) - RETURN VALUES  : '  +  p_dineroSearchResult);
           //
-          //this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>(jsonParseResult);
-          //this._dataSource.paginator = this._paginator;
+          this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>(jsonParseResult);
+          this._dataSource.paginator = this._paginator;
         },
         error           : (err: Error)      => {
             //
@@ -153,6 +172,29 @@ export class ConsultahistoricodineroComponent {
   {
     //
     console.log('[REACTIVE] - (busqueda historico dinero) - (NEW SEARCH)');
+        //
+        //this._textStatus    = "";
+        //
+        //this._formSubmit    = false;
+        //
+        this._buttonCaption = "[Buscar]";
+        //
+        this._model          = new dineroSearchCriteria(  "0"
+                                                         ,"0"
+                                                         ,"0"
+                                                         ,"0"
+                                                         ,"0");
+        //                                            
+        this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
+        this._dataSource.paginator = this._paginator;
+        //
+        this._searchForm   = this.formBuilder.group({
+          _P_DATA_SOURCE_ID     : ["0"            , Validators.required],
+          _P_CEDULA             : ["0"            , Validators.required], 
+          _P_VIGENCIA           : ["0"            , Validators.required],
+          _P_FUD                : ["0"            , Validators.required],
+          _P_ID_ESTADO          : ["0"            , Validators.required],  
+        });;
   }
   //--------------------------------------------------------------------------------------
 }

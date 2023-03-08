@@ -26,6 +26,18 @@ export class  p_DataSource
     }
 }
 //
+export class  p_EstadosFormmalizacion
+{
+    //
+    constructor(
+        public    M_ID_ESTADO_SOL_FORMALIZACION  : string,
+        public    M_DESCRIPCION                  : string
+    )
+    {
+        //
+    }
+}
+//
 export class  p_TipoLog
 {
     //
@@ -54,9 +66,8 @@ export class  searchCriteria
         //
     }
 }
-
- //
- export class dineroSearchCriteria
+//
+export class dineroSearchCriteria
  {
     //
     constructor(
@@ -71,7 +82,7 @@ export class  searchCriteria
     }
  }
  //
- export class DineroSearchResultEntity
+export class DineroSearchResultEntity
  {
     //
     constructor (
@@ -106,7 +117,7 @@ export class  searchCriteria
 	--[_] public string USUARIO                 { get; set; }
 	--[_] public string FUNCIONARIO_SOLICITUD   { get; set; } */
  }
-
+//
 export class  p_Vigencia
 {
     //
