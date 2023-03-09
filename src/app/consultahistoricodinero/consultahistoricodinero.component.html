@@ -53,7 +53,7 @@
                         name="_P_ID_ESTADO" 
                         required
                         formControlName="_P_ID_ESTADO">                    
-            <option *ngFor="let _pEstadoFormalizacion of P_ESTADOS_FORMALIZACION" [value]="_pEstadoFormalizacion.M_ID_ESTADO_SOL_FORMALIZACION">{{_pEstadoFormalizacion.M_DESCRIPCION}}</option>
+            <option *ngFor="let _pEstadoFormalizacion of P_ESTADOS_FORMALIZACION" [value]="_pEstadoFormalizacion.M_ID_ESTADO_SOL_FORMALIZACION">{{_pEstadoFormalizacion.M_ID_ESTADO_SOL_FORMALIZACION}} - {{_pEstadoFormalizacion.M_DESCRIPCION}}</option>
             </select>
         </div>   
         <!-- FIN CAMPOS DE BUSQUEDA -->     
@@ -63,11 +63,44 @@
             <button class="button" type="submit" [disabled]="(this._buttonCaption != '[Buscar]')">{{this._buttonCaption}}</button>
             <button class="button" type="button" (click)="_newSearch()">[Nueva]</button>
         </div>
-        <!-- FIN BUTTONS PANEL             -->
+        <!-- FIN BUTTONS PANEL           -->
+        <!-- INICIO MENSAJES VALIDACION  -->
+        <div align="left">
+            <ul *ngIf="((!this.td_valid_form()) && (this._formSubmit))">
+                <p>Favor revise los datos del formulario</p>
+                <!-- P_ID_DATA_SOURCE -->
+                <li *ngIf="(this._model.P_ID_DATA_SOURCE == '0')" class="alert alert-danger">
+                Favor ingrese 'origen de datos'
+                </li>
+                <!-- P_VIGENCIA       -->
+                <li *ngIf="(this._model.P_VIGENCIA       == '0')"       class="alert alert-danger">
+                Favor ingrese 'vigencia'
+                </li>
+                <!-- P_IDENTIFICACION -->
+                <li *ngIf="((this._model.P_IDENTIFICACION == '0') || (this._model.P_IDENTIFICACION == null) || (this._model.P_IDENTIFICACION == ''))" class="alert alert-danger">
+                Favor ingrese '# Cédula'
+                </li>
+                <!-- P_FUD       -->
+                <li *ngIf="((this._model.P_FUD            == '0') || (this._model.P_FUD == null)            || (this._model.P_FUD == ''))"            class="alert alert-danger">
+                Favor ingrese 'FUD'
+                </li>              
+                <!-- P_ID_ESTADO -->
+                <li *ngIf="(this._model.P_ID_ESTADO       == '0')" class="alert alert-danger">
+                Favor ingrese 'estado'
+                </li>
+            </ul>
+        </div>
+        <!-- FIN    MENSAJES VALIDACION  -->
         <hr>
-    </form>
+        <!-- INICIO STATUS BUSQUEDA      -->
+        <div align="center">
+            <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this._textStatus}}</label>
+        </div>
+        <!-- FIN    STATUS BUSQUEDA      -->
+</form>
 </div>    
 <!-- END SEARCH PANEL  -->
+<hr>
 <!-- INIT DATAGRID -->
 <div class="scrollbar">
 <table  mat-table #_searchResults [dataSource]="_dataSource"  class="mat-elevation-z8" aria-label="_informeDineroremoto">
@@ -109,6 +142,12 @@
 </div>
 <!-- END  DATAGRID -->
 <hr>
-<!-- INIT PAGINATOR -->
-<!-- (N/A)          -->
-<!-- END  PAGINATOR -->    
+<!-- FIN    PAGINADOR -->   
+<mat-paginator #_paginator="matPaginator"
+        class="demo-paginator" 
+        [length]=""
+        [pageSize]="3"
+        [pageSizeOptions]="[3, 10, 25, 100]"
+        aria-label="_informeDineroremoto">
+</mat-paginator>
+<!-- FIN    PAGINADOR -->   

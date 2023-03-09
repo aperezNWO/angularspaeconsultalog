@@ -50,13 +50,13 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
   //
   _dataSource                  = new MatTableDataSource<DineroSearchResultEntity>();
   // 
-  displayedColumns                   : string[]                = ['ID_SOLICITUD','NOMBRE_COMPLETO','FUD','ESTADO_SOLICITUD','RESPONSABLE_SOLICITUD', 'DANE_DEPARTAMENTO','DANE_MUNICIPIO','OBSERVACION_SOLICITUD'];
+  _displayedColumns            : string[]                = ['ID_SOLICITUD','NOMBRE_COMPLETO','FUD','ESTADO_SOLICITUD','RESPONSABLE_SOLICITUD', 'DANE_DEPARTAMENTO','DANE_MUNICIPIO','OBSERVACION_SOLICITUD'];
   //                                                                 
-  model                              = new dineroSearchCriteria(  "0"
-                                                                , "0"
-                                                                , "0"
-                                                                , ""
-                                                                , "0");
+  _model                       = new dineroSearchCriteria(    "0"
+                                                            , "0"
+                                                            , "0"
+                                                            , "0"
+                                                            , "0");
   //
   @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
   //
@@ -122,7 +122,7 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
     //
     this._buttonCaption = "[Buscar]";
     //
-    this.model          = new dineroSearchCriteria(   "0"
+    this._model         = new dineroSearchCriteria(   "0"
                                                      ,"0"
                                                      ,"0"
                                                      ,"0"

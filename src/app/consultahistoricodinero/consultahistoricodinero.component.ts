@@ -17,9 +17,11 @@ export class ConsultahistoricodineroComponent {
   // campos
   //--------------------------------------------------------------------------------------
   //
-  readonly _pageTitle          : string = "[CONSULTA - HISTORICO DE DINERO]";
+  readonly _pageTitle          : string  = "[CONSULTA - HISTORICO DE DINERO]";
   //
-  _buttonCaption               : string = "[Buscar]"; 
+  _buttonCaption               : string  = "[Buscar]"; 
+  _textStatus                  : string  = "";
+  _formSubmit                  : boolean = false;
   //
   _searchForm   = this.formBuilder.group({
     _P_DATA_SOURCE_ID     : ["0"            , Validators.required],
@@ -102,13 +104,13 @@ export class ConsultahistoricodineroComponent {
                             , _P_FUD
                             , _P_ID_ESTADO);
       //
-      //this._textStatus     = "";
+      this._textStatus     = "";
       //
-      //this._formSubmit     = true;
+      this._formSubmit     = true;
       //
       console.log("[REACTIVE] - (busqueda historico dinero) - Form valid ? : " + this.td_valid_form());
       //
-      //if (this.td_valid_form() == true)
+      if (this.td_valid_form() == true)
           this._update(this._model);
   }
   //--------------------------------------------------------------------------------------
@@ -128,38 +130,42 @@ export class ConsultahistoricodineroComponent {
   private _update(_searchCriteria: dineroSearchCriteria) 
   {
     //
+    this._buttonCaption              = "[Buscando, por favor espere...]";
+    //
     let _informeDineroRemotoSTR!     : Observable<string>;
     _informeDineroRemotoSTR!         = this.logInfoService.getConsultaDineroRemoto_DEV_STR(_searchCriteria);
-      //
+    //
       const _rfobserver = {
         next: (p_dineroSearchResult : string)     => { 
           //
           let jsonParseResult        : [] =  JSON.parse(p_dineroSearchResult);
           //
           let recordCount            : string = jsonParseResult.length.toString();
-          //this._textStatus           = "Se encontraron [" + recordCount + "] registatros";
+          //
           console.log('[REACTIVE] - (busqueda historico dinero) - RECORD COUNT   : '  +  recordCount);
           //
           console.log('[REACTIVE] - (busqueda historico dinero) - RETURN VALUES  : '  +  p_dineroSearchResult);
           //
           this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>(jsonParseResult);
           this._dataSource.paginator = this._paginator;
+          //
+          this._textStatus           = "Se encontraron [" + recordCount + "] registatros";
         },
         error           : (err: Error)      => {
             //
-            //this._textStatus     = "Ha ocurrido un error. Favor intente de nuevo";
+            this._textStatus      = "Ha ocurrido un error. Favor intente de nuevo";
             //
-            //this._buttonCaption  = "[Buscar]";  
+            this._buttonCaption   = "[Buscar]";  
             //
-            //this._formSubmit      = false;
+            this._formSubmit      = false;
             //
             console.error('[REACTIVE] - (busqueda historico dinero) - error : ' + JSON.stringify(err.message));
         },
         complete        : ()                => {
             //
-            //this._buttonCaption  = "[Buscar]";
+            this._buttonCaption  = "[Buscar]";
             //
-            //this._formSubmit     = false;
+            this._formSubmit     = false;
             //
             console.log('[REACTIVE] - (busqueda historico dinero) - (SEARCH END)');
         },
@@ -173,9 +179,9 @@ export class ConsultahistoricodineroComponent {
     //
     console.log('[REACTIVE] - (busqueda historico dinero) - (NEW SEARCH)');
         //
-        //this._textStatus    = "";
+        this._textStatus    = "";
         //
-        //this._formSubmit    = false;
+        this._formSubmit    = false;
         //
         this._buttonCaption = "[Buscar]";
         //
