@@ -29,6 +29,11 @@ export class ConsultahistoricodineroComponent {
     _P_VIGENCIA           : ["0"            , Validators.required],
     _P_FUD                : ["0"            , Validators.required],
     _P_ID_ESTADO          : ["0"            , Validators.required],  
+    CHK_P_DATA_SOURCE_ID     : [false               , Validators.required],
+    CHK_P_CEDULA             : [false               , Validators.required], 
+    CHK_P_VIGENCIA           : [false               , Validators.required],
+    CHK_P_FUD                : [false               , Validators.required],
+    CHK_P_ID_ESTADO          : [false               , Validators.required],    
   });
   //
   @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
@@ -199,7 +204,12 @@ export class ConsultahistoricodineroComponent {
           _P_CEDULA             : ["0"            , Validators.required], 
           _P_VIGENCIA           : ["0"            , Validators.required],
           _P_FUD                : ["0"            , Validators.required],
-          _P_ID_ESTADO          : ["0"            , Validators.required],  
+          _P_ID_ESTADO          : ["0"            , Validators.required],
+          CHK_P_DATA_SOURCE_ID     : [false               , Validators.required],
+          CHK_P_CEDULA             : [false               , Validators.required], 
+          CHK_P_VIGENCIA           : [false               , Validators.required],
+          CHK_P_FUD                : [false               , Validators.required],
+          CHK_P_ID_ESTADO          : [false               , Validators.required],    
         });;
   }
   //--------------------------------------------------------------------------------------

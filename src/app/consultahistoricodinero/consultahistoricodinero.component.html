@@ -8,6 +8,12 @@
         <!-- INICIO - CAMPOS DE BUSQUEDA -->
         <!-- P_DATA_SOURCE_ID        -->
         <div>
+            <input type="checkbox" 
+                   id="CHK_P_DATA_SOURCE_ID" 
+                   name="CHK_P_DATA_SOURCE_ID"
+                   required
+                   [checked]="false"
+                   formControlName="CHK_P_DATA_SOURCE_ID"> 
             <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
             <select     id="_P_DATA_SOURCE_ID"
                         name="_P_DATA_SOURCE_ID" 
@@ -18,6 +24,12 @@
         </div>
         <!-- _VIGENCIA -->
         <div>
+            <input type="checkbox" 
+                   id="CHK_P_VIGENCIA" 
+                   name="CHK_P_VIGENCIA"
+                   required
+                   [checked]="false"
+                   formControlName="CHK_P_VIGENCIA"> 
             <label for="_P_VIGENCIA"> Vigencia : </label>
             <select     id="_P_VIGENCIA"
                         name="_P_VIGENCIA" 
@@ -28,16 +40,28 @@
         </div>
         <!-- _CEDULA -->
         <div>
+            <input type="checkbox" 
+                   id="CHK_P_CEDULA" 
+                   name="CHK_P_CEDULA"
+                   required
+                   [checked]="false" 
+                   formControlName="CHK_P_CEDULA"> 
             <label for="_P_CEDULA"> # de Cédula (ej : 40626208) : </label>
-            <input  id="_P_CEDULA" 
+            <input  type="number"
+                    id="_P_CEDULA" 
                     name="_P_CEDULA" 
-                    type="number" 
                     [maxlength]="15"
                     required
                     formControlName="_P_CEDULA">
         </div>
         <!-- P_FUD       --> 
         <div>
+            <input type="checkbox" 
+                   id="CHK_P_FUD" 
+                   name="CHK_P_FUD"
+                   required
+                   [checked]="false"
+                   formControlName="CHK_P_FUD"> 
             <label for="_P_FUD"> FUD (ej : CI000476330) : </label>
             <input  id="_P_FUD" 
                     name="_P_FUD" 
@@ -48,6 +72,12 @@
         </div>      
         <!-- P_ID_ESTADO -->   
         <div>
+            <input type="checkbox" 
+                   id="CHK_P_ID_ESTADO" 
+                   name="CHK_P_ID_ESTADO"
+                   required
+                   [checked]="false"
+                   formControlName="CHK_P_ID_ESTADO"> 
             <label for="_P_ID_ESTADO"> Estado : </label>
             <select     id="_P_ID_ESTADO"
                         name="_P_ID_ESTADO" 
