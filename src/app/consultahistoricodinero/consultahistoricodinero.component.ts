@@ -1,10 +1,11 @@
-import { Component, ViewChild            } from '@angular/core';
+import { Component, ViewChild             } from '@angular/core';
 import { FormBuilder, Validators          } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
-import { dineroSearchCriteria, DineroSearchResultEntity, p_DataSource, p_EstadosFormmalizacion, p_Vigencia } from '../loginfo.model';
-import { LogInfoService       } from '../loginfo.service';
+import { MatPaginator                     } from '@angular/material/paginator';
+import { MatTableDataSource               } from '@angular/material/table';
+import { Observable                       } from 'rxjs';
+import { p_EstadosFormmalizacion, p_Vigencia                          } from '../loginfo.model';
+import { dineroSearchCriteria, DineroSearchResultEntity, p_DataSource } from '../loginfo.model';
+import { LogInfoService                                               } from '../loginfo.service';
 //
 @Component({
   selector: 'app-consultahistoricodinero',
@@ -29,11 +30,8 @@ export class ConsultahistoricodineroComponent {
     _P_VIGENCIA           : ["0"            , Validators.required],
     _P_FUD                : ["0"            , Validators.required],
     _P_ID_ESTADO          : ["0"            , Validators.required],  
-    CHK_P_DATA_SOURCE_ID     : [false               , Validators.required],
     CHK_P_CEDULA             : [false               , Validators.required], 
-    CHK_P_VIGENCIA           : [false               , Validators.required],
     CHK_P_FUD                : [false               , Validators.required],
-    CHK_P_ID_ESTADO          : [false               , Validators.required],    
   });
   //
   @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
@@ -43,7 +41,9 @@ export class ConsultahistoricodineroComponent {
         , "0"
         , "0"
         , "0"
-        , "0");
+        , "0"
+        ,   false
+        ,   false);
   //
   _dataSource                  = new MatTableDataSource<DineroSearchResultEntity>();
   //
@@ -90,46 +90,53 @@ export class ConsultahistoricodineroComponent {
       //
       console.warn("[REACTIVE] - (busqueda historico dinero) - (SUBMIT)");
       //
-      let _P_DATA_SOURCE_ID    : string = this._searchForm.value["_P_DATA_SOURCE_ID"] || "0";
-      let _P_VIGENCIA          : string = this._searchForm.value["_P_VIGENCIA"]       || "0";
-      let _P_CEDULA            : string = this._searchForm.value["_P_CEDULA"]         || "0";
-      let _P_FUD               : string = this._searchForm.value["_P_FUD"]            || "0";
-      let _P_ID_ESTADO         : string = this._searchForm.value["_P_ID_ESTADO"]      || "0";
+      let _P_DATA_SOURCE_ID    : string  = this._searchForm.value["_P_DATA_SOURCE_ID"] || "0";
+      let _P_VIGENCIA          : string  = this._searchForm.value["_P_VIGENCIA"]       || "0";
+      let _P_CEDULA            : string  = this._searchForm.value["_P_CEDULA"]         || "0";
+      let _P_FUD               : string  = this._searchForm.value["_P_FUD"]            || "0";
+      let _P_ID_ESTADO         : string  = this._searchForm.value["_P_ID_ESTADO"]      || "0";
+      //
+      let CHK_P_CEDULA         : boolean = this._searchForm.value["CHK_P_CEDULA"]      || false;
+      let CHK_P_FUD            : boolean = this._searchForm.value["CHK_P_FUD"]         || false;
       //
       console.log("_P_DATA_SOURCE_ID : " + _P_DATA_SOURCE_ID);
+      console.log("_P_VIGENCIA       : " + _P_VIGENCIA);  
+      console.log("_P_ID_ESTADO      : " + _P_ID_ESTADO);       
       console.log("_P_CEDULA         : " + _P_CEDULA);
-      console.log("_P_VIGENCIA       : " + _P_VIGENCIA);        
       console.log("_P_FUD            : " + _P_FUD);
-      console.log("_P_ID_ESTADO      : " + _P_ID_ESTADO);
+
       //
       this._model  = new dineroSearchCriteria( 
                               _P_DATA_SOURCE_ID
                             , _P_VIGENCIA
                             , _P_CEDULA
                             , _P_FUD
-                            , _P_ID_ESTADO);
+                            , _P_ID_ESTADO
+                            , CHK_P_CEDULA
+                            , CHK_P_FUD);
       //
       this._textStatus     = "";
       //
       this._formSubmit     = true;
       //
-      console.log("[REACTIVE] - (busqueda historico dinero) - Form valid ? : " + this.td_valid_form());
+      console.log("[REACTIVE] - (busqueda historico dinero) - Form valid ? : " + this.rf_valid_form());
       //
-      if (this.td_valid_form() == true)
+      if (this.rf_valid_form() == true)
           this._update(this._model);
   }
   //--------------------------------------------------------------------------------------
   // methods
   //--------------------------------------------------------------------------------------
   //
-  td_valid_form() : boolean {
+  rf_valid_form() : boolean {
+      //
       return  (      
-           ( this._model.P_ID_DATA_SOURCE != "0") 
-      && ( ( this._model.P_IDENTIFICACION != "" ) && (this._model.P_IDENTIFICACION !=  null) && (this._model.P_IDENTIFICACION != "0") ) 
-      && ( ( this._model.P_VIGENCIA       != "0"))    
-      && ( ( this._model.P_FUD            != "" ) && (this._model.P_FUD            !=  null) && (this._model.P_FUD            != "0") ) 
-      &&   ( this._model.P_ID_ESTADO      != "0") 
-              );
+             (                                                    ( this._model.P_ID_DATA_SOURCE != "0") )
+          && (                                                    ( this._model.P_VIGENCIA       != "0") )    
+          && (                                                    ( this._model.P_ID_ESTADO      != "0") )
+          && ( (this._model.CHK_P_IDENTIFICACION == false) || ( (this._model.CHK_P_IDENTIFICACION == true)  &&  (( this._model.P_IDENTIFICACION != "" )   && (this._model.P_IDENTIFICACION !=  null) && (this._model.P_IDENTIFICACION != "0")) ) ) 
+          && ( (this._model.CHK_P_FUD            == false) || ( (this._model.CHK_P_FUD            == true)  &&  (( this._model.P_FUD            != "" )   && ( this._model.P_FUD           !=  null) && (this._model.P_FUD            != "0")) ) ) 
+      );
   }
   //--------------------------------------------------------------------------------------
   private _update(_searchCriteria: dineroSearchCriteria) 
@@ -190,11 +197,13 @@ export class ConsultahistoricodineroComponent {
         //
         this._buttonCaption = "[Buscar]";
         //
-        this._model          = new dineroSearchCriteria(  "0"
-                                                         ,"0"
-                                                         ,"0"
-                                                         ,"0"
-                                                         ,"0");
+        this._model               = new dineroSearchCriteria(  "0"
+                                                              ,"0"
+                                                              ,"0"
+                                                              ,"0"
+                                                              ,"0"
+                                                              , false
+                                                              , false);
         //                                            
         this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
         this._dataSource.paginator = this._paginator;
@@ -205,12 +214,9 @@ export class ConsultahistoricodineroComponent {
           _P_VIGENCIA           : ["0"            , Validators.required],
           _P_FUD                : ["0"            , Validators.required],
           _P_ID_ESTADO          : ["0"            , Validators.required],
-          CHK_P_DATA_SOURCE_ID     : [false               , Validators.required],
-          CHK_P_CEDULA             : [false               , Validators.required], 
-          CHK_P_VIGENCIA           : [false               , Validators.required],
-          CHK_P_FUD                : [false               , Validators.required],
-          CHK_P_ID_ESTADO          : [false               , Validators.required],    
-        });;
+          CHK_P_CEDULA          : [false          , Validators.required], 
+          CHK_P_FUD             : [false          , Validators.required],
+        });
   }
   //--------------------------------------------------------------------------------------
 }

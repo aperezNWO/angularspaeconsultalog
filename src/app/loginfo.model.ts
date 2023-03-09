@@ -71,11 +71,13 @@ export class dineroSearchCriteria
  {
     //
     constructor(
-        public P_ID_DATA_SOURCE  : string,
-        public P_VIGENCIA        : string,
-        public P_IDENTIFICACION  : string,
-        public P_FUD             : string,
-        public P_ID_ESTADO       : string
+        public P_ID_DATA_SOURCE     : string,
+        public P_VIGENCIA           : string,
+        public P_IDENTIFICACION     : string,
+        public P_FUD                : string,
+        public P_ID_ESTADO          : string,
+        public CHK_P_IDENTIFICACION : boolean,
+        public CHK_P_FUD            : boolean
     )
     {
         //

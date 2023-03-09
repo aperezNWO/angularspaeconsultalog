@@ -246,10 +246,12 @@ x 41116130
       
       --[x] Verificar filtro por año de vigencia.    
 
-      --[_] Checkboxes campos de busqueda (opcionales) / TEMPLATE DRIVEN.   
+      --[x] Checkboxes campos de busqueda (opcionales) / TEMPLATE DRIVEN.   
 
-      --[_] Paginación.  
+      --[x] Paginación.  
       
+      --[>] Consolidado por Estado (estadistica como en busqueda log).  
+
       --[_] Filtro por otros campos.  
 
             --[_] vigencia.

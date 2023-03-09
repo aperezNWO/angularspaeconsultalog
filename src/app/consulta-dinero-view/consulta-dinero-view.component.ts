@@ -56,7 +56,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
                                                             , "0"
                                                             , "0"
                                                             , "0"
-                                                            , "0");
+                                                            , "0"
+                                                            , false
+                                                            , false);
   //
   @ViewChild('_paginator',{read: MatPaginator}) _paginator!: MatPaginator;
   //
@@ -81,7 +83,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
                                                                      ,"0"
                                                                      ,"0"
                                                                      , ""
-                                                                     ,"0");
+                                                                     ,"0"
+                                                                     , false
+                                                                     , false);
   //
   td_informeDineroRemotoSTR!            : Observable<string>;
   // 
@@ -126,7 +130,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
                                                      ,"0"
                                                      ,"0"
                                                      ,"0"
-                                                     ,"0");
+                                                     ,"0"
+                                                     , false
+                                                     , false);
     //                                            
     this._dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
     this._dataSource.paginator = this._paginator;
@@ -159,7 +165,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
                             , _P_VIGENCIA
                             , _P_CEDULA
                             , _P_FUD
-                            , _P_ID_ESTADO);
+                            , _P_ID_ESTADO
+                            ,  false
+                            ,  false);
       //
       this._textStatus     = "";
       //
@@ -256,7 +264,9 @@ export class ConsultaDineroViewComponent  implements OnInit, AfterViewInit {
                                                               , "0"
                                                               , "0"
                                                               , "0"
-                                                              , "0");
+                                                              , "0"
+                                                              , false
+                                                              , false);
     //                                            
     this.td_dataSource           = new MatTableDataSource<DineroSearchResultEntity>();
     this.td_dataSource.paginator = this._paginator;
