@@ -35,7 +35,7 @@
                             required
                             [checked]="false"
                             formControlName="CHK_P_VIGENCIA">--> 
-                        <label for="_P_VIGENCIA"> Vigencia : </label>
+                        <label for="_P_VIGENCIA"> Vigencia (Año) : </label>
                         <select     id="_P_VIGENCIA"
                                     name="_P_VIGENCIA" 
                                     required
@@ -207,7 +207,7 @@
                         <input type="text" id="txtRecordCount_STAT" name="txtRecordCount_STAT" value="10" maxlength="2" required="required" />
                     </div>
                     <div>
-                        <label for="P_YEAR_STAT">Año</label>
+                        <label for="P_YEAR_STAT">Vigencia (Año)</label>
                         <select id="P_YEAR_STAT" name="P_YEAR_STAT" required="required">
                             <option value="0" selected>...cargando...</option>
                         </select>
@@ -232,9 +232,9 @@
                 <hr>
                 <!-- PANEL DESCARGA / INICIO -->
                 <div id="divdescargapdf" style="display: block" align="right">
-                    <a href="javascript:GetPdf();">
-                        <img title="Generar PDF" src="../Content/Icons/Save.png" width="28" height="28" />
-                    </a>
+                    <button class="button" type="button" (click)="GetPdf()" >[Generar PDF]
+                        <!--<img title="Generar PDF" src="../Content/Icons/Save.png" width="28" height="28" />-->
+                    </button>
                 </div>
                 <hr>
                 <!-- PANEL DESCARGA / FIN -->

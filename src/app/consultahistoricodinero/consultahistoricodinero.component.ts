@@ -15,7 +15,7 @@ import { LogInfoService                                               } from '..
 //
 export class ConsultahistoricodineroComponent {
   //--------------------------------------------------------------------------------------
-  // campos
+  // campos para busqueda de historico de dinero
   //--------------------------------------------------------------------------------------
   //
   readonly _pageTitle          : string  = "[CONSULTA - HISTORICO DE DINERO]";
@@ -70,7 +70,11 @@ export class ConsultahistoricodineroComponent {
   { M_ID_ESTADO_SOL_FORMALIZACION : "6", M_DESCRIPCION : "Aceptada por nivel central"},
   { M_ID_ESTADO_SOL_FORMALIZACION : "7", M_DESCRIPCION : "Anulada"},
 ];
-
+  //--------------------------------------------------------------------------------------
+  // campos para estadisticas
+  //--------------------------------------------------------------------------------------
+  _table       : any;
+  _pieChart    : any;
   //--------------------------------------------------------------------------------------
   // propiedades
   //--------------------------------------------------------------------------------------
@@ -82,7 +86,9 @@ export class ConsultahistoricodineroComponent {
   // event handlers
   //--------------------------------------------------------------------------------------
   constructor(private logInfoService : LogInfoService, private formBuilder: FormBuilder) {
-    //
+    // funciones para estadisticas
+    this.SetYearList_STAT();
+    this.SetChart();
   }
   //--------------------------------------------------------------------------------------
   _onSubmit()
@@ -125,7 +131,7 @@ export class ConsultahistoricodineroComponent {
           this._update(this._model);
   }
   //--------------------------------------------------------------------------------------
-  // methods
+  // funciones para consulta de dinero
   //--------------------------------------------------------------------------------------
   //
   rf_valid_form() : boolean {
@@ -219,4 +225,136 @@ export class ConsultahistoricodineroComponent {
         });
   }
   //--------------------------------------------------------------------------------------
+  // FUNCIONES PARA ESTADITICAS
+  //--------------------------------------------------------------------------------------
+  //
+  SetYearList_STAT(): void {
+      //
+      console.log("[REACTIVE] - (estadistica historico dinero) - (GENERAR LISTADO DE AÑOS DE VIGENCIAS)");
+      /*
+      //
+      var p_Date     = new Date();
+      var year_max   = p_Date.getFullYear();
+      var year_min   = 2020;
+      var yearList   = [2020,2021,2022];
+      //
+      var selectOptions = '<option value="0">Seleccione Opción...</option>';
+      //
+      $("#P_YEAR_STAT").empty().append(selectOptions);
+      //
+      $.each(yearList, function (index, value) {
+          //
+          $("#P_YEAR_STAT").append($('<option/>', {
+                value    : value
+              , text     : value
+              , selected : (value == 0) ? true : false
+          }));
+      });*/
+  };
+  //
+  GetPdf() : void  { 
+      //
+      console.log("[REACTIVE] - (estadistica historico dinero) - (GENERAR PDF)");
+      /*  
+      //
+      html2canvas($("#pieChart")[0]).then((canvas) => {
+          //
+          var imgData              = canvas.toDataURL('image/png');
+          //
+          var p_orientation        = 'p';  // POTRAIT
+          var p_measurement_unit   = 'mm'; // MILIMETERS
+          var doc                  = new jsPDF(p_orientation, p_measurement_unit );
+          //
+          doc.addImage(imgData, 'PNG', 1, 5);
+          //
+          doc.save('sample-file.pdf');
+      }); */
+  }
+  //
+  SetChart():void {
+      //
+      console.log("[REACTIVE] - (estadistica historico dinero) - (GENERAR GRAFICO PASTEL)");
+      /*
+      //
+      console.log("[SI-SPAE-WEB] - GET STAT ");
+      //
+      var P_ID_DATA_SOURCE = $("#P_ID_DATA_SOURCE_STAT").val();
+      var P_ROW_NUM        = $("#txtRecordCount_STAT").val();
+      var P_YEAR           = $("#P_YEAR_STAT").val();
+      var url_post         = "GetConsultaLogStatPost";
+      //
+      _ShowProgressBarTimer();
+      //
+      $.ajax({
+          url          : url_post
+          , method     : "POST"
+          , dataType   : "JSON"
+          , async      : true
+          , data       :
+          {
+              P_ID_DATA_SOURCE  : P_ID_DATA_SOURCE
+              , P_ROW_NUM       : P_ROW_NUM
+              , P_YEAR          : P_YEAR
+
+          }
+          , success: function (jsondata) {
+              //
+              _HideProgressBarTimer();
+              //
+              const statLabels          = [];
+              const statData            = [];
+              const statBackgroundColor = [];
+              //
+              $.each(jsondata, function (index, value) {
+                  //
+                  console.log("[SI-SPAE-WEB] - GET STAT - RESULT : index [" + index + "] value={"
+                      + jsondata[index]["TEXT_1"]
+                      + "-" + jsondata[index]["TEXT_2"]
+                      + "-" + jsondata[index]["TEXT_3"] + "}");
+                  //
+                  statLabels.push(jsondata[index]["TEXT_1"] + " - " + jsondata[index]["TEXT_2"]);
+                  statData.push(Number(jsondata[index]["TEXT_2"]));
+                  statBackgroundColor.push('rgb('
+                      + (Number(jsondata[index]["TEXT_2"]) / 4) + ','
+                      + (Number(jsondata[index]["TEXT_2"]) / 3) + ','
+                      + (Number(jsondata[index]["TEXT_2"]) / 2) + ')');
+
+              });
+              //
+              const ctx = document.getElementById('pieChart').getContext('2d');
+              //
+              const data = {
+                  labels              : statLabels,
+                  datasets: [{
+                      label: 'CONTEO DE SESIONES - AÑO ['
+                          + $('#P_YEAR_STAT option:selected').text().trim()
+                          + '] - ['
+                          + $('#P_ID_DATA_SOURCE_STAT option:selected').text().trim() + ']',
+                      data            : statData,
+                      backgroundColor : statBackgroundColor,
+                      hoverOffset     : 4
+                  }]
+              };
+              //
+              if (pieChart) {
+                  pieChart.destroy();
+              }
+              pieChart = new Chart(ctx, {
+                  type   : 'bar',
+                  data   : data
+              });
+          }
+          , error: function (xhr, textStatus, errorThrown) {
+              //
+              alert("Se presentó un fallo.<br/>Favor comunicarse con el administrador del sistema");
+              //
+              if (xhr != null) {
+                  //
+                  console.log(' [SI-SPAE-WEB] - GET STAT - RETURN : ' + xhr.responseText);
+              }
+              //
+              _HideProgressBarTimer();
+          }
+      });*/
+  };
 }
