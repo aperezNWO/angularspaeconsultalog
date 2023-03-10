@@ -250,8 +250,6 @@ x 41116130
 
       --[x] Paginación.  
       
-      --[>] Consolidado por Estado (estadistica como en busqueda log).  
-
       --[_] Filtro por otros campos.  
 
             --[_] vigencia.
@@ -265,7 +263,13 @@ x 41116130
 
       --[_] scss / material.  
 
-      --[_] emparejar sp pruebas/producción.  
+      --[x] emparejar sp pruebas/producción.  
+
+      --[>] Consolidado por Estado (estadistica como en busqueda log).
+
+            --[_] scss / material.  
+
+            --[_] ConsultaLog.html.  
 
 --[_] Estilos. 
 

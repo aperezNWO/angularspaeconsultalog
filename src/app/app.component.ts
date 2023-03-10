@@ -13,7 +13,7 @@
  export class AppComponent {
    //
    appName           : string = "[SPAE CONSULTAS]"
-   appVersion        : string = '1.0.0.41';
+   appVersion        : string = '1.0.0.42';
    runtimeVersion    : string = VERSION.full;
    //
    readonly LogInfoViewComponent_pageTitle             : string = LogInfoViewComponent.pageTitle();
