@@ -267,6 +267,10 @@ x 41116130
 
       --[>] Consolidado por Estado (estadistica como en busqueda log).
 
+            --[>] MODIFICACIONES FORMALIZACION.  
+
+            --[>] FUENTES RUV.  
+
             --[_] scss / material.  
 
             --[_] ConsultaLog.html.  

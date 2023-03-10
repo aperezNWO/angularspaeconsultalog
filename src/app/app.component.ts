@@ -13,16 +13,17 @@
  export class AppComponent {
    //
    appName           : string = "[SPAE CONSULTAS]"
-   appVersion        : string = '1.0.0.42';
+   appVersion        : string = '1.0.0.43';
    runtimeVersion    : string = VERSION.full;
    //
    readonly LogInfoViewComponent_pageTitle             : string = LogInfoViewComponent.pageTitle();
    readonly ConsultaDineroViewComponent_pageTitle      : string = ConsultaDineroViewComponent.pageTitle();
    readonly ConsultaDineroHistoricoComponent_pageTitle : string = ConsultahistoricodineroComponent.pageTitle();
-   //
+   //-----------------------------------------------------------------------------------------------------
    constructor() {
      //
      console.log('AppComponent');
    }
+   //-----------------------------------------------------------------------------------------------------
   }   
  

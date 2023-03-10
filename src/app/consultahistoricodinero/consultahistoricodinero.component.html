@@ -2,183 +2,243 @@
 <span class="subtitle">
     <H3>{{_pageTitle}}</H3>
 </span>
-<!-- INIT SEARCH PANEL -->
-<div class="searchPanel">
-    <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
-        <!-- INICIO - CAMPOS DE BUSQUEDA -->
-        <!-- P_DATA_SOURCE_ID        -->
-        <div>
-            <!--
-            <input type="checkbox" 
-                   id="CHK_P_DATA_SOURCE_ID" 
-                   name="CHK_P_DATA_SOURCE_ID"
-                   required
-                   [checked]="false"
-                   formControlName="CHK_P_DATA_SOURCE_ID"> -->
-            <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
-            <select     id="_P_DATA_SOURCE_ID"
-                        name="_P_DATA_SOURCE_ID" 
-                        required
-                        formControlName="_P_DATA_SOURCE_ID">                    
-            <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
-            </select>
+<mat-tab-group>
+    <mat-tab label="[HISTORICO DE DINERO]">
+        <h2>[HISTORICO DE DINERO]</h2>
+        <div class="mat-elevation-z8">
+            <!-- INIT SEARCH PANEL -->
+            <div class="searchPanel">
+                <form [formGroup]="_searchForm" (ngSubmit)="_onSubmit()">
+                    <!-- INICIO - CAMPOS DE BUSQUEDA -->
+                    <!-- P_DATA_SOURCE_ID        -->
+                    <div>
+                        <!--
+                        <input type="checkbox" 
+                            id="CHK_P_DATA_SOURCE_ID" 
+                            name="CHK_P_DATA_SOURCE_ID"
+                            required
+                            [checked]="false"
+                            formControlName="CHK_P_DATA_SOURCE_ID"> -->
+                        <label for="_P_DATA_SOURCE_ID">Origen de Datos :</label>
+                        <select     id="_P_DATA_SOURCE_ID"
+                                    name="_P_DATA_SOURCE_ID" 
+                                    required
+                                    formControlName="_P_DATA_SOURCE_ID">                    
+                        <option *ngFor="let _pDataSource of P_DATA_SOURCES" [value]="_pDataSource.M_DATA_SOURCE_ID">{{_pDataSource.M_DATA_SOURCE_NAME}}</option>
+                        </select>
+                    </div>
+                    <!-- _VIGENCIA -->
+                    <div>
+                        <!--<input type="checkbox" 
+                            id="CHK_P_VIGENCIA" 
+                            name="CHK_P_VIGENCIA"
+                            required
+                            [checked]="false"
+                            formControlName="CHK_P_VIGENCIA">--> 
+                        <label for="_P_VIGENCIA"> Vigencia : </label>
+                        <select     id="_P_VIGENCIA"
+                                    name="_P_VIGENCIA" 
+                                    required
+                                    formControlName="_P_VIGENCIA">                    
+                        <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
+                        </select>
+                    </div>
+                    <!-- P_ID_ESTADO -->   
+                    <div>
+                        <!--<input type="checkbox" 
+                                id="CHK_P_ID_ESTADO" 
+                                name="CHK_P_ID_ESTADO"
+                                required
+                                [checked]="false"
+                                formControlName="CHK_P_ID_ESTADO">--> 
+                        <label for="_P_ID_ESTADO"> Estado : </label>
+                        <select     id="_P_ID_ESTADO"
+                                    name="_P_ID_ESTADO" 
+                                    required
+                                    formControlName="_P_ID_ESTADO">                    
+                        <option *ngFor="let _pEstadoFormalizacion of P_ESTADOS_FORMALIZACION" [value]="_pEstadoFormalizacion.M_ID_ESTADO_SOL_FORMALIZACION">{{_pEstadoFormalizacion.M_ID_ESTADO_SOL_FORMALIZACION}} - {{_pEstadoFormalizacion.M_DESCRIPCION}}</option>
+                        </select>
+                    </div>
+                    <!-- _CEDULA -->
+                    <div>
+                        <input type="checkbox" 
+                            id="CHK_P_CEDULA" 
+                            name="CHK_P_CEDULA"
+                            required
+                            [checked]="false" 
+                            formControlName="CHK_P_CEDULA"> 
+                        <label for="_P_CEDULA"> # de Cédula (ej : 40626208) : </label>
+                        <input  type="number"
+                                id="_P_CEDULA" 
+                                name="_P_CEDULA" 
+                                [maxlength]="15"
+                                required
+                                formControlName="_P_CEDULA">
+                    </div>
+                    <!-- P_FUD       --> 
+                    <div>
+                        <input type="checkbox" 
+                            id="CHK_P_FUD" 
+                            name="CHK_P_FUD"
+                            required
+                            [checked]="false"
+                            formControlName="CHK_P_FUD"> 
+                        <label for="_P_FUD"> FUD (ej : CI000476330) : </label>
+                        <input  id="_P_FUD" 
+                                name="_P_FUD" 
+                                type="text" 
+                                [maxlength]="25"
+                                required
+                                formControlName="_P_FUD">
+                    </div>      
+                    <!-- FIN CAMPOS DE BUSQUEDA -->     
+                    <!-- INICIO BUTTONS PANEL   -->
+                    <hr>
+                    <div align="right">
+                        <button class="button" type="submit" [disabled]="(this._buttonCaption != '[Buscar]')">{{this._buttonCaption}}</button>
+                        <button class="button" type="button" (click)="_newSearch()">[Nueva]</button>
+                    </div>
+                    <!-- FIN BUTTONS PANEL           -->
+                    <!-- INICIO MENSAJES VALIDACION  -->
+                    <div align="left">
+                        <ul *ngIf="((!this.rf_valid_form()) && (this._formSubmit))">
+                            <p>Favor revise los datos del formulario</p>
+                            <!-- P_ID_DATA_SOURCE -->
+                            <li *ngIf="(this._model.P_ID_DATA_SOURCE == '0')"       class="alert alert-danger">
+                            Favor ingrese 'origen de datos'
+                            </li>
+                            <!-- P_VIGENCIA       -->
+                            <li *ngIf="(this._model.P_VIGENCIA       == '0')"       class="alert alert-danger">
+                            Favor ingrese 'vigencia'
+                            </li>
+                            <!-- P_ID_ESTADO -->
+                            <li *ngIf="(this._model.P_ID_ESTADO      == '0')"       class="alert alert-danger">
+                            Favor ingrese 'estado'
+                            </li>
+                            <!-- P_IDENTIFICACION -->
+                            <li *ngIf="(this._model.CHK_P_IDENTIFICACION == true) && ((this._model.P_IDENTIFICACION == '0') || (this._model.P_IDENTIFICACION == null) || (this._model.P_IDENTIFICACION == ''))" class="alert alert-danger">
+                            Favor ingrese '# Cédula'
+                            </li>
+                            <!-- P_FUD       -->
+                            <li *ngIf="(this._model.CHK_P_FUD            == true) && ((this._model.P_FUD            == '0') || (this._model.P_FUD == null)            || (this._model.P_FUD == ''))"            class="alert alert-danger">
+                            Favor ingrese 'FUD'
+                            </li>              
+                        </ul>
+                    </div>
+                    <!-- FIN    MENSAJES VALIDACION  -->
+                    <hr>
+                    <!-- INICIO STATUS BUSQUEDA      -->
+                    <div align="center">
+                        <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this._textStatus}}</label>
+                    </div>
+                    <!-- FIN    STATUS BUSQUEDA      -->
+            </form>
+            </div>    
+            <!-- END SEARCH PANEL  -->
+            <hr>
+            <!-- INIT DATAGRID -->
+            <div class="scrollbar">
+            <table  mat-table #_searchResults [dataSource]="_dataSource"  class="mat-elevation-z8" aria-label="_informeDineroremoto">
+                <ng-container matColumnDef="ID_SOLICITUD">
+                <th mat-header-cell *matHeaderCellDef>ID_SOLICITUD</th>
+                <td mat-cell *matCellDef="let element">{{ element.ID_SOLICITUD  }}</td>
+                </ng-container>
+                <ng-container matColumnDef="NOMBRE_COMPLETO">
+                <th mat-header-cell *matHeaderCellDef>NOMBRE_COMPLETO</th>
+                <td mat-cell *matCellDef="let element">{{ element.NOMBRE_COMPLETO }}</td>
+                </ng-container> 
+                <ng-container matColumnDef="ESTADO_SOLICITUD">
+                    <th mat-header-cell *matHeaderCellDef>ESTADO_SOLICITUD</th>
+                    <td mat-cell *matCellDef="let element">{{ element.ESTADO_SOLICITUD}}</td>
+                </ng-container> 
+                <ng-container matColumnDef="FUD">
+                <th mat-header-cell *matHeaderCellDef>FUD</th>
+                <td mat-cell *matCellDef="let element">{{ element.FUD}}</td>
+                </ng-container> 
+                <ng-container matColumnDef="RESPONSABLE_SOLICITUD">
+                <th mat-header-cell *matHeaderCellDef>RESPONSABLE_SOLICITUD</th>
+                <td mat-cell *matCellDef="let element">{{ element.RESPONSABLE_SOLICITUD}}</td>
+                </ng-container>
+                <ng-container matColumnDef="DANE_DEPARTAMENTO">
+                <th mat-header-cell *matHeaderCellDef>DANE_DEPARTAMENTO</th>
+                <td mat-cell *matCellDef="let element">{{ element.DANE_DEPARTAMENTO}}</td>
+                </ng-container>
+                <ng-container matColumnDef="DANE_MUNICIPIO">
+                <th mat-header-cell *matHeaderCellDef>DANE_MUNICIPIO</th>
+                <td mat-cell *matCellDef="let element">{{ element.DANE_MUNICIPIO }}</td>
+                </ng-container>      
+                <ng-container matColumnDef="OBSERVACION_SOLICITUD">
+                <th mat-header-cell *matHeaderCellDef>OBSERVACION_SOLICITUD</th>
+                <td mat-cell *matCellDef="let element">{{ element.OBSERVACION_SOLICITUD}}</td>
+                </ng-container>      
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            </div>
+            <!-- END  DATAGRID -->
+            <hr>
+            <!-- FIN    PAGINADOR -->   
+            <mat-paginator #_paginator="matPaginator"
+                    class="demo-paginator" 
+                    [length]=""
+                    [pageSize]="3"
+                    [pageSizeOptions]="[3, 10, 25, 100]"
+                    aria-label="_informeDineroremoto">
+            </mat-paginator>
+            <!-- FIN    PAGINADOR -->   
         </div>
-        <!-- _VIGENCIA -->
-        <div>
-            <!--<input type="checkbox" 
-                   id="CHK_P_VIGENCIA" 
-                   name="CHK_P_VIGENCIA"
-                   required
-                   [checked]="false"
-                   formControlName="CHK_P_VIGENCIA">--> 
-            <label for="_P_VIGENCIA"> Vigencia : </label>
-            <select     id="_P_VIGENCIA"
-                        name="_P_VIGENCIA" 
-                        required
-                        formControlName="_P_VIGENCIA">                    
-            <option *ngFor="let _pVigencia of P_VIGENCIAS" [value]="_pVigencia.M_VIGENCIA_ID">{{_pVigencia.M_VIGENCIA_NAME}}</option>
-            </select>
+    </mat-tab>
+    <mat-tab label="[ESTADISTICAS]">
+        <h2>[ESTADISTICAS]</h2>
+        <div class="mat-elevation-z8">
+            <!-- PANEL BUSQUEDA / INICIO -->
+            <div class="searchPanel">
+                <form id="searchForm_STAT">
+                    <div>
+                        <label for="P_ID_DATA_SOURCE_STAT">Origen de Datos</label>
+                        <select id="P_ID_DATA_SOURCE_STAT" name="P_ID_DATA_SOURCE_STAT" required="required">
+                            <option value="0" selected> Seleccione Opción... </option>
+                            <option value="1">RUV_PRODUCCION</option>
+                            <option value="2">RUV_PRUEBAS</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="txtRecordCount_STAT"># de Registros (Max 10)</label>
+                        <input type="text" id="txtRecordCount_STAT" name="txtRecordCount_STAT" value="10" maxlength="2" required="required" />
+                    </div>
+                    <div>
+                        <label for="P_YEAR_STAT">Año</label>
+                        <select id="P_YEAR_STAT" name="P_YEAR_STAT" required="required">
+                            <option value="0" selected>...cargando...</option>
+                        </select>
+                    </div>
+                    <hr />
+                    <div align="right">
+                        <input type="button" id="btnBuscar_STAT" name="btnBuscar_STAT" value="[Buscar]" />
+                    </div>
+                    <hr />
+                    <div id="errorList_STAT" name="errorList_STAT" align="center">
+                        &nbsp;
+                    </div>
+                </form>
+                <!-- PANEL BUSQUEDA / FIN   -->
+                <hr>
+                <!-- PANEL GRAFICO / INICIO -->
+                <div id="divPieChart" style="display: block; box-sizing: border-box; height: 400px; width: 800px;padding:5px;" height="400" width="800">
+                    <canvas id="pieChart">
+                    </canvas>
+                </div>
+                <!-- PANEL GRAFICO / FIN     -->
+                <hr>
+                <!-- PANEL DESCARGA / INICIO -->
+                <div id="divdescargapdf" style="display: block" align="right">
+                    <a href="javascript:GetPdf();">
+                        <img title="Generar PDF" src="../Content/Icons/Save.png" width="28" height="28" />
+                    </a>
+                </div>
+                <hr>
+                <!-- PANEL DESCARGA / FIN -->
+            </div>
         </div>
-        <!-- P_ID_ESTADO -->   
-        <div>
-            <!--<input type="checkbox" 
-                    id="CHK_P_ID_ESTADO" 
-                    name="CHK_P_ID_ESTADO"
-                    required
-                    [checked]="false"
-                    formControlName="CHK_P_ID_ESTADO">--> 
-            <label for="_P_ID_ESTADO"> Estado : </label>
-            <select     id="_P_ID_ESTADO"
-                        name="_P_ID_ESTADO" 
-                        required
-                        formControlName="_P_ID_ESTADO">                    
-            <option *ngFor="let _pEstadoFormalizacion of P_ESTADOS_FORMALIZACION" [value]="_pEstadoFormalizacion.M_ID_ESTADO_SOL_FORMALIZACION">{{_pEstadoFormalizacion.M_ID_ESTADO_SOL_FORMALIZACION}} - {{_pEstadoFormalizacion.M_DESCRIPCION}}</option>
-            </select>
-        </div>
-        <!-- _CEDULA -->
-        <div>
-            <input type="checkbox" 
-                   id="CHK_P_CEDULA" 
-                   name="CHK_P_CEDULA"
-                   required
-                   [checked]="false" 
-                   formControlName="CHK_P_CEDULA"> 
-            <label for="_P_CEDULA"> # de Cédula (ej : 40626208) : </label>
-            <input  type="number"
-                    id="_P_CEDULA" 
-                    name="_P_CEDULA" 
-                    [maxlength]="15"
-                    required
-                    formControlName="_P_CEDULA">
-        </div>
-        <!-- P_FUD       --> 
-        <div>
-            <input type="checkbox" 
-                   id="CHK_P_FUD" 
-                   name="CHK_P_FUD"
-                   required
-                   [checked]="false"
-                   formControlName="CHK_P_FUD"> 
-            <label for="_P_FUD"> FUD (ej : CI000476330) : </label>
-            <input  id="_P_FUD" 
-                    name="_P_FUD" 
-                    type="text" 
-                    [maxlength]="25"
-                    required
-                    formControlName="_P_FUD">
-        </div>      
-        <!-- FIN CAMPOS DE BUSQUEDA -->     
-        <!-- INICIO BUTTONS PANEL   -->
-        <hr>
-        <div align="right">
-            <button class="button" type="submit" [disabled]="(this._buttonCaption != '[Buscar]')">{{this._buttonCaption}}</button>
-            <button class="button" type="button" (click)="_newSearch()">[Nueva]</button>
-        </div>
-        <!-- FIN BUTTONS PANEL           -->
-        <!-- INICIO MENSAJES VALIDACION  -->
-        <div align="left">
-            <ul *ngIf="((!this.rf_valid_form()) && (this._formSubmit))">
-                <p>Favor revise los datos del formulario</p>
-                <!-- P_ID_DATA_SOURCE -->
-                <li *ngIf="(this._model.P_ID_DATA_SOURCE == '0')"       class="alert alert-danger">
-                Favor ingrese 'origen de datos'
-                </li>
-                <!-- P_VIGENCIA       -->
-                <li *ngIf="(this._model.P_VIGENCIA       == '0')"       class="alert alert-danger">
-                Favor ingrese 'vigencia'
-                </li>
-                <!-- P_ID_ESTADO -->
-                <li *ngIf="(this._model.P_ID_ESTADO      == '0')"       class="alert alert-danger">
-                Favor ingrese 'estado'
-                </li>
-                <!-- P_IDENTIFICACION -->
-                <li *ngIf="(this._model.CHK_P_IDENTIFICACION == true) && ((this._model.P_IDENTIFICACION == '0') || (this._model.P_IDENTIFICACION == null) || (this._model.P_IDENTIFICACION == ''))" class="alert alert-danger">
-                Favor ingrese '# Cédula'
-                </li>
-                <!-- P_FUD       -->
-                <li *ngIf="(this._model.CHK_P_FUD            == true) && ((this._model.P_FUD            == '0') || (this._model.P_FUD == null)            || (this._model.P_FUD == ''))"            class="alert alert-danger">
-                Favor ingrese 'FUD'
-                </li>              
-            </ul>
-        </div>
-        <!-- FIN    MENSAJES VALIDACION  -->
-        <hr>
-        <!-- INICIO STATUS BUSQUEDA      -->
-        <div align="center">
-            <label id="status" name="searchStatus" class="searchStatus" id="searchStatus">{{this._textStatus}}</label>
-        </div>
-        <!-- FIN    STATUS BUSQUEDA      -->
-</form>
-</div>    
-<!-- END SEARCH PANEL  -->
-<hr>
-<!-- INIT DATAGRID -->
-<div class="scrollbar">
-<table  mat-table #_searchResults [dataSource]="_dataSource"  class="mat-elevation-z8" aria-label="_informeDineroremoto">
-    <ng-container matColumnDef="ID_SOLICITUD">
-    <th mat-header-cell *matHeaderCellDef>ID_SOLICITUD</th>
-    <td mat-cell *matCellDef="let element">{{ element.ID_SOLICITUD  }}</td>
-    </ng-container>
-    <ng-container matColumnDef="NOMBRE_COMPLETO">
-    <th mat-header-cell *matHeaderCellDef>NOMBRE_COMPLETO</th>
-    <td mat-cell *matCellDef="let element">{{ element.NOMBRE_COMPLETO }}</td>
-    </ng-container> 
-    <ng-container matColumnDef="ESTADO_SOLICITUD">
-        <th mat-header-cell *matHeaderCellDef>ESTADO_SOLICITUD</th>
-        <td mat-cell *matCellDef="let element">{{ element.ESTADO_SOLICITUD}}</td>
-    </ng-container> 
-    <ng-container matColumnDef="FUD">
-    <th mat-header-cell *matHeaderCellDef>FUD</th>
-    <td mat-cell *matCellDef="let element">{{ element.FUD}}</td>
-    </ng-container> 
-    <ng-container matColumnDef="RESPONSABLE_SOLICITUD">
-    <th mat-header-cell *matHeaderCellDef>RESPONSABLE_SOLICITUD</th>
-    <td mat-cell *matCellDef="let element">{{ element.RESPONSABLE_SOLICITUD}}</td>
-    </ng-container>
-    <ng-container matColumnDef="DANE_DEPARTAMENTO">
-    <th mat-header-cell *matHeaderCellDef>DANE_DEPARTAMENTO</th>
-    <td mat-cell *matCellDef="let element">{{ element.DANE_DEPARTAMENTO}}</td>
-    </ng-container>
-    <ng-container matColumnDef="DANE_MUNICIPIO">
-    <th mat-header-cell *matHeaderCellDef>DANE_MUNICIPIO</th>
-    <td mat-cell *matCellDef="let element">{{ element.DANE_MUNICIPIO }}</td>
-    </ng-container>      
-    <ng-container matColumnDef="OBSERVACION_SOLICITUD">
-    <th mat-header-cell *matHeaderCellDef>OBSERVACION_SOLICITUD</th>
-    <td mat-cell *matCellDef="let element">{{ element.OBSERVACION_SOLICITUD}}</td>
-    </ng-container>      
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
-</div>
-<!-- END  DATAGRID -->
-<hr>
-<!-- FIN    PAGINADOR -->   
-<mat-paginator #_paginator="matPaginator"
-        class="demo-paginator" 
-        [length]=""
-        [pageSize]="3"
-        [pageSizeOptions]="[3, 10, 25, 100]"
-        aria-label="_informeDineroremoto">
-</mat-paginator>
-<!-- FIN    PAGINADOR -->   
+    </mat-tab>
+</mat-tab-group>

@@ -10,12 +10,12 @@ import { MatListModule            } from '@angular/material/list';
 import { MatTableModule           } from '@angular/material/table';
 import { MatPaginatorModule       } from '@angular/material/paginator';
 import { MatTabsModule            } from '@angular/material/tabs';
-import { AppComponent                 } from './app.component';
-import { LogInfoViewComponent         } from './loginfoview/loginfoview.component';
-import { ConsultaDineroViewComponent  } from './consulta-dinero-view/consulta-dinero-view.component';
+import { AppComponent                     } from './app.component';
+import { LogInfoViewComponent             } from './loginfoview/loginfoview.component';
+import { ConsultaDineroViewComponent      } from './consulta-dinero-view/consulta-dinero-view.component';
 import { ConsultahistoricodineroComponent } from './consultahistoricodinero/consultahistoricodinero.component';
 
-@NgModule({
+@NgModule({   
   declarations: [
     AppComponent,
     LogInfoViewComponent,
